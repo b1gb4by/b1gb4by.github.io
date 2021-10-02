@@ -114,4 +114,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://t4i5uKE.github.io/sitemap.xml
+Sitemap: https://t4i5uKE.github.io/en/sitemap.xml
