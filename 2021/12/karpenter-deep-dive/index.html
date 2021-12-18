@@ -1,0 +1,420 @@
+<!doctype html><html lang=ja>
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BRRNK5J7PW')</script>
+<meta name=google-site-verification content="MI9tWDvB5U3u_StKcJVdMhElMqisSGg7sJaKL0XmdMg">
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Karpenter Deep Dive | </title><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/featured-image.webp">
+<meta name=twitter:title content="Karpenter Deep Dive">
+<meta name=twitter:description content="Karpenter について深堀りします"><meta name=twitter:creator content="@m0rer0"><meta name=Description content="Karpenter について深堀りします"><meta property="og:title" content="Karpenter Deep Dive">
+<meta property="og:description" content="Karpenter について深堀りします">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/"><meta property="og:image" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/featured-image.webp"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-12-16T00:25:26+09:00">
+<meta property="article:modified_time" content="2021-12-18T13:24:43+09:00">
+<meta name=application-name content="morero's blog">
+<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Karpenter Deep Dive","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/featured-image.webp","width":1280,"height":640}],"genre":"posts","keywords":"AWS, EKS, Kubernetes, Auto Scaling","wordCount":4768,"url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/","datePublished":"2021-12-16T00:25:26+09:00","dateModified":"2021-12-18T13:24:43+09:00","description":"Karpenter について深堀りします"}</script></head>
+<body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header>
+<div class="desktop header" id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="morero's blog" class="header-logo logo-svg">morero's blog</a>
+</div>
+<div class=menu>
+<nav>
+<h2 class=display-hidden>Основная навигация</h2>
+<ul class=menu-inner><li>
+<a class=menu-item href=/posts/> 記事 </a>
+</li><li>
+<a class=menu-item href=/tags/> タグ </a>
+</li><li>
+<a class=menu-item href=/categories/> カテゴリ </a>
+</li><li>
+<a class=menu-item href=/resume/> 経歴 </a>
+</li><li>
+<a class=menu-item href=/about/> WHORU? </a>
+</li></ul>
+</nav><span class="menu-item delimiter"></span><span onclick="void 0" class="menu-item language" title=言語を選択>Japanese<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
+</span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="タイトルやコンテンツの検索 ..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=検索>
+<span class="svg-icon icon-search"></span>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=クリア>
+<span class="svg-icon icon-cancel"></span>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<span class="svg-icon icon-loading"></span>
+</span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=テーマを変更する>
+<span class="svg-icon icon-moon"></span>
+</a>
+</div>
+</div>
+</div><div class="mobile header" id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="morero's blog" class=header-logo>morero's blog</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="タイトルやコンテンツの検索 ..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=検索>
+<span class="svg-icon icon-search"></span>
+</a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=クリア>
+<span class="svg-icon icon-cancel"></span>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<span class="svg-icon icon-loading"></span>
+</span>
+</div>
+<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+キャンセル
+</a>
+</div><nav>
+<h2 class=display-hidden>Основная навигация</h2>
+<ul><li>
+<a class=menu-item href=/posts/ title>記事</a>
+</li><li>
+<a class=menu-item href=/tags/ title>タグ</a>
+</li><li>
+<a class=menu-item href=/categories/ title>カテゴリ</a>
+</li><li>
+<a class=menu-item href=/resume/ title>経歴</a>
+</li><li>
+<a class=menu-item href=/about/ title>WHORU?</a>
+</li></ul>
+</nav>
+<a href=javascript:void(0); class="menu-item theme-switch" title=テーマを変更する>
+<span class="svg-icon icon-moon"></span>
+</a><span onclick="void 0" class=menu-item title=言語を選択>Japanese<select class=language-select onchange="location=this.value"><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
+</span></div>
+</div>
+</div><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div></header><main class=main>
+<div class="container content-article page-toc theme-classic"><div class=toc id=toc-auto>
+<div class=toc-title>コンテンツ</div>
+<div class=toc-content id=toc-content-auto></div>
+</div>
+<article>
+<header class=header-post>
+<div class=post-title>
+<div class=post-all-meta>
+<nav class=breadcrumbs>
+<ol>
+<li><a href=/>ホーム </a></li><li>Karpenter Deep Dive</li>
+</ol>
+</nav>
+<h1 class="single-title flipInX">Karpenter Deep Dive</h1><div class="post-meta summary-post-meta"><span class="post-meta-date meta-item">
+<span class="svg-icon icon-clock"></span><time class=timeago datetime=2021-12-16>2021-12-16</time>
+</span><span class="post-meta-words meta-item">
+<span class="svg-icon icon-pencil"></span>4768 文字
+</span>
+<span class="post-meta-reading meta-item">
+<span class="svg-icon icon-stopwatch"></span>10 分
+</span>
+</div>
+</div>
+</div>
+</header>
+<div class="article-post toc-start">
+<div class="content-block content-block-first content-block-position">
+<div class="post single"><div class=image-theme-classic>
+<img src=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/featured-image.webp style=width:100%>
+</div><div class="details toc" id=toc-static data-kept>
+<div class="details-summary toc-title">
+<span>コンテンツ</span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#はじめに>はじめに</a></li>
+<li><a href=#karpenter-とは>Karpenter とは</a></li>
+<li><a href=#インストール方法>インストール方法</a></li>
+<li><a href=#プロビジョナーの設定>プロビジョナーの設定</a>
+<ul>
+<li><a href=#unschedulable-pods>Unschedulable pods</a></li>
+<li><a href=#provisioner-cr>Provisioner CR</a></li>
+</ul>
+</li>
+<li><a href=#ノードのデプロビジョニング>ノードのデプロビジョニング</a>
+<ul>
+<li><a href=#finalizer>Finalizer</a></li>
+<li><a href=#node-expiry>Node Expiry</a></li>
+<li><a href=#empty-nodes>Empty Nodes</a></li>
+</ul>
+</li>
+<li><a href=#ノードのアップグレード>ノードのアップグレード</a></li>
+<li><a href=#制約条件>制約条件</a></li>
+<li><a href=#スケジューリング>スケジューリング</a></li>
+<li><a href=#クラウドプロバイダー>クラウドプロバイダー</a></li>
+<li><a href=#cluster-autoscaler-との違い>Cluster Autoscaler との違い</a>
+<ul>
+<li><a href=#クラウドの柔軟性を活かした設計>クラウドの柔軟性を活かした設計</a></li>
+<li><a href=#グループレスのノードプロビジョニング>グループレスのノードプロビジョニング</a></li>
+<li><a href=#スケジューリングの実施>スケジューリングの実施</a></li>
+</ul>
+</li>
+<li><a href=#所感>所感</a></li>
+</ul>
+</nav></div>
+</div><div style="margin:20px 0">
+<span class=post-update>
+<span class=s>更新日時 2021-12-18</span>
+</span>
+</div><p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.</p>
+<p>今回は、それについて深堀りしてみます.</p>
+<h2 id=はじめに class=headerLink><a href=#%e3%81%af%e3%81%98%e3%82%81%e3%81%ab class=header-mark></a>はじめに</h2><p>これは <a href=https://qiita.com/advent-calendar/2021/kubernetes target=_blank rel="noopener noreffer">Kubernetes Advent Calendar 2021</a> 18 日目の記事です.</p>
+<h2 id=karpenter-とは class=headerLink><a href=#karpenter-%e3%81%a8%e3%81%af class=header-mark></a>Karpenter とは</h2><p>Karpenter は、<strong>「Just-in-time Nodes for Any Kubernetes Cluster」</strong> と公式で記載されている通り、スケジュールが不能な Pod に対して、瞬時に新しいノードをプロビジョニングする機能を提供します. それにより、Kubernetes クラスター上でワークロードを実行する際の効率とコスト改善をゴールとしています.</p>
+<p>Karpenter の動作は以下の通りになります.</p>
+<ul>
+<li>Kubernetes スケジューラがスケジューリング不能とマークした Pod を監視する</li>
+<li>Pod から要求された以下のスケジューリング制約の評価
+<ul>
+<li>リソース要求</li>
+<li>ノードセレクタ</li>
+<li>アフィニティ</li>
+<li>トレラント</li>
+<li>トポロジー拡散制約</li>
+</ul>
+</li>
+<li>Pod の要件を満たすノードのプロビジョニング</li>
+<li>新しいノードで実行する Pod のスケジューリング</li>
+<li>ノードが不要になったら削除する</li>
+</ul>
+<div class="details admonition info open">
+<div class="details-summary admonition-title"><i class="icon admonition-icon icon-info"></i>Karpenter の利用方法について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
+<div class=details-content>
+<div class=admonition-content>Karpenter は 2021 年 12 月 現在、AWS のみをサポートしています.</div>
+</div>
+</div>
+<h2 id=インストール方法 class=headerLink><a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e6%96%b9%e6%b3%95 class=header-mark></a>インストール方法</h2><p>Karpenter は、Helm Chart でクラスタにインストールされます.
+Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要とします.</p>
+<p>現在、Karpenter を使用する際に必要なユーティリティは以下の通りです.</p>
+<ul>
+<li><a href=https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html target=_blank rel="noopener noreffer">AWS CLI</a></li>
+<li><code>kubectl</code>
+<ul>
+<li><a href=https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/ target=_blank rel="noopener noreffer">the Kubernetes CLI</a></li>
+</ul>
+</li>
+<li><code>eksctl</code>
+<ul>
+<li><a href=https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html target=_blank rel="noopener noreffer">the CLI for AWS EKS</a></li>
+</ul>
+</li>
+<li><code>helm</code>
+<ul>
+<li><a href=https://karpenter.sh/docs/getting-started/#install target=_blank rel="noopener noreffer">the package manager for Kubernetes</a></li>
+</ul>
+</li>
+</ul>
+<p>AWS への Karpenter のインストール方法は、<a href=https://karpenter.sh/docs/getting-started/#install target=_blank rel="noopener noreffer">こちら</a>の公式ドキュメントの <strong>「Getting Started with Karpenter on AWS」</strong> を参考にすると良いと思います.</p>
+<p>Karpenter の Helm Chart は<a href=https://github.com/aws/karpenter/tree/main/charts/karpenter target=_blank rel="noopener noreffer">こちら</a>から確認することができます.</p>
+<div class="details admonition note">
+<div class="details-summary admonition-title"><i class="icon admonition-icon icon-note"></i>Terraformを用いたインストール<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
+<div class=details-content>
+<div class=admonition-content><a href=https://learn.hashicorp.com/tutorials/terraform/install-cli target=_blank rel="noopener noreffer">Terraform</a> を使用したインストール方法もあります.詳しくは<a href=https://karpenter.sh/docs/getting-started-with-terraform/ target=_blank rel="noopener noreffer">こちら</a>を参照してください.</div>
+</div>
+</div>
+<p>概要図は下図の通りです。</p>
+<p>
+<img loading=lazy decoding=async class=render-image src=./karpenter-overview.webp alt="Karpenter Overview" title=karpenter-overview.webp></p>
+<h2 id=プロビジョナーの設定 class=headerLink><a href=#%e3%83%97%e3%83%ad%e3%83%93%e3%82%b8%e3%83%a7%e3%83%8a%e3%83%bc%e3%81%ae%e8%a8%ad%e5%ae%9a class=header-mark></a>プロビジョナーの設定</h2><p>Karpenter の仕事は、スケジュールできない Pod を処理するノードを追加し、そのノードで Pod をスケジュールし、不要になったらノードを削除することです.</p>
+<p>Karpenter を設定するには、Karpenter がスケジューリング不能な Pod と期限付きノードを管理する方法を定義するプロビジョナーを作成します.</p>
+<p>以下は、Karpenter のプロビジョナーについて知っておくと良いと思います.</p>
+<h3 id=unschedulable-pods class=headerLink><a href=#unschedulable-pods class=header-mark></a>Unschedulable pods</h3><p>Karpenter は、ステータス条件 <code>Unschedulable=True</code> を持つポッドのみをプロビジョニングしようとします. これは、kube-scheduler が既存の容量にポッドをスケジュールすることに失敗したときに設定されます.</p>
+<h3 id=provisioner-cr class=headerLink><a href=#provisioner-cr class=header-mark></a>Provisioner CR</h3><p>Karpenter では、プロビジョニング構成を指定するために、<code>Provisioner</code> というカスタムリソースを定義しています.</p>
+<p>各プロビジョナーは個別のノードセットを管理しますが、ポッドはそのスケジューリング制約をサポートする任意のプロビジョナーにスケジュールすることができます.</p>
+<p>プロビジョナーには、プロビジョニング可能なノードとノードの属性（ノードを削除するためのタイマーなど）に影響を与える制約が含まれています.</p>
+<p>以下が プロビジョナーのリソースになります.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>karpenter.sh/v1alpha5</span><span class=w>
+</span><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Provisioner</span><span class=w>
+</span><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>default</span><span class=w>
+</span><span class=w></span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>ttlSecondsUntilExpired</span><span class=p>:</span><span class=w> </span><span class=m>2592000</span><span class=w>
+</span><span class=w>  </span><span class=nt>ttlSecondsAfterEmpty</span><span class=p>:</span><span class=w> </span><span class=m>30</span><span class=w>
+</span><span class=w>  </span><span class=nt>taints</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=l>example.com/special-taint</span><span class=w>
+</span><span class=w>      </span><span class=nt>effect</span><span class=p>:</span><span class=w> </span><span class=l>NoSchedule</span><span class=w>
+</span><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>billing-team</span><span class=p>:</span><span class=w> </span><span class=l>my-team</span><span class=w>
+</span><span class=w>  </span><span class=nt>requirements</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;node.kubernetes.io/instance-type&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class=l>In</span><span class=w>
+</span><span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;m5.large&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;m5.2xlarge&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;topology.kubernetes.io/zone&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class=l>In</span><span class=w>
+</span><span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;us-west-2a&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;us-west-2b&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;kubernetes.io/arch&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class=l>In</span><span class=w>
+</span><span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;arm64&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;amd64&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;karpenter.sh/capacity-type&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>operator</span><span class=p>:</span><span class=w> </span><span class=l>In</span><span class=w>
+</span><span class=w>      </span><span class=nt>values</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;spot&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;on-demand&#34;</span><span class=p>]</span><span class=w>
+</span><span class=w>  </span><span class=nt>provider</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>spec.ttlSecondsUntilExpired</code>は、コントローラがノードを終了するまでに待つ秒数で、ノードの作成時から計測されます. これは、最終的に一貫したノードアップグレード、メモリリーク保護、破壊テストのような機能を実装するのに便利です. このフィールドが設定されていない場合、有効期限切れによる終了は無効になります.</p>
+<p><code>spec.ttlSecondsAfterEmpty</code>は、ノードが空になったことを検出した時点から、コントローラがノードを削除しようとするまでに待つ秒数です. ノードは、デーモンセットを除いて、そのノードにスケジュールされているポッドがない場合、空であると見なされます.</p>
+<p><code>spec.requirements</code>は、プロビジョニングされたノードのパラメータを制約します. <code>nodeAffinity</code> や <code>nodeSelector</code> と組み合わせることも可能です. 演算子 <code>{ In, NotIn }</code> は、値を含めたり除外したりするためにサポートされています.</p>
+<h2 id=ノードのデプロビジョニング class=headerLink><a href=#%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e3%83%87%e3%83%97%e3%83%ad%e3%83%93%e3%82%b8%e3%83%a7%e3%83%8b%e3%83%b3%e3%82%b0 class=header-mark></a>ノードのデプロビジョニング</h2><p>Karpenter では、不要になったノードを以下のように削除しています.</p>
+<h3 id=finalizer class=headerLink><a href=#finalizer class=header-mark></a>Finalizer</h3><p>Karpenter は、作成する各ノードにファイナライザービットを配置します。</p>
+<p>これらのノードを削除するリクエスト（TTL や手動での kubectl によるノード削除など）が来ると、Karpenter はノードをコード化し、すべてのポッドを排出して EC2 インスタンスを終了させ、ノード・オブジェクトを削除する.</p>
+<p>Karpenter は、ノードを適切に削除するために必要なすべてのクリーンアップ作業を処理します.</p>
+<h3 id=node-expiry class=headerLink><a href=#node-expiry class=header-mark></a>Node Expiry</h3><p>ノードの有効期限値 (<code>ttlSecondsUntilExpired</code>)に達すると、そのノードは（まだワークロードを実行していても）ポッドから排出され、削除されます.</p>
+<h3 id=empty-nodes class=headerLink><a href=#empty-nodes class=header-mark></a>Empty Nodes</h3><p>Karpenter が管理するノードで稼働している最後のワークロードポッドがなくなると、そのノードには <code>emptiness</code> タイムスタンプが付与されます。その「ノードが空になる」有効期限 (<code>ttlSecondsAfterEmpty</code>) 達すると、ファイナライズがトリガーされます.</p>
+<div class="details admonition info open">
+<div class="details-summary admonition-title"><i class="icon admonition-icon icon-info"></i>ノードを削除する方法について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
+<div class=details-content>
+<div class=admonition-content>Karpenter がノードを削除する方法の詳細については、ノードのデプロビジョニングの<a href=https://karpenter.sh/docs/tasks/deprov-nodes/ target=_blank rel="noopener noreffer">詳細</a>を参照してください.</div>
+</div>
+</div>
+<h2 id=ノードのアップグレード class=headerLink><a href=#%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89 class=header-mark></a>ノードのアップグレード</h2><p>ノードをアップグレードする簡単な方法は、<code>ttlSecondsUntilExpired</code> を設定することです。ノードは設定された期間後に終了し、より新しいノードと入れ替わります.</p>
+<h2 id=制約条件 class=headerLink><a href=#%e5%88%b6%e7%b4%84%e6%9d%a1%e4%bb%b6 class=header-mark></a>制約条件</h2><p>プロビジョナーで定義された制約や、デプロイされるポッドから要求された制約がないため、Karpenter はクラウドプロバイダが利用できる機能全体から選択されます. ノードは、任意のインスタンスタイプを使用して作成し、任意のゾーンで実行することができます.</p>
+<h2 id=スケジューリング class=headerLink><a href=#%e3%82%b9%e3%82%b1%e3%82%b8%e3%83%a5%e3%83%bc%e3%83%aa%e3%83%b3%e3%82%b0 class=header-mark></a>スケジューリング</h2><p>Karpenter は、Kubernetes のスケジューラーが <code>unschedulable</code> とマークした Pod をスケジュールします. スケジューリング制約と起動容量を解決した後、ノードを作成し、ポッドをバインドします. このステートレスなアプローチは、レースコンディションを回避し、パフォーマンスを向上させるのに役立ちます. 起動したノードに何か問題があれば、Kubernetes は自動的に新しいノードにポッドを移行します.Karpenter がノードを立ち上げると、そのノードは Kubernetes のスケジューラーがその上でポッドをスケジュールすることも可能になります.</p>
+<h2 id=クラウドプロバイダー class=headerLink><a href=#%e3%82%af%e3%83%a9%e3%82%a6%e3%83%89%e3%83%97%e3%83%ad%e3%83%90%e3%82%a4%e3%83%80%e3%83%bc class=header-mark></a>クラウドプロバイダー</h2><p>Karpenter は、関連するクラウドプロバイダーに新しいノードのプロビジョニングの要求を行います. 最初にサポートされるクラウドプロバイダーは AWS ですが、Karpenter は他のクラウドプロバイダーでも動作するように設計されています. Kubernetes のよく知られたラベルを使用しながら、プロビジョナーは、クラウドプロバイダーに固有のいくつかの値を設定することができます.</p>
+<p>個人でプロバイダーの開発する場合は、リポジトリの<code>pkg/cloudprovider/</code>配下に作成します. ディレクトリ構造は以下の通りです. <code>fake</code>ディレクトリは、参考例として用意されています.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>.
+├── aws
+│   ├── apis
+│   │   └── v1alpha1
+│   └── fake
+├── fake
+├── metrics
+└── registry
+</code></pre></td></tr></table>
+</div>
+</div><p>まず、<code>pkg/cloudprovider/registry</code>配下で、クラウドプロバイダー毎に以下の以下のファイルを作成することで登録ができます.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=c1>// +build &lt;YOUR_PROVIDER_NAME&gt;
+</span><span class=c1></span><span class=kn>import</span> <span class=p>(</span>
+<span class=s>&#34;github.com/aws/karpenter/pkg/cloudprovider/&lt;YOUR_PROVIDER_NAME&gt;&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>NewCloudProvider</span><span class=p>()</span> <span class=nx>cloudprovider</span><span class=p>.</span><span class=nx>CloudProvider</span> <span class=p>{</span>
+<span class=k>return</span> <span class=p>&lt;</span><span class=nx>YOUR_PROVIDER_NAME</span><span class=p>&gt;.</span><span class=nf>NewCloudProvider</span><span class=p>()</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>また、<code>pkg/cloudprovider</code>配下で、クラウドプロバイダーごとに環境に合わせて作成します. <code>fake</code> ディレクトリを確認すると以下のファイルが用意されています. その他の必要な情報は環境に合わせて追加すると良いです.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>.
+├── cloudprovider.go
+└── instancetype.go
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=cluster-autoscaler-との違い class=headerLink><a href=#cluster-autoscaler-%e3%81%a8%e3%81%ae%e9%81%95%e3%81%84 class=header-mark></a>Cluster Autoscaler との違い</h2><p>Karpenter と同様に、Kubernetes Cluster Autoscaler は、現在のキャパシティでは対応できない ポッド の実行要求が来たときに、ノードを追加するように設計されていいます.Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほとんどの主要な Kubernetes クラウドプロバイダーが実装しています. プロビジョニングを見直すことで、Karpenter は以下の改善を提供しています.</p>
+<h3 id=クラウドの柔軟性を活かした設計 class=headerLink><a href=#%e3%82%af%e3%83%a9%e3%82%a6%e3%83%89%e3%81%ae%e6%9f%94%e8%bb%9f%e6%80%a7%e3%82%92%e6%b4%bb%e3%81%8b%e3%81%97%e3%81%9f%e8%a8%ad%e8%a8%88 class=header-mark></a>クラウドの柔軟性を活かした設計</h3><p>Karpenter は、AWS で利用できるあらゆる種類のインスタンスに効率的に対応できる能力を備えています. Cluster Autoscaler は、もともと何百ものインスタンスタイプ、ゾーン、購入オプションに対応できるような柔軟性を持って構築されたものではありません.</p>
+<h3 id=グループレスのノードプロビジョニング class=headerLink><a href=#%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e3%83%ac%e3%82%b9%e3%81%ae%e3%83%8e%e3%83%bc%e3%83%89%e3%83%97%e3%83%ad%e3%83%93%e3%82%b8%e3%83%a7%e3%83%8b%e3%83%b3%e3%82%b0 class=header-mark></a>グループレスのノードプロビジョニング</h3><p>Karpenter は、ノードグループのようなオーケストレーションの仕組みを使わずに、各インスタンスを直接管理します. これにより、キャパシティが利用できない場合、数分ではなくミリ秒単位で再試行することができます. また、何百ものノードグループを作成することなく、多様なインスタンスタイプ、アベイラビリティゾーン、および購入オプションを活用することができます.</p>
+<h3 id=スケジューリングの実施 class=headerLink><a href=#%e3%82%b9%e3%82%b1%e3%82%b8%e3%83%a5%e3%83%bc%e3%83%aa%e3%83%b3%e3%82%b0%e3%81%ae%e5%ae%9f%e6%96%bd class=header-mark></a>スケジューリングの実施</h3><p>Cluster Autoscaler は、作成したノードにポッドをバインドしません. その代わり、ノードがオンラインになった後に同じスケジューリング決定を行うために <code>kube-scheduler</code> に依存します.Karpenter が起動したノードには、すぐにそのポッドがバインドされます。kubelet` はスケジューラーやノードの準備が整うのを待つ必要がありません. イメージの事前プルも含め、コンテナランタイムの準備をすぐに開始できます.これにより、ノードの起動レイテンシを数秒短縮することができます.</p>
+<h2 id=所感 class=headerLink><a href=#%e6%89%80%e6%84%9f class=header-mark></a>所感</h2><p>今回は、Karpenter について少し深堀りしてみました.</p>
+<p>個人的には、GKE Autopilot の動的ノードプロビジョニングプロセスと同じなのかなと思っています. Karpenter はそのツールの OSS 版と言えると思います. GKE Autopilot と同様に、Karpenter はスケジューリング不能な Pod の仕様を観測し、集約されたリソース要求を計算し、すべての Pod の実行に必要な容量を持つ基礎的な計算サービス（Amazon EC2 など）に要求を送信します.</p>
+<p>また、Karpenter では、カスタムリソースを定義して、以下のノードのプロビジョニング構成を指定することができます. 構成を柔軟に変更できる点は、かなり大きいメリットだと感じました.</p>
+<ul>
+<li>インスタンスサイズ/タイプ、トポロジー(ゾーンなど)</li>
+<li>アーキテクチャ(arm64、amd64 など)</li>
+<li>ライフサイクルタイプ(スポット、オンデマンド、プリエンプティブなど)</li>
+</ul>
+<p>一方、Karpenter は、ノードが不要になった場合、デプロビジョンを行うこともできます. これは、ノードの有効期限設定 (<code>ttlSecondsUntilExpired</code>) または Karpenter プロビジョニングされたノード上で実行されている最後のワークロードが終了したときに決定することができます. この 2 つのイベントのどちらかがトリガーとなり、ノードをコード化し、ポッドを排出し、基盤となるコンピュートリソースを終了させ、ノードオブジェクトを削除するファイナライゼーションが行われます. このデプロビジョニング機能は、ノードを最新の AMI で最新の状態に保つためにも使用できます.</p>
+<p>Karpenter を使えば、ノードのプロビジョニング、オートスケール、アップグレードをオフロードして、アプリケーションの実行に集中することができると思います. Karpenter はあらゆる種類の Kubernetes アプリケーションで動作しますが、特に、大量の多様な計算リソースを迅速にプロビジョニングおよびデプロビジョニングする必要があるユースケースで優れたパフォーマンスを発揮すると思います. (機械学習モデルのトレーニング、シミュレーションの実行、複雑な金融計算を行うバッチジョブなど)</p>
+<p>現在は、AWS のみでしか動作しませんが今後の動向には注目していきたいと思います. また、時間があれば他クラウドへの実装などもしてみようと思います.</p></div><footer>
+<div class=post>
+<div class=post-share><div class=share-link>
+<a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive" data-via=m0rer0 data-hashtags="AWS,EKS,Kubernetes,Auto Scaling"><span class="svg-social-icon icon-twitter"></span></a>
+</div><div class=share-link>
+<a class="share-icon share-facebook" href=javascript:void(0); title="共有する Facebook" data-sharer=facebook data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-hashtag=AWS><span class="svg-social-icon icon-facebook"></span></a>
+</div><div class=share-link>
+<a class="share-icon share-line" href=javascript:void(0); title="共有する Line" data-sharer=line data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive"><span class="svg-social-icon icon-line"></span></a>
+</div><div class=share-link>
+<a class="share-icon share-hackernews" href=javascript:void(0); title="共有する Hacker News" data-sharer=hackernews data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive"><span class="svg-social-icon icon-hacker-news"></span></a>
+</div></div>
+<div class=post-tags><a href=/tags/aws/ class=tag>AWS</a><a href=/tags/eks/ class=tag>EKS</a><a href=/tags/kubernetes/ class=tag>Kubernetes</a><a href=/tags/auto-scaling/ class=tag>Auto Scaling</a></div></div>
+</footer></div>
+<div id=toc-final></div>
+</div>
+</article>
+<section class="page single comments content-block-position">
+<h1 class=display-hidden>Комментарии</h1><div id=comments></div></section></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="svg-icon icon-copyright"></i><span>2021</span><span class=author>&nbsp;<a href=/ target=_blank></a></span>&nbsp;|&nbsp;<span class=license>t4i5uKE (morero)</span></div>
+</div>
+</footer></div>
+<aside id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=トップページへ戻る>
+<i class="svg-icon icon-arrow-up"></i>
+</a><a href=# id=view-comments class=fixed-button title=コメントを見る>
+<i class="svg-icon icon-comments-fixed"></i>
+</a>
+</aside><script src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script src=/lib/prismjs/prism.js></script><script>window.config={code:{copyTitle:"クリップボードにコピー",maxShownLines:10},comment:{},search:{algoliaAppID:"PASDMWALPK",algoliaIndex:"index.ja",algoliaSearchKey:"b42948e51daaa93df92381c8e2ac0f93",highlightTag:"em",maxResultLength:10,noResultsFound:"該当する結果はありません",snippetLength:30,type:"algolia"}}</script><script src=/js/theme.min.js></script></body>
+</html>
