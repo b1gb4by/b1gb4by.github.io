@@ -12,9 +12,9 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/"><meta property="og:image" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/featured-image.webp"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-12-16T00:25:26+09:00">
-<meta property="article:modified_time" content="2021-12-20T13:45:24+09:00">
+<meta property="article:modified_time" content="2022-01-21T03:04:10+09:00">
 <meta name=application-name content="morero's blog">
-<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Karpenter Deep Dive","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/featured-image.webp","width":1280,"height":640}],"genre":"posts","keywords":"AWS, EKS, Kubernetes, Auto Scaling","wordCount":5099,"url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/","datePublished":"2021-12-16T00:25:26+09:00","dateModified":"2021-12-20T13:45:24+09:00","description":"Karpenter について深堀りします"}</script></head>
+<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Karpenter Deep Dive","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/featured-image.webp","width":1280,"height":640}],"genre":"posts","keywords":"AWS, EKS, Kubernetes, Auto Scaling","wordCount":5098,"url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/","datePublished":"2021-12-16T00:25:26+09:00","dateModified":"2022-01-21T03:04:10+09:00","description":"Karpenter について深堀りします"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"Karpenter Deep Dive"}]}</script></head>
 <body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header>
 <div class="desktop header" id=header-desktop>
@@ -36,7 +36,7 @@
 </li><li>
 <a class=menu-item href=/about/> WHORU? </a>
 </li></ul>
-</nav><span class="menu-item delimiter"></span><span onclick="void 0" class="menu-item language" title=言語を選択>Japanese<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
+</nav><span class="menu-item delimiter"></span><span onclick="void 0" class="menu-item language" title=言語を選択>Japanese<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/en/2021/12/karpenter-deep-dive/>English</option><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
 </span><span class="menu-item search" id=search-desktop>
 <input type=text placeholder="タイトルやコンテンツの検索 ..." id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=検索>
@@ -95,7 +95,7 @@
 </nav>
 <a href=javascript:void(0); class="menu-item theme-switch" title=テーマを変更する>
 <span class="svg-icon icon-moon"></span>
-</a><span onclick="void 0" class=menu-item title=言語を選択>Japanese<select class=language-select onchange="location=this.value"><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
+</a><span onclick="void 0" class=menu-item title=言語を選択>Japanese<select class=language-select onchange="location=this.value"><option value=/en/2021/12/karpenter-deep-dive/>English</option><option value=/2021/12/karpenter-deep-dive/ selected>Japanese</option></select>
 </span></div>
 </div>
 </div><div class="search-dropdown desktop">
@@ -114,13 +114,15 @@
 <div class=post-all-meta>
 <nav class=breadcrumbs>
 <ol>
-<li><a href=/>ホーム </a></li><li>Karpenter Deep Dive</li>
+<li><a href=/>ホーム </a></li><li><a href=/categories/kubernetes/>Kubernetes </a></li><li>Karpenter Deep Dive</li>
 </ol>
 </nav>
-<h1 class="single-title flipInX">Karpenter Deep Dive</h1><div class="post-meta summary-post-meta"><span class="post-meta-date meta-item">
+<h1 class="single-title flipInX">Karpenter Deep Dive</h1><div class="post-meta summary-post-meta"><span class="post-category meta-item">
+<a href=/categories/kubernetes/><span class="svg-icon icon-folder"></span>Kubernetes</a>
+</span><span class="post-meta-date meta-item">
 <span class="svg-icon icon-clock"></span><time class=timeago datetime=2021-12-16>2021-12-16</time>
 </span><span class="post-meta-words meta-item">
-<span class="svg-icon icon-pencil"></span>5099 文字
+<span class="svg-icon icon-pencil"></span>5098 文字
 </span>
 <span class="post-meta-reading meta-item">
 <span class="svg-icon icon-stopwatch"></span>11 分
@@ -186,7 +188,7 @@
 </nav></div>
 </div><div style="margin:20px 0">
 <span class=post-update>
-<span class=s>更新日時 2021-12-20</span>
+<span class=s>更新日時 2022-01-21</span>
 </span>
 </div><p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.</p>
 <p>今回は、それについて深堀りしてみます.</p>
@@ -397,7 +399,7 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 └── instancetype.go
 </code></pre></td></tr></table>
 </div>
-</div><h2 id=cluster-autoscaler-との違い class=headerLink><a href=#cluster-autoscaler-%e3%81%a8%e3%81%ae%e9%81%95%e3%81%84 class=header-mark></a>Cluster Autoscaler との違い</h2><p>Karpenter と同様に、Kubernetes Cluster Autoscaler は、現在のキャパシティでは対応できない Pod の実行要求が来たときに、Node を追加するように設計されていいます.
+</div><h2 id=cluster-autoscaler-との違い class=headerLink><a href=#cluster-autoscaler-%e3%81%a8%e3%81%ae%e9%81%95%e3%81%84 class=header-mark></a>Cluster Autoscaler との違い</h2><p>Karpenter と同様に、Kubernetes Cluster Autoscaler は、現在のキャパシティでは対応できない Pod の実行要求が来たときに、Node を追加するように設計されています.
 Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほとんどの主要な Kubernetes クラウドプロバイダーが実装しています. プロビジョニングを見直すことで、Karpenter は以下の改善を提供しています.</p>
 <h3 id=クラウドの柔軟性を活かした設計 class=headerLink><a href=#%e3%82%af%e3%83%a9%e3%82%a6%e3%83%89%e3%81%ae%e6%9f%94%e8%bb%9f%e6%80%a7%e3%82%92%e6%b4%bb%e3%81%8b%e3%81%97%e3%81%9f%e8%a8%ad%e8%a8%88 class=header-mark></a>クラウドの柔軟性を活かした設計</h3><p>Karpenter は、AWS で利用できるあらゆる種類のインスタンスに効率的に対応できる能力を備えています. Cluster Autoscaler は、もともと何百ものインスタンスタイプ、ゾーン、購入オプションに対応できるような柔軟性を持って構築されたものではありません.</p>
 <h3 id=グループレスの-node-プロビジョニング class=headerLink><a href=#%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e3%83%ac%e3%82%b9%e3%81%ae-node-%e3%83%97%e3%83%ad%e3%83%93%e3%82%b8%e3%83%a7%e3%83%8b%e3%83%b3%e3%82%b0 class=header-mark></a>グループレスの Node プロビジョニング</h3><p>Karpenter は、Node グループのようなオーケストレーションの仕組みを使わずに、各インスタンスを直接管理します. これにより、キャパシティが利用できない場合、数分ではなくミリ秒単位で再試行することができます. また、何百もの Node グループを作成することなく、多様なインスタンスタイプ、アベイラビリティゾーン、および購入オプションを活用することができます.</p>
@@ -431,7 +433,7 @@ Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほと�
 <section class="page single comments content-block-position">
 <h1 class=display-hidden>Комментарии</h1><div id=comments></div></section></div>
 </main><footer class=footer>
-<div class=footer-container><div class=footer-line><i class="svg-icon icon-copyright"></i><span>2021</span><span class=author>&nbsp;<a href=/ target=_blank></a></span>&nbsp;|&nbsp;<span class=license>t4i5uKE (morero)</span></div>
+<div class=footer-container><div class=footer-line><i class="svg-icon icon-copyright"></i><span>2021 - 2022</span><span class=author>&nbsp;<a href=/ target=_blank></a></span>&nbsp;|&nbsp;<span class=license>t4i5uKE (morero)</span></div>
 </div>
 </footer></div>
 <aside id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=トップページへ戻る>
