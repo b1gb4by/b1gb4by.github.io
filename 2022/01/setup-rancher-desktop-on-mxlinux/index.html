@@ -12,9 +12,9 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/"><meta property="og:image" content="https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/featured-image.webp"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-01-27T23:26:46+09:00">
-<meta property="article:modified_time" content="2022-01-28T04:27:01+09:00">
+<meta property="article:modified_time" content="2022-01-28T04:53:28+09:00">
 <meta name=application-name content="morero's blog">
-<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"MXLinux で Rancher Desktop を動かす","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/featured-image.webp","width":800,"height":300}],"genre":"posts","keywords":"kubernetes, k3s, rancher, helm, containerd, moby","wordCount":4265,"url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/","datePublished":"2022-01-27T23:26:46+09:00","dateModified":"2022-01-28T04:27:01+09:00","description":"Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動かしてみました"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"MXLinux で Rancher Desktop を動かす"}]}</script></head>
+<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"MXLinux で Rancher Desktop を動かす","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/featured-image.webp","width":800,"height":300}],"genre":"posts","keywords":"kubernetes, k3s, rancher, helm, containerd, moby, linux, mxlinux","wordCount":4271,"url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/","datePublished":"2022-01-27T23:26:46+09:00","dateModified":"2022-01-28T04:53:28+09:00","description":"Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動かしてみました"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"MXLinux で Rancher Desktop を動かす"}]}</script></head>
 <body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header>
 <div class="desktop header" id=header-desktop>
@@ -122,7 +122,7 @@
 </span><span class="post-meta-date meta-item">
 <span class="svg-icon icon-clock"></span><time class=timeago datetime=2022-01-27>2022-01-27</time>
 </span><span class="post-meta-words meta-item">
-<span class="svg-icon icon-pencil"></span>4265 文字
+<span class="svg-icon icon-pencil"></span>4271 文字
 </span>
 <span class="post-meta-reading meta-item">
 <span class="svg-icon icon-stopwatch"></span>9 分
@@ -516,9 +516,11 @@ grafana/tempo-vulture           0.2.0           1.3.0       Grafana Tempo Vultur
 </span><span class=lnt>27
 </span><span class=lnt>28
 </span><span class=lnt>29
+</span><span class=lnt>30
 </span></code></pre></td>
 <td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/kubectl create namespace monitoring
+$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
 W0128 03:37:33.477723  218028 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
 W0128 03:37:33.480386  218028 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
 W0128 03:37:33.538004  218028 warnings.go:70] policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
@@ -591,7 +593,7 @@ Docker Desktop から乗り換えたとしても遜色なく利用できるか�
 <p>これから、コンテナを利用する手段の1つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.</p></div><footer>
 <div class=post>
 <div class=post-share><div class=share-link>
-<a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/ data-title="MXLinux で Rancher Desktop を動かす" data-via=m0rer0 data-hashtags=kubernetes,k3s,rancher,helm,containerd,moby><span class="svg-social-icon icon-twitter"></span></a>
+<a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/ data-title="MXLinux で Rancher Desktop を動かす" data-via=m0rer0 data-hashtags=kubernetes,k3s,rancher,helm,containerd,moby,linux,mxlinux><span class="svg-social-icon icon-twitter"></span></a>
 </div><div class=share-link>
 <a class="share-icon share-facebook" href=javascript:void(0); title="共有する Facebook" data-sharer=facebook data-url=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/ data-hashtag=kubernetes><span class="svg-social-icon icon-facebook"></span></a>
 </div><div class=share-link>
@@ -599,7 +601,7 @@ Docker Desktop から乗り換えたとしても遜色なく利用できるか�
 </div><div class=share-link>
 <a class="share-icon share-hackernews" href=javascript:void(0); title="共有する Hacker News" data-sharer=hackernews data-url=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/ data-title="MXLinux で Rancher Desktop を動かす"><span class="svg-social-icon icon-hacker-news"></span></a>
 </div></div>
-<div class=post-tags><a href=/tags/kubernetes/ class=tag>kubernetes</a><a href=/tags/k3s/ class=tag>k3s</a><a href=/tags/rancher/ class=tag>rancher</a><a href=/tags/helm/ class=tag>helm</a><a href=/tags/containerd/ class=tag>containerd</a><a href=/tags/moby/ class=tag>moby</a></div></div>
+<div class=post-tags><a href=/tags/kubernetes/ class=tag>kubernetes</a><a href=/tags/k3s/ class=tag>k3s</a><a href=/tags/rancher/ class=tag>rancher</a><a href=/tags/helm/ class=tag>helm</a><a href=/tags/containerd/ class=tag>containerd</a><a href=/tags/moby/ class=tag>moby</a><a href=/tags/linux/ class=tag>linux</a><a href=/tags/mxlinux/ class=tag>mxlinux</a></div></div>
 </footer></div>
 <div id=toc-final></div>
 </div>
