@@ -12,9 +12,9 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/"><meta property="og:image" content="https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/featured-image.webp"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-12-16T00:25:26+09:00">
-<meta property="article:modified_time" content="2022-01-21T03:04:10+09:00">
+<meta property="article:modified_time" content="2022-01-27T23:36:46+09:00">
 <meta name=application-name content="morero's blog">
-<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Karpenter Deep Dive","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/featured-image.webp","width":1280,"height":640}],"genre":"posts","keywords":"AWS, EKS, Kubernetes, Auto Scaling","wordCount":5098,"url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/","datePublished":"2021-12-16T00:25:26+09:00","dateModified":"2022-01-21T03:04:10+09:00","description":"Karpenter について深堀りします"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"Karpenter Deep Dive"}]}</script></head>
+<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Karpenter Deep Dive","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/featured-image.webp","width":1280,"height":640}],"genre":"posts","keywords":"AWS, EKS, kubernetes, auto-scaling","wordCount":5098,"url":"https:\/\/t4i5uKE.github.io\/2021\/12\/karpenter-deep-dive\/","datePublished":"2021-12-16T00:25:26+09:00","dateModified":"2022-01-27T23:36:46+09:00","description":"Karpenter について深堀りします"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"Karpenter Deep Dive"}]}</script></head>
 <body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header>
 <div class="desktop header" id=header-desktop>
@@ -188,7 +188,7 @@
 </nav></div>
 </div><div style="margin:20px 0">
 <span class=post-update>
-<span class=s>更新日時 2022-01-21</span>
+<span class=s>更新日時 2022-01-27</span>
 </span>
 </div><p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.</p>
 <p>今回は、それについて深堀りしてみます.</p>
@@ -417,7 +417,7 @@ Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほと�
 <p>現在は、AWS のみでしか動作しませんが今後の動向には注目していきたいと思います. また、時間があれば他クラウドへの実装などもしてみようと思います.</p></div><footer>
 <div class=post>
 <div class=post-share><div class=share-link>
-<a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive" data-via=m0rer0 data-hashtags="AWS,EKS,Kubernetes,Auto Scaling"><span class="svg-social-icon icon-twitter"></span></a>
+<a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive" data-via=m0rer0 data-hashtags=AWS,EKS,kubernetes,auto-scaling><span class="svg-social-icon icon-twitter"></span></a>
 </div><div class=share-link>
 <a class="share-icon share-facebook" href=javascript:void(0); title="共有する Facebook" data-sharer=facebook data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-hashtag=AWS><span class="svg-social-icon icon-facebook"></span></a>
 </div><div class=share-link>
@@ -425,7 +425,7 @@ Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほと�
 </div><div class=share-link>
 <a class="share-icon share-hackernews" href=javascript:void(0); title="共有する Hacker News" data-sharer=hackernews data-url=https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/ data-title="Karpenter Deep Dive"><span class="svg-social-icon icon-hacker-news"></span></a>
 </div></div>
-<div class=post-tags><a href=/tags/aws/ class=tag>AWS</a><a href=/tags/eks/ class=tag>EKS</a><a href=/tags/kubernetes/ class=tag>Kubernetes</a><a href=/tags/auto-scaling/ class=tag>Auto Scaling</a></div></div>
+<div class=post-tags><a href=/tags/aws/ class=tag>AWS</a><a href=/tags/eks/ class=tag>EKS</a><a href=/tags/kubernetes/ class=tag>kubernetes</a><a href=/tags/auto-scaling/ class=tag>auto-scaling</a></div></div>
 </footer></div>
 <div id=toc-final></div>
 </div>
