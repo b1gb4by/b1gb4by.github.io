@@ -12,9 +12,9 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/"><meta property="og:image" content="https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/featured-image.webp"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-01-27T23:26:46+09:00">
-<meta property="article:modified_time" content="2022-01-28T05:15:52+09:00">
+<meta property="article:modified_time" content="2022-01-28T11:10:03+09:00">
 <meta name=application-name content="morero's blog">
-<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"MXLinux で Rancher Desktop を動かす","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/featured-image.webp","width":800,"height":300}],"genre":"posts","keywords":"kubernetes, k3s, rancher, helm, containerd, moby, linux, mxlinux","wordCount":4317,"url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/","datePublished":"2022-01-27T23:26:46+09:00","dateModified":"2022-01-28T05:15:52+09:00","description":"Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動かしてみました"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"MXLinux で Rancher Desktop を動かす"}]}</script></head>
+<meta name=apple-mobile-web-app-title content="morero's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicon.svg type=image/x-icon><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/lib/prismjs/prism.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"MXLinux で Rancher Desktop を動かす","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/"},"image":[{"@type":"ImageObject","url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/featured-image.webp","width":800,"height":300}],"genre":"posts","keywords":"kubernetes, k3s, rancher, helm, containerd, moby, linux, mxlinux","wordCount":4216,"url":"https:\/\/t4i5uKE.github.io\/2022\/01\/setup-rancher-desktop-on-mxlinux\/","datePublished":"2022-01-27T23:26:46+09:00","dateModified":"2022-01-28T11:10:03+09:00","description":"Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動かしてみました"}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https:\/\/t4i5uKE.github.io\/"},{"@type":"ListItem","position":2,"name":"Kubernetes","item":"https://t4i5uKE.github.io/categories/kubernetes/"},{"@type":"ListItem","position":3,"name":"MXLinux で Rancher Desktop を動かす"}]}</script></head>
 <body data-header-desktop=fixed data-header-mobile=auto><script>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header>
 <div class="desktop header" id=header-desktop>
@@ -122,7 +122,7 @@
 </span><span class="post-meta-date meta-item">
 <span class="svg-icon icon-clock"></span><time class=timeago datetime=2022-01-27>2022-01-27</time>
 </span><span class="post-meta-words meta-item">
-<span class="svg-icon icon-pencil"></span>4317 文字
+<span class="svg-icon icon-pencil"></span>4216 文字
 </span>
 <span class="post-meta-reading meta-item">
 <span class="svg-icon icon-stopwatch"></span>9 分
@@ -163,7 +163,14 @@
 </li>
 <li><a href=#検証>検証</a>
 <ul>
-<li><a href=#nerdctl-の使用>nerdctl の使用</a></li>
+<li><a href=#nerdctl-の使用>nerdctl の使用</a>
+<ul>
+<li><a href=#nginx-を起動>nginx を起動</a></li>
+<li><a href=#コンテナの状態を確認>コンテナの状態を確認</a></li>
+<li><a href=#namespace-を確認>namespace を確認</a></li>
+<li><a href=#namespace-default-のプロセスを確認>namespace default のプロセスを確認</a></li>
+</ul>
+</li>
 <li><a href=#helm-の使用>Helm の使用</a>
 <ul>
 <li><a href=#helm-に-grafana-のリポジトリを追加>Helm に Grafana のリポジトリを追加</a></li>
@@ -181,7 +188,7 @@
 <span class=post-update>
 <span class=s>更新日時 2022-01-28</span>
 </span>
-</div><p>1月26日に、<a href=https://rancherdesktop.io/ target=_blank rel="noopener noreffer">Rancher Desktop</a> が正式に <a href=https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0 target=_blank rel="noopener noreffer">v1.0.0</a> としてリリースされました.</p>
+</div><p>1 月 26 日に、<a href=https://rancherdesktop.io/ target=_blank rel="noopener noreffer">Rancher Desktop</a> が正式に <a href=https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0 target=_blank rel="noopener noreffer">v1.0.0</a> としてリリースされました.</p>
 <p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.</p>
 <h2 id=rancher-desktop-とは class=headerLink><a href=#rancher-desktop-%e3%81%a8%e3%81%af class=header-mark></a>Rancher Desktop とは</h2><p>Rancher Desktop は Electron と Node.js をベースに構築されたデスクトップアプリケーションであり、デスクトップ上で Kubernetes とコンテナ管理を実行することができます.</p>
 <p>また、実行する Kubernetes のバージョンを自由に選択することができます.</p>
@@ -194,7 +201,7 @@
 <li>Catalina 10.15 以降</li>
 </ul>
 </li>
-<li><strong>CPUアーキテクチャ</strong>
+<li><strong>CPU アーキテクチャ</strong>
 <ul>
 <li>Apple Silicon（M1）または VT-x 搭載の Intel CPU</li>
 </ul>
@@ -220,45 +227,45 @@
 </ul>
 <h3 id=マシンスペック class=headerLink><a href=#%e3%83%9e%e3%82%b7%e3%83%b3%e3%82%b9%e3%83%9a%e3%83%83%e3%82%af class=header-mark></a>マシンスペック</h3><ul>
 <li>8GB のメモリー</li>
-<li>4コアのCPU</li>
+<li>4 コアの CPU</li>
 </ul>
-<h2 id=動作の仕組み class=headerLink><a href=#%e5%8b%95%e4%bd%9c%e3%81%ae%e4%bb%95%e7%b5%84%e3%81%bf class=header-mark></a>動作の仕組み</h2><p>Rancher Desktopは、他のツールをラッピングしながら、動作を実現しています.</p>
-<p>MacOSとLinuxでは、<a href=https://github.com/lima-vm/lima target=_blank rel="noopener noreffer">Lima</a> や <a href=https://www.qemu.org/ target=_blank rel="noopener noreffer">QEMU</a> といった仮想マシンを活用して<code>containerd</code>または<code>dockerd</code>と Kubernetes (<a href=https://k3s.io/ target=_blank rel="noopener noreffer">k3s</a>) を実行します.</p>
-<p>Windowsシステムでは、<a href=https://docs.microsoft.com/en-us/windows/wsl/ target=_blank rel="noopener noreffer">Windows Subsystem for Linux v2 (WSL2)</a> を利用しています.</p>
+<h2 id=動作の仕組み class=headerLink><a href=#%e5%8b%95%e4%bd%9c%e3%81%ae%e4%bb%95%e7%b5%84%e3%81%bf class=header-mark></a>動作の仕組み</h2><p>Rancher Desktop は、他のツールをラッピングしながら、動作を実現しています.</p>
+<p>MacOS と Linux では、<a href=https://github.com/lima-vm/lima target=_blank rel="noopener noreffer">Lima</a> や <a href=https://www.qemu.org/ target=_blank rel="noopener noreffer">QEMU</a> といった仮想マシンを活用して<code>containerd</code>または<code>dockerd</code>と Kubernetes (<a href=https://k3s.io/ target=_blank rel="noopener noreffer">k3s</a>) を実行します.</p>
+<p>Windows システムでは、<a href=https://docs.microsoft.com/en-us/windows/wsl/ target=_blank rel="noopener noreffer">Windows Subsystem for Linux v2 (WSL2)</a> を利用しています.</p>
 <blockquote>
 <p>下図は <a href=https://rancherdesktop.io/ target=_blank rel="noopener noreffer">rancher</a> から引用
 <img loading=lazy decoding=async class=render-image src=/2022/01/setup-rancher-desktop-on-mxlinux/how-it-works-rancher-desktop.webp alt=how-it-works-rancher-desktop title=how-it-works-rancher-desktop.webp></p>
 </blockquote>
-<p>Rancher Desktopでは、<a href=https://github.com/containerd/nerdctl target=_blank rel="noopener noreffer">NERDCTL プロジェクト</a>と Docker CLI を利用して、イメージを build、push、pull する機能が用意されています.
-なお、<code>nerdctl</code> と <code>docker</code> の両方が自動的にパスに入れられます. Windowsではインストーラー中に、macOSとLinuxでは初回実行時に行われます.</p>
+<p>Rancher Desktop では、<a href=https://github.com/containerd/nerdctl target=_blank rel="noopener noreffer">NERDCTL プロジェクト</a>と Docker CLI を利用して、イメージを build、push、pull する機能が用意されています.
+なお、<code>nerdctl</code> と <code>docker</code> の両方が自動的にパスに入れられます. Windows ではインストーラー中に、macOS と Linux では初回実行時に行われます.</p>
 <p>いずれのツールを使用する場合も、Rancher Desktop が適切なコンテナランタイムで実行されている必要があります.</p>
-<p><code>nerdctl</code>の場合は、<code>containerd</code>ランタイムを使用します。dockerの場合は、<code>dockerd (moby)</code>ランタイムを使用します.</p>
+<p><code>nerdctl</code>の場合は、<code>containerd</code>ランタイムを使用します。docker の場合は、<code>dockerd (moby)</code>ランタイムを使用します.</p>
 <div class="details admonition note">
 <div class="details-summary admonition-title"><i class="icon admonition-icon icon-note"></i>Lima について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
 <div class=details-content>
-<div class=admonition-content>Lima は WSL と似ており、自動ファイル共有とポート転送、および containerd を備えた Linux の仮想マシンを起動します. LimaはmacOSホストで使われることが想定されていますが、Linuxホストでも使うことができます.</div>
+<div class=admonition-content>Lima は WSL と似ており、自動ファイル共有とポート転送、および containerd を備えた Linux の仮想マシンを起動します. Lima は macOS ホストで使われることが想定されていますが、Linux ホストでも使うことができます.</div>
 </div>
 </div>
 <div class="details admonition note">
 <div class="details-summary admonition-title"><i class="icon admonition-icon icon-note"></i>QEMU について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
 <div class=details-content>
-<div class=admonition-content>QEMUは、OSS の PC エミュレーターです. x86 や SPARC、MIPS といったさまざまな CPU 上の Linux、Windows などで動作し、ほかのCPUの命令をネイティブコードに変換しながら実行できるという特徴を持ちます.</div>
+<div class=admonition-content>QEMU は、OSS の PC エミュレーターです. x86 や SPARC、MIPS といったさまざまな CPU 上の Linux、Windows などで動作し、ほかの CPU の命令をネイティブコードに変換しながら実行できるという特徴を持ちます.</div>
 </div>
 </div>
 <div class="details admonition note">
 <div class="details-summary admonition-title"><i class="icon admonition-icon icon-note"></i>k3s について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
 <div class=details-content>
-<div class=admonition-content>k3sは、Rancher Labs社が発表した軽量な Kubernetes の1つで、40MB未満のバイナリと、わずか512MBのメモリ使用量を特徴としています. 最近では、IoT や Edge コンピューティングなどでの活用が期待されています.</div>
+<div class=admonition-content>k3s は、Rancher Labs 社が発表した軽量な Kubernetes の 1 つで、40MB 未満のバイナリと、わずか 512MB のメモリ使用量を特徴としています. 最近では、IoT や Edge コンピューティングなどでの活用が期待されています.</div>
 </div>
 </div>
 <div class="details admonition note">
 <div class="details-summary admonition-title"><i class="icon admonition-icon icon-note"></i>nerdctl について<i class="details-icon admonition-icon admonition-icon-arrow-right"></i></div>
 <div class=details-content>
-<div class=admonition-content>nerdctl は containerd 向けのコンテナの操作ツールです. containerd用の docker コマンドだと考えていただければと思います.</div>
+<div class=admonition-content>nerdctl は containerd 向けのコンテナの操作ツールです. containerd 用の docker コマンドだと考えていただければと思います.</div>
 </div>
 </div>
-<h2 id=mxlinux-へのインストール class=headerLink><a href=#mxlinux-%e3%81%b8%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab class=header-mark></a>MXLinux へのインストール</h2><p>Rancher Desktop を Linux ディストリビューションの1つである <a href=https://mxlinux.org/ target=_blank rel="noopener noreffer">MXLinux</a> にインストールしてみます.</p>
-<p>インストール方法は<a href=https://docs.rancherdesktop.io/installation#linux target=_blank rel="noopener noreffer">公式ドキュメント</a>に従って、Rancher Desktopのリポジトリを追加し、Rancher Desktopをインストールします.</p>
+<h2 id=mxlinux-へのインストール class=headerLink><a href=#mxlinux-%e3%81%b8%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab class=header-mark></a>MXLinux へのインストール</h2><p>Rancher Desktop を Linux ディストリビューションの 1 つである <a href=https://mxlinux.org/ target=_blank rel="noopener noreffer">MXLinux</a> にインストールしてみます.</p>
+<p>インストール方法は<a href=https://docs.rancherdesktop.io/installation#linux target=_blank rel="noopener noreffer">公式ドキュメント</a>に従って、Rancher Desktop のリポジトリを追加し、Rancher Desktop をインストールします.</p>
 <p>Linux へのインストールはいくつかのパッケージがありますが、MXLinux は Debian(stable) ベースのため、<code>.deb</code>パッケージを使用します.</p>
 <div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
@@ -297,7 +304,7 @@ antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築さ�
 <p><code>Kubernetes version</code>では、Kubernetes のバージョンを指定できます. 執筆時点での最新バージョンである v1.23.3 から、最も古いバージョンで v1.16.7 まで選択が可能です.</p>
 <p><code>Port</code>はデフォルトでは、<code>6443</code>が設定されています.</p>
 <p><code>Container runtime</code>では、<code>containerd</code>または<code>dockerd (moby)</code>のどちらかを選択可能です.</p>
-<p><code>Memory (GB)</code>, <code>CPUs</code>は、メモリー、CPUのコア数を指定できます. 赤いラインまで数値を上げると、下図のように警告文が表示されます.</p>
+<p><code>Memory (GB)</code>, <code>CPUs</code>は、メモリー、CPU のコア数を指定できます. 赤いラインまで数値を上げると、下図のように警告文が表示されます.</p>
 <p>
 <img loading=lazy decoding=async class=render-image src=/2022/01/setup-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger.webp alt=rancher-desktop-k8s-setting-danger title=rancher-desktop-k8s-setting-danger.webp></p>
 <p>一度、環境をクリーンアップしたい場合は、<code>Reset Kubernetes</code>を押すことで簡単にリセットすることができます.</p>
@@ -346,17 +353,17 @@ k8s.io      22            16        0
 <td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/nerdctl --namespace k8s.io ps
 CONTAINER ID    IMAGE                                               COMMAND                   CREATED           STATUS    PORTS    NAMES
-1f642d94e7d5    docker.io/rancher/klipper-lb:v0.3.4                 &#34;entry&#34;                   50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-443                                   
-2ca56d5f0874    docker.io/rancher/mirrored-library-traefik:2.5.6    &#34;/entrypoint.sh --gl…&#34;    49 minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik                                  
-2f1c800451cf    docker.io/rancher/mirrored-coredns-coredns:1.8.6    &#34;/coredns -conf /etc…&#34;    49 minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq/coredns                                   
-56bd8fba2fda    docker.io/rancher/klipper-lb:v0.3.4                 &#34;entry&#34;                   50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-80                                    
-5908afd18045    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq                                           
-8c16131e6d1b    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr                                               
-95b859fec9ed    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh                           
-a0656b86ab35    docker.io/rancher/local-path-provisioner:v0.0.21    &#34;local-path-provisio…&#34;    49 minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner    
-a5c31106d6d7    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4                                          
-c9417746b27d    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd                                   
-ce64e7b0a242    docker.io/rancher/mirrored-metrics-server:v0.5.2    &#34;/metrics-server --c…&#34;    49 minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server  
+1f642d94e7d5    docker.io/rancher/klipper-lb:v0.3.4                 &#34;entry&#34;                   50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-443
+2ca56d5f0874    docker.io/rancher/mirrored-library-traefik:2.5.6    &#34;/entrypoint.sh --gl…&#34;    49 minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik
+2f1c800451cf    docker.io/rancher/mirrored-coredns-coredns:1.8.6    &#34;/coredns -conf /etc…&#34;    49 minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq/coredns
+56bd8fba2fda    docker.io/rancher/klipper-lb:v0.3.4                 &#34;entry&#34;                   50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-80
+5908afd18045    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq
+8c16131e6d1b    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  50 minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr
+95b859fec9ed    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh
+a0656b86ab35    docker.io/rancher/local-path-provisioner:v0.0.21    &#34;local-path-provisio…&#34;    49 minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner
+a5c31106d6d7    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4
+c9417746b27d    docker.io/rancher/mirrored-pause:3.6                &#34;/pause&#34;                  49 minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd
+ce64e7b0a242    docker.io/rancher/mirrored-metrics-server:v0.5.2    &#34;/metrics-server --c…&#34;    49 minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server
 </code></pre></td></tr></table>
 </div>
 </div><h3 id=troubleshooting class=headerLink><a href=#troubleshooting class=header-mark></a>Troubleshooting</h3><p><code>Troubleshooting</code>では、ログの有効化、また Rancher Desktop 自体の初期化ができます.</p>
@@ -364,61 +371,65 @@ ce64e7b0a242    docker.io/rancher/mirrored-metrics-server:v0.5.2    &#34;/metric
 <img loading=lazy decoding=async class=render-image src=/2022/01/setup-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting.webp alt=rancher-desktop-troubleshooting title=rancher-desktop-troubleshooting.webp></p>
 <h2 id=検証 class=headerLink><a href=#%e6%a4%9c%e8%a8%bc class=header-mark></a>検証</h2><p>Rancher Desktop 上で、実際にコンテナなどを動かして見ます.</p>
 <h3 id=nerdctl-の使用 class=headerLink><a href=#nerdctl-%e3%81%ae%e4%bd%bf%e7%94%a8 class=header-mark></a>nerdctl の使用</h3><p><code>nerdctl</code>コマンドを使用して、nginx を起動してみます. <code>namespace</code> は未指定の場合、デフォルトで<code>default</code>に配置されます.</p>
-<div class=highlight><div class=chroma>
+<h4 id=nginx-を起動 class=headerLink><a href=#nginx-%e3%82%92%e8%b5%b7%e5%8b%95 class=header-mark></a>nginx を起動</h4><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
-<pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
 </span></code></pre></td>
 <td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback># nginx を起動
-$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
-docker.io/library/nginx:latest:                                                   resolved       |++++++++++++++++++++++++++++++++++++++| 
-index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767:    done           |++++++++++++++++++++++++++++++++++++++| 
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
+docker.io/library/nginx:latest:                                                   resolved       |++++++++++++++++++++++++++++++++++++++|
+index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767:    done           |++++++++++++++++++++++++++++++++++++++|
 ...
-elapsed: 7.2 s                                                                    total:  54.1 M (7.5 MiB/s)                                       
+elapsed: 7.2 s                                                                    total:  54.1 M (7.5 MiB/s)
 484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
-
-# コンテナの状態を確認
-$ ./.local/bin/nerdctl ps
-CONTAINER ID    IMAGE                             COMMAND                   CREATED          STATUS    PORTS                   NAMES
-484e86556e00    docker.io/library/nginx:latest    &#34;/docker-entrypoint.…&#34;    6 minutes ago    Up        0.0.0.0:9999-&gt;80/tcp    nginx-484e8
-
-# namespace を確認
-$ ./.local/bin/nerdctl namespace list
-NAME        CONTAINERS    IMAGES    VOLUMES
-buildkit    0             0         0
-default     1             1         0
-k8s.io      22            16        0
-
-# namespace default のプロセスを確認
-$ ./.local/bin/nerdctl --namespace default ps
-CONTAINER ID    IMAGE                             COMMAND                   CREATED           STATUS    PORTS                   NAMES
-484e86556e00    docker.io/library/nginx:latest    &#34;/docker-entrypoint.…&#34;    11 minutes ago    Up        0.0.0.0:9999-&gt;80/tcp    nginx-484e8
 </code></pre></td></tr></table>
 </div>
-</div><p>また、Rancher Desktop からも、<code>namespace:default</code>に nginx イメージを確認することができます.</p>
+</div><h4 id=コンテナの状態を確認 class=headerLink><a href=#%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%81%ae%e7%8a%b6%e6%85%8b%e3%82%92%e7%a2%ba%e8%aa%8d class=header-mark></a>コンテナの状態を確認</h4><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/nerdctl ps
+CONTAINER ID    IMAGE                             COMMAND                   CREATED          STATUS    PORTS                   NAMES
+484e86556e00    docker.io/library/nginx:latest    &#34;/docker-entrypoint.…&#34;    6 minutes ago    Up        0.0.0.0:9999-&gt;80/tcp    nginx-484e8
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=namespace-を確認 class=headerLink><a href=#namespace-%e3%82%92%e7%a2%ba%e8%aa%8d class=header-mark></a>namespace を確認</h4><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit 0 0 0
+default 1 1 0
+k8s.io 22 16 0
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=namespace-default-のプロセスを確認 class=headerLink><a href=#namespace-default-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%bb%e3%82%b9%e3%82%92%e7%a2%ba%e8%aa%8d class=header-mark></a>namespace default のプロセスを確認</h4><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/nerdctl --namespace default ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &#34;/docker-entrypoint.…&#34; 11 minutes ago Up 0.0.0.0:9999-&gt;80/tcp nginx-484e8
+</code></pre></td></tr></table>
+</div>
+</div><p>また、Rancher Desktop からも<code>namespace:default</code>に nginx イメージを確認することができます.</p>
 <p>
 <img loading=lazy decoding=async class=render-image src=/2022/01/setup-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx.webp alt=rancher-desktop-run-nginx title=rancher-desktop-run-nginx.webp></p>
 <p>最後に、<code>localhost:9999</code>にアクセスして、nginx の起動を確認してみます.</p>
@@ -441,7 +452,7 @@ CONTAINER ID    IMAGE                             COMMAND                   CREA
 </span></code></pre></td>
 <td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/helm repo list
-NAME    URL                                  
+NAME    URL
 grafana https://grafana.github.io/helm-charts
 </code></pre></td></tr></table>
 </div>
@@ -467,20 +478,20 @@ grafana https://grafana.github.io/helm-charts
 </span></code></pre></td>
 <td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>$ ./.local/bin/helm search repo grafana
-NAME                            CHART VERSION   APP VERSION DESCRIPTION                                       
+NAME                            CHART VERSION   APP VERSION DESCRIPTION
 grafana/grafana                 6.21.1          8.3.4       The leading tool for querying and visualizing t...
-grafana/grafana-agent-operator  0.1.5           0.22.0      A Helm chart for Grafana Agent Operator           
-grafana/enterprise-logs         2.0.0           v1.3.0      Grafana Enterprise Logs                           
-grafana/enterprise-metrics      1.7.3           v1.6.1      Grafana Enterprise Metrics                        
+grafana/grafana-agent-operator  0.1.5           0.22.0      A Helm chart for Grafana Agent Operator
+grafana/enterprise-logs         2.0.0           v1.3.0      Grafana Enterprise Logs
+grafana/enterprise-metrics      1.7.3           v1.6.1      Grafana Enterprise Metrics
 grafana/fluent-bit              2.3.0           v2.1.0      Uses fluent-bit Loki go plugin for gathering lo...
-grafana/loki                    2.9.1           v2.4.2      Loki: like Prometheus, but for logs.              
-grafana/loki-canary             0.5.1           2.4.1       Helm chart for Grafana Loki Canary                
-grafana/loki-distributed        0.42.0          2.4.2       Helm chart for Grafana Loki in microservices mode 
+grafana/loki                    2.9.1           v2.4.2      Loki: like Prometheus, but for logs.
+grafana/loki-canary             0.5.1           2.4.1       Helm chart for Grafana Loki Canary
+grafana/loki-distributed        0.42.0          2.4.2       Helm chart for Grafana Loki in microservices mode
 grafana/loki-simple-scalable    0.2.0           2.4.2       Helm chart for Grafana Loki in simple, scalable...
-grafana/loki-stack              2.5.1           v2.1.0      Loki: like Prometheus, but for logs.              
+grafana/loki-stack              2.5.1           v2.1.0      Loki: like Prometheus, but for logs.
 grafana/promtail                3.10.0          2.4.2       Promtail is an agent which ships the contents o...
-grafana/tempo                   0.13.0          1.3.0       Grafana Tempo Single Binary Mode                  
-grafana/tempo-distributed       0.15.0          1.3.0       Grafana Tempo in MicroService mode                
+grafana/tempo                   0.13.0          1.3.0       Grafana Tempo Single Binary Mode
+grafana/tempo-distributed       0.15.0          1.3.0       Grafana Tempo in MicroService mode
 grafana/tempo-vulture           0.2.0           1.3.0       Grafana Tempo Vulture - A tool to monitor Tempo...
 
 </code></pre></td></tr></table>
@@ -587,10 +598,10 @@ replicaset.apps/grafana-6b9d4f7f86   1         1         1       15m
 </div>
 </div><p>以上のように、Rancher Desktop を起動するだけでアプリケーションの開発やデプロイが簡単に行うことができました.</p>
 <h2 id=所感 class=headerLink><a href=#%e6%89%80%e6%84%9f class=header-mark></a>所感</h2><p>今回は、v1.0.0 がリリースされた Rancher Desktop を触ってみましたが、非常に完成度の高いツールでした. <code>containerd</code>、<code>nerdctl</code>を初めて触る方も Rancher Desktop は良い機会だと思います.</p>
-<p>昨年、<a href=https://www.docker.com/blog/updating-product-subscriptions/ target=_blank rel="noopener noreffer">Docker Desktopが有料化</a>が大きなニュースとなり、それに伴い、密かに代替案として注目されていた Rancher Desktop ですが、
+<p>昨年、<a href=https://www.docker.com/blog/updating-product-subscriptions/ target=_blank rel="noopener noreffer">Docker Desktop が有料化</a>が大きなニュースとなり、それに伴い、密かに代替案として注目されていた Rancher Desktop ですが、
 Docker Desktop から乗り換えたとしても遜色なく利用できるかと思います. 万が一、Docker のランタイムを使用したいと思えば、Rancher Desktop 上から切り替えれば良いので、大して手間は掛かりません.</p>
 <p>また、Kubernetes のバージョンをスムーズに切り替えられるのも個人的には大きなメリットなのかなと思います.</p>
-<p>これから、コンテナを利用する手段の1つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.</p></div><footer>
+<p>これから、コンテナを利用する手段の 1 つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.</p></div><footer>
 <div class=post>
 <div class=post-share><div class=share-link>
 <a class="share-icon share-twitter" href=javascript:void(0); title="共有する Twitter" data-sharer=twitter data-url=https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/ data-title="MXLinux で Rancher Desktop を動かす" data-via=m0rer0 data-hashtags=kubernetes,k3s,rancher,helm,containerd,moby,linux,mxlinux><span class="svg-social-icon icon-twitter"></span></a>
