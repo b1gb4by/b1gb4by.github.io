@@ -1,4 +1,797 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>morero's blog</title><link>https://t4i5uKE.github.io/</link><description>morero's blog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><lastBuildDate>Thu, 27 Jan 2022 23:26:46 +0900</lastBuildDate><atom:link href="https://t4i5uKE.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/</link><pubDate>Thu, 27 Jan 2022 23:26:46 +0900</pubDate><author>morero</author><guid>https://t4i5uKE.github.io/2022/01/setup-rancher-desktop-on-mxlinux/</guid><description>Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動かしてみました</description></item><item><title>Karpenter Deep Dive</title><link>https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/</link><pubDate>Thu, 16 Dec 2021 00:25:26 +0900</pubDate><author>morero</author><guid>https://t4i5uKE.github.io/2021/12/karpenter-deep-dive/</guid><description>&lt;p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.&lt;/p>
-&lt;p>今回は、それについて深堀りしてみます.&lt;/p></description></item><item><title>2段階認証アプリの引き継ぎ方法</title><link>https://t4i5uKE.github.io/2021/10/authenticator/</link><pubDate>Mon, 04 Oct 2021 22:01:57 +0900</pubDate><author>morero</author><guid>https://t4i5uKE.github.io/2021/10/authenticator/</guid><description>&lt;p>Google Authenticator の機種変更時の引き継ぎ方法について説明します.&lt;/p>
-&lt;p>また、個人的に推奨している Microsoft Authenticator についても解説します.&lt;/p></description></item><item><title>所有しているデバイスについて</title><link>https://t4i5uKE.github.io/2021/09/device-configuration/</link><pubDate>Tue, 28 Sep 2021 18:29:09 +0900</pubDate><author>作成者</author><guid>https://t4i5uKE.github.io/2021/09/device-configuration/</guid><description>&lt;p>所有しているデバイスの詳細情報について説明します.&lt;/p></description></item><item><title>俺の Spotify プレイリスト</title><link>https://t4i5uKE.github.io/2021/06/my-spotify-playlists/</link><pubDate>Tue, 08 Jun 2021 21:54:27 +0900</pubDate><author>morero</author><guid>https://t4i5uKE.github.io/2021/06/my-spotify-playlists/</guid><description>&lt;p>以下のプレイリストを現在、作成しています.&lt;/p>
-&lt;p>TPO に合わせて様々なジャンルの音楽をお楽しみ下さい.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>A Life of Inquiry</title><link>https://example.com/</link><description>Recent content on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid><description>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/featured-image.webp" alt="Featured image of post MXLinux で Rancher Desktop を動かす" />&lt;p>1 月 26 日に、&lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+>Rancher Desktop&lt;/a> が正式に &lt;a class="link" href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0" target="_blank" rel="noopener"
+>v1.0.0&lt;/a> としてリリースされました.&lt;/p>
+&lt;p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.&lt;/p>
+&lt;h2 id="rancher-desktop-とは">Rancher Desktop とは&lt;/h2>
+&lt;p>Rancher Desktop は Electron と Node.js をベースに構築されたデスクトップアプリケーションであり、デスクトップ上で Kubernetes とコンテナ管理を実行することができます.&lt;/p>
+&lt;p>また、実行する Kubernetes のバージョンを自由に選択することができます.&lt;/p>
+&lt;p>&lt;code>containerd&lt;/code>、または&lt;code>Moby (dockerd)&lt;/code>を使って、コンテナイメージのビルド、プッシュ、プル、実行が可能です. ビルドしたコンテナイメージは、レジストリを必要とせず、すぐに Kubernetes で実行できます.&lt;/p>
+&lt;h2 id="必要条件">必要条件&lt;/h2>
+&lt;p>OSS のデスクトップアプリケーションで、macOS や Windows、そして Linux の様々な環境で動作させることができます. M1 にも対応しているため、ほとんどの環境で動作が可能になりました.&lt;/p>
+&lt;p>環境での必要条件は以下の通りです.&lt;/p>
+&lt;h3 id="macos">macOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>macOS&lt;/strong>
+&lt;ul>
+&lt;li>Catalina 10.15 以降&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>CPU アーキテクチャ&lt;/strong>
+&lt;ul>
+&lt;li>Apple Silicon（M1）または VT-x 搭載の Intel CPU&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="windowsos">WindowsOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Windows&lt;/strong>
+&lt;ul>
+&lt;li>Windows 10 ビルド 1909 以降&lt;/li>
+&lt;li>Home エディションにも対応&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Hyper-V(仮想化機能)&lt;/strong> が有効化されている&lt;/li>
+&lt;li>&lt;strong>Windows Subsystem for Linux (WSL)&lt;/strong>
+&lt;ul>
+&lt;li>Rancher Desktop は、Windows 上で WSL が必要ですが、セットアップの一部として自動的にインストールされます&lt;/li>
+&lt;li>手動でディストリビューションをダウンロードは不要&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="マシンスペック">マシンスペック&lt;/h3>
+&lt;ul>
+&lt;li>8GB のメモリー&lt;/li>
+&lt;li>4 コアの CPU&lt;/li>
+&lt;/ul>
+&lt;h2 id="動作の仕組み">動作の仕組み&lt;/h2>
+&lt;p>Rancher Desktop は、他のツールをラッピングしながら、動作を実現しています.&lt;/p>
+&lt;p>MacOS と Linux では、&lt;a class="link" href="https://github.com/lima-vm/lima" target="_blank" rel="noopener"
+>Lima&lt;/a> や &lt;a class="link" href="https://www.qemu.org/" target="_blank" rel="noopener"
+>QEMU&lt;/a> といった仮想マシンを活用して&lt;code>containerd&lt;/code>または&lt;code>dockerd&lt;/code>と Kubernetes (&lt;a class="link" href="https://k3s.io/" target="_blank" rel="noopener"
+>k3s&lt;/a>) を実行します.&lt;/p>
+&lt;p>Windows システムでは、&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank" rel="noopener"
+>Windows Subsystem for Linux v2 (WSL2)&lt;/a> を利用しています.&lt;/p>
+&lt;blockquote>
+&lt;p>下図は &lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+>rancher&lt;/a> から引用
+&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop.webp"
+width="1366"
+height="644"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop_huc944728323fcd0410ee5ea0609183cd8_25796_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop_huc944728323fcd0410ee5ea0609183cd8_25796_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="how-it-works-rancher-desktop"
+class="gallery-image"
+data-flex-grow="212"
+data-flex-basis="509px"
+>&lt;/p>
+&lt;/blockquote>
+&lt;p>Rancher Desktop では、&lt;a class="link" href="https://github.com/containerd/nerdctl" target="_blank" rel="noopener"
+>NERDCTL プロジェクト&lt;/a>と Docker CLI を利用して、イメージを build、push、pull する機能が用意されています.
+なお、&lt;code>nerdctl&lt;/code> と &lt;code>docker&lt;/code> の両方が自動的にパスに入れられます. Windows ではインストーラー中に、macOS と Linux では初回実行時に行われます.&lt;/p>
+&lt;p>いずれのツールを使用する場合も、Rancher Desktop が適切なコンテナランタイムで実行されている必要があります.&lt;/p>
+&lt;p>&lt;code>nerdctl&lt;/code>の場合は、&lt;code>containerd&lt;/code>ランタイムを使用します。docker の場合は、&lt;code>dockerd (moby)&lt;/code>ランタイムを使用します.&lt;/p>
+&lt;blockquote>
+&lt;p>Lima について&lt;/p>
+&lt;p>Lima は WSL と似ており、自動ファイル共有とポート転送、および containerd を備えた Linux の仮想マシンを起動します. Lima は macOS ホストで使われることが想定されていますが、Linux ホストでも使うことができます.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>QEMU について&lt;/p>
+&lt;p>QEMU は、OSS の PC エミュレーターです. x86 や SPARC、MIPS といったさまざまな CPU 上の Linux、Windows などで動作し、ほかの CPU の命令をネイティブコードに変換しながら実行できるという特徴を持ちます.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>nerdctl について&lt;/p>
+&lt;p>nerdctl は containerd 向けのコンテナの操作ツールです. containerd 用の docker コマンドだと考えていただければと思います.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="mxlinux-へのインストール">MXLinux へのインストール&lt;/h2>
+&lt;p>Rancher Desktop を Linux ディストリビューションの 1 つである &lt;a class="link" href="https://mxlinux.org/" target="_blank" rel="noopener"
+>MXLinux&lt;/a> にインストールしてみます.&lt;/p>
+&lt;p>インストール方法は&lt;a class="link" href="https://docs.rancherdesktop.io/installation#linux" target="_blank" rel="noopener"
+>公式ドキュメント&lt;/a>に従って、Rancher Desktop のリポジトリを追加し、Rancher Desktop をインストールします.&lt;/p>
+&lt;p>Linux へのインストールはいくつかのパッケージがありますが、MXLinux は Debian(stable) ベースのため、&lt;code>.deb&lt;/code>パッケージを使用します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># リポジトリを取得し、登録&lt;/span>
+$ curl https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key &lt;span class="p">|&lt;/span> sudo apt-key add -
+$ sudo add-apt-repository &lt;span class="s1">&amp;#39;deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./&amp;#39;&lt;/span>
+&lt;span class="c1"># パッケージ一覧を更新&lt;/span>
+$ sudo apt update
+&lt;span class="c1"># Rancher Desktop をインストール&lt;/span>
+$ sudo apt install rancher-desktop
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上で、Rancher Desktop のインストールは完了です. 非常に簡単ですね.&lt;/p>
+&lt;blockquote>
+&lt;p>MXLinux について&lt;/p>
+&lt;p>MXLinux は DistroWatch.com でも 注目度の高い Linux ディストリビューションです. antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築されたプロジェクトでギリシャおよびアメリカにて開発されています.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="rancher-desktop-の起動">Rancher Desktop の起動&lt;/h2>
+&lt;p>インストールした Rancher Desktop を起動してみます. アプリケーション自体は非常にシンプルでした.&lt;/p>
+&lt;h3 id="general">General&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general.webp"
+width="944"
+height="636"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-general"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="356px"
+>&lt;/p>
+&lt;h3 id="kubernetes-setting">Kubernetes Setting&lt;/h3>
+&lt;p>次に、Kubernetes の設定を見てみます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>&lt;code>Kubernetes version&lt;/code>では、Kubernetes のバージョンを指定できます. 執筆時点での最新バージョンである v1.23.3 から、最も古いバージョンで v1.16.7 まで選択が可能です.&lt;/p>
+&lt;p>&lt;code>Port&lt;/code>はデフォルトでは、&lt;code>6443&lt;/code>が設定されています.&lt;/p>
+&lt;p>&lt;code>Container runtime&lt;/code>では、&lt;code>containerd&lt;/code>または&lt;code>dockerd (moby)&lt;/code>のどちらかを選択可能です.&lt;/p>
+&lt;p>&lt;code>Memory (GB)&lt;/code>, &lt;code>CPUs&lt;/code>は、メモリー、CPU のコア数を指定できます. 赤いラインまで数値を上げると、下図のように警告文が表示されます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting-danger"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>一度、環境をクリーンアップしたい場合は、&lt;code>Reset Kubernetes&lt;/code>を押すことで簡単にリセットすることができます.&lt;/p>
+&lt;h3 id="supporting-utilities">Supporting Utilities&lt;/h3>
+&lt;p>&lt;code>Supporting Utilities&lt;/code>では、インストールされたツール郡が表示されています. 既にインストールされていた Docker などに対しては、丁寧に注意喚起が書かれていました.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-supporting-utilities"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;h3 id="images">Images&lt;/h3>
+&lt;p>&lt;code>Images&lt;/code> では、Rancher Desktop で使用しているイメージが表示されています. イメージ一覧の&lt;code>⋮&lt;/code>から&lt;code>Scan&lt;/code>を選択すると、イメージの脆弱性を &lt;a class="link" href="https://github.com/aquasecurity/trivy" target="_blank" rel="noopener"
+>Trivy&lt;/a> を使用してスキャンしてくれる.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images.webp"
+width="944"
+height="712"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-images"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;p>ここで、&lt;code>Image Namespace&lt;/code>に注目してください. &lt;code>containerd&lt;/code>では、Kubernetes と同様に&lt;code>namespace&lt;/code>という概念が存在しています.
+そのため、Kubenetes が &lt;code>namespace&lt;/code>を持つことができるように、&lt;code>containerd&lt;/code>も同じように&lt;code>namespace&lt;/code>を持つことができます.
+上図では、&lt;code>namespace:k8s.io&lt;/code>にイメージが存在しているということになります.&lt;/p>
+&lt;p>実際に&lt;code>nerdctl&lt;/code>コマンドを使用して、&lt;code>namespace&lt;/code>を確認してみます. &lt;code>nerdctl namespace list&lt;/code>で&lt;code>namespace&lt;/code>の一覧を表示します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>実行してみると、&lt;code>k8s.io&lt;/code>にイメージが存在していることが確認できました.&lt;/p>
+&lt;p>また、&lt;code>nerdctl --namespace k8s.io ps&lt;/code>で&lt;code>namespace:k8s.io&lt;/code>で、Rancher Desktop で作成した Kubernetes のコンテナ群が確認できます.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace k8s.io ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+1f642d94e7d5 docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-443
+2ca56d5f0874 docker.io/rancher/mirrored-library-traefik:2.5.6 &lt;span class="s2">&amp;#34;/entrypoint.sh --gl…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik
+2f1c800451cf docker.io/rancher/mirrored-coredns-coredns:1.8.6 &lt;span class="s2">&amp;#34;/coredns -conf /etc…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq/coredns
+56bd8fba2fda docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-80
+5908afd18045 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq
+8c16131e6d1b docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr
+95b859fec9ed docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh
+a0656b86ab35 docker.io/rancher/local-path-provisioner:v0.0.21 &lt;span class="s2">&amp;#34;local-path-provisio…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner
+a5c31106d6d7 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4
+c9417746b27d docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd
+ce64e7b0a242 docker.io/rancher/mirrored-metrics-server:v0.5.2 &lt;span class="s2">&amp;#34;/metrics-server --c…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="troubleshooting">Troubleshooting&lt;/h3>
+&lt;p>&lt;code>Troubleshooting&lt;/code>では、ログの有効化、また Rancher Desktop 自体の初期化ができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting.webp"
+width="1077"
+height="712"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-troubleshooting"
+class="gallery-image"
+data-flex-grow="151"
+data-flex-basis="363px"
+>&lt;/p>
+&lt;h2 id="検証">検証&lt;/h2>
+&lt;p>Rancher Desktop 上で、実際にコンテナなどを動かして見ます.&lt;/p>
+&lt;h3 id="nerdctl-の使用">nerdctl の使用&lt;/h3>
+&lt;p>&lt;code>nerdctl&lt;/code>コマンドを使用して、nginx を起動してみます. &lt;code>namespace&lt;/code> は未指定の場合、デフォルトで&lt;code>default&lt;/code>に配置されます.&lt;/p>
+&lt;h4 id="nginx-を起動">nginx を起動&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
+docker.io/library/nginx:latest: resolved &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767: &lt;span class="k">done&lt;/span> &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+...
+elapsed: 7.2 s total: 54.1 M &lt;span class="o">(&lt;/span>7.5 MiB/s&lt;span class="o">)&lt;/span>
+484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="コンテナの状態を確認">コンテナの状態を確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">6&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="namespace-を確認">namespace を確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+default &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="namespace-default-のプロセスを確認">namespace default のプロセスを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace default ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">11&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>また、Rancher Desktop からも&lt;code>namespace:default&lt;/code>に nginx イメージを確認することができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx.webp"
+width="1077"
+height="386"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-run-nginx"
+class="gallery-image"
+data-flex-grow="279"
+data-flex-basis="669px"
+>&lt;/p>
+&lt;p>最後に、&lt;code>localhost:9999&lt;/code>にアクセスして、nginx の起動を確認してみます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx.webp"
+width="713"
+height="311"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="run-nginx"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="550px"
+>&lt;/p>
+&lt;h3 id="helm-の使用">Helm の使用&lt;/h3>
+&lt;p>Rancher Desktop では、起動時に Helm もインストールされるので、Helm を使って Kubernetes に Grafana をデプロイしてみます.&lt;/p>
+&lt;h4 id="helm-に-grafana-のリポジトリを追加">Helm に Grafana のリポジトリを追加&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo add grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="helm-にリポジトリが追加されていることを確認">Helm にリポジトリが追加されていることを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo list
+NAME URL
+grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="追加した-grafana-リポジトリからチャートを確認">追加した Grafana リポジトリからチャートを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm search repo grafana
+NAME CHART VERSION APP VERSION DESCRIPTION
+grafana/grafana 6.21.1 8.3.4 The leading tool &lt;span class="k">for&lt;/span> querying and visualizing t...
+grafana/grafana-agent-operator 0.1.5 0.22.0 A Helm chart &lt;span class="k">for&lt;/span> Grafana Agent Operator
+grafana/enterprise-logs 2.0.0 v1.3.0 Grafana Enterprise Logs
+grafana/enterprise-metrics 1.7.3 v1.6.1 Grafana Enterprise Metrics
+grafana/fluent-bit 2.3.0 v2.1.0 Uses fluent-bit Loki go plugin &lt;span class="k">for&lt;/span> gathering lo...
+grafana/loki 2.9.1 v2.4.2 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/loki-canary 0.5.1 2.4.1 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki Canary
+grafana/loki-distributed 0.42.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in microservices mode
+grafana/loki-simple-scalable 0.2.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in simple, scalable...
+grafana/loki-stack 2.5.1 v2.1.0 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/promtail 3.10.0 2.4.2 Promtail is an agent which ships the contents o...
+grafana/tempo 0.13.0 1.3.0 Grafana Tempo Single Binary Mode
+grafana/tempo-distributed 0.15.0 1.3.0 Grafana Tempo in MicroService mode
+grafana/tempo-vulture 0.2.0 1.3.0 Grafana Tempo Vulture - A tool to monitor Tempo...
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="helm-チャートをリリース">Helm チャートをリリース&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl create namespace monitoring
+$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
+W0128 03:37:33.477723 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.480386 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538004 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538201 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+NAME: grafana
+LAST DEPLOYED: Fri Jan &lt;span class="m">28&lt;/span> 03:37:32 &lt;span class="m">2022&lt;/span>
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: &lt;span class="m">1&lt;/span>
+NOTES:
+1. Get your &lt;span class="s1">&amp;#39;admin&amp;#39;&lt;/span> user password by running:
+kubectl get secret --namespace monitoring grafana -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.data.admin-password}&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> base64 --decode &lt;span class="p">;&lt;/span> &lt;span class="nb">echo&lt;/span>
+2. The Grafana server can be accessed via port &lt;span class="m">80&lt;/span> on the following DNS name from within your cluster:
+grafana.monitoring.svc.cluster.local
+Get the Grafana URL to visit by running these commands in the same shell:
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">POD_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>kubectl get pods --namespace monitoring -l &lt;span class="s2">&amp;#34;app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana&amp;#34;&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.items[0].metadata.name}&amp;#34;&lt;/span>&lt;span class="k">)&lt;/span>
+kubectl --namespace monitoring port-forward &lt;span class="nv">$POD_NAME&lt;/span> &lt;span class="m">3000&lt;/span>
+3. Login with the password from step &lt;span class="m">1&lt;/span> and the username: admin
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;span class="c1">###### WARNING: Persistence is disabled!!! You will lose your data when #####&lt;/span>
+&lt;span class="c1">###### the Grafana pod is terminated. #####&lt;/span>
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上記の手順に従って、正常に Grafana にログインすることができました.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard.webp"
+width="883"
+height="593"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="grafana-dashboard"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="357px"
+>&lt;/p>
+&lt;p>最後に、&lt;code>kubectl&lt;/code>コマンドを使って Grafana が立ち上がっていることを確認します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl get all --namespace monitoring
+NAME READY STATUS RESTARTS AGE
+pod/grafana-6b9d4f7f86-mwb4q 1/1 Running &lt;span class="m">0&lt;/span> 15m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+service/grafana ClusterIP 10.43.218.65 &amp;lt;none&amp;gt; 80/TCP 15m
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/grafana 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/grafana-6b9d4f7f86 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上のように、Rancher Desktop を起動するだけでアプリケーションの開発やデプロイが簡単に行うことができました.&lt;/p>
+&lt;h2 id="所感">所感&lt;/h2>
+&lt;p>今回は、v1.0.0 がリリースされた Rancher Desktop を触ってみましたが、非常に完成度の高いツールでした. &lt;code>containerd&lt;/code>、&lt;code>nerdctl&lt;/code>を初めて触る方も Rancher Desktop は良い機会だと思います.&lt;/p>
+&lt;p>昨年、&lt;a class="link" href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener"
+>Docker Desktop が有料化&lt;/a>が大きなニュースとなり、それに伴い、密かに代替案として注目されていた Rancher Desktop ですが、
+Docker Desktop から乗り換えたとしても遜色なく利用できるかと思います. 万が一、Docker のランタイムを使用したいと思えば、Rancher Desktop 上から切り替えれば良いので、大して手間は掛かりません.&lt;/p>
+&lt;p>また、Kubernetes のバージョンをスムーズに切り替えられるのも個人的には大きなメリットなのかなと思います.&lt;/p>
+&lt;p>これから、コンテナを利用する手段の 1 つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.&lt;/p></description></item><item><title>Google Authenticator からの引き継ぎ方法</title><link>https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/</link><pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/</guid><description>&lt;img src="https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/featured-image.webp" alt="Featured image of post Google Authenticator からの引き継ぎ方法" />&lt;p>Google Authenticator の機種変更時の引き継ぎ方法について説明します.&lt;/p>
+&lt;p>また、個人的に推奨している Microsoft Authenticator についても解説します.&lt;/p>
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>近年、セキュリティの強化として&lt;strong>2 段階認証の導入&lt;/strong>が推奨され、多くの方が SMS 認証や Google Authenticator などの認証アプリケーションをスマートフォンなどにインストールしているかと思います.&lt;/p>
+&lt;p>しかし、認証アプリは機種変更などをした際に正しい引き継ぎ手順を踏まなければ、認証アプリにログインできなくなります.それによって苦汁を舐めた人たちも多くいるのではないでしょうか.&lt;/p>
+&lt;p>そのような事態にならないためにも、正しい手順を理解し、スムーズに引き継げるようにしましょう.&lt;/p>
+&lt;h2 id="そもそも-2-段階認証って">そもそも 2 段階認証って？&lt;/h2>
+&lt;p>2 段階認証はその名の通り、「&lt;strong>2 度の認証を行う&lt;/strong>」ことです. 従来の 1 つの認証方法を使うよりはるかにセキュアに管理する事ができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/2-factor.drawio.png"
+width="933"
+height="481"
+srcset="https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/2-factor.drawio_hu0be6825a52e1ac9ac07d7b1e1c7e12e6_82494_480x0_resize_box_3.png 480w, https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/2-factor.drawio_hu0be6825a52e1ac9ac07d7b1e1c7e12e6_82494_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="2-factor overview"
+class="gallery-image"
+data-flex-grow="193"
+data-flex-basis="465px"
+>&lt;/p>
+&lt;p>2 段階認証には、様々な方法があります.&lt;/p>
+&lt;ul>
+&lt;li>SMS, メールなどを用いる場合
+&lt;ul>
+&lt;li>認証サーバなどで特定の文字列などが発行され、送信されます. ユーザはそれを画面上で入力します.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;ul>
+&lt;li>2 段階認証アプリケーションを用いる場合
+&lt;ul>
+&lt;li>アプリケーション上でワンタイムのセキュリティコードが自動的に生成され、そのコードを画面上に入力します.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>※ 2 段階認証アプリは別名、TOTP (Time-based One-Time Password) アプリとも呼ばれます.&lt;/p>
+&lt;h2 id="2-段階認証を扱う上での注意点">2 段階認証を扱う上での注意点&lt;/h2>
+&lt;p>いくらセキュアな機能だとしても注意するべき点はいくつかあります.&lt;/p>
+&lt;p>2 段階目の認証として最も利用されているのはスマートフォンだと思います. スマートフォンの電話番号宛に SMS が届き、そのコードを利用したり、キャリアメールアドレスに送られるコードを利用したりするため、スマートフォンの紛失・盗難時にログインできなくなります.&lt;/p>
+&lt;p>これは、ワンタイムパスワードを用いる場合も同じことが言えます.&lt;/p>
+&lt;p>Google Authenticator を利用している場合は、スマートフォンにインストールして利用しているため、紛失・盗難時には同じくログインすることができません.&lt;/p>
+&lt;p>また、スマートフォンの機種を変更した場合も引き継ぎを正しく行っていなければアプリケーションをインストールしても復元することができません.&lt;/p>
+&lt;p>これらを回避する方法としては以下の通りです.&lt;/p>
+&lt;ul>
+&lt;li>複数の認証方法を設定しておく
+&lt;ul>
+&lt;li>SMS + 2 段階認証アプリケーション&lt;/li>
+&lt;li>2 段階認証アプリケーション + メール&lt;/li>
+&lt;li>etc&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>引き継ぎの際、2 段階認証の設定を無効化(解除)しておく&lt;/li>
+&lt;/ul>
+&lt;h2 id="引き継ぎ方法-google-authenticator">引き継ぎ方法 (Google Authenticator)&lt;/h2>
+&lt;p>Google Authenticator を新しいデバイスへ引き継ぐ方法について解説します.&lt;/p>
+&lt;p>以前までは、アプリケーションに登録している 2 段階認証を全て無効化する必要がありましたが、現在は引き継ぐ前のデバイスでアカウント情報をエクスポートし、
+それを新しいデバイスでインポートすることでアカウントを移行することができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/authenticaton-takeover.drawio.png"
+width="397"
+height="219"
+srcset="https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/authenticaton-takeover.drawio_hu6e9d285a71dedaa8aaa2db7daab1e95d_83942_480x0_resize_box_3.png 480w, https://example.com/p/google-authenticator-%E3%81%8B%E3%82%89%E3%81%AE%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%96%B9%E6%B3%95/authenticaton-takeover.drawio_hu6e9d285a71dedaa8aaa2db7daab1e95d_83942_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Authentication takeover"
+class="gallery-image"
+data-flex-grow="181"
+data-flex-basis="435px"
+>&lt;/p>
+&lt;p>それぞれのデバイスでの手順は以下の通りです.&lt;/p>
+&lt;h3 id="ios">iOS&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>移行前のデバイス&lt;/p>
+&lt;ol>
+&lt;li>Google Authenticator を起動&lt;/li>
+&lt;li>起動したアプリケーションの右上のメニューボタン&lt;code>...&lt;/code>をタップし、「&lt;strong>アカウントのエクスポート&lt;/strong>」を選択&lt;/li>
+&lt;li>エクスポート画面で、右下「&lt;strong>続行&lt;/strong>」ボタンをタップ&lt;/li>
+&lt;li>指紋認証、FaceID、または端末に設定している PIN（パスコード）を入力して本人確認を実行&lt;/li>
+&lt;li>移行させるアカウントを選択して、「&lt;strong>エクスポート&lt;/strong>」をタップ&lt;/li>
+&lt;li>移行用 QR コードが表示されたら準備完了&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>新しいデバイス&lt;/p>
+&lt;ol>
+&lt;li>Google Authenticator を起動し、「&lt;strong>開始&lt;/strong>」をタップ&lt;/li>
+&lt;li>左下「&lt;strong>既存のアカウントをインポートしますか？&lt;/strong>」をタップ&lt;/li>
+&lt;li>右下「&lt;strong>QR コードをスキャン&lt;/strong>」をタップ&lt;/li>
+&lt;li>エクスポート時に作成した移行用 QR コードを読み込む&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="android">Android&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>移行前のデバイス&lt;/p>
+&lt;ol>
+&lt;li>Google Authenticator を起動&lt;/li>
+&lt;li>起動したアプリケーションの右上のメニューボタン&lt;code>...&lt;/code>をタップし、「&lt;strong>アカウントの移行&lt;/strong>」を選択&lt;/li>
+&lt;li>エクスポート画面で、右下「&lt;strong>アカウントのエクスポート&lt;/strong>」ボタンをタップ&lt;/li>
+&lt;li>本人確認を実行&lt;/li>
+&lt;li>「&lt;strong>次へ&lt;/strong>」をタップ&lt;/li>
+&lt;li>移行用 QR コードが表示されたら準備完了&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>新しいデバイス&lt;/p>
+&lt;ol>
+&lt;li>Google Authenticator を起動し、「&lt;strong>使ってみる&lt;/strong>」をタップ&lt;/li>
+&lt;li>左下「&lt;strong>既存のアカウントをインポートしますか？&lt;/strong>」をタップ&lt;/li>
+&lt;li>右下「&lt;strong>QR コードをスキャン&lt;/strong>」をタップ&lt;/li>
+&lt;li>エクスポート時に作成した移行用 QR コードを読み込む&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>上記の手順を実行後、「&lt;strong>インポート完了&lt;/strong>」と表示されれば引き継ぎは完了です.&lt;/p>
+&lt;h2 id="microsoft-authenticator-の利用">Microsoft Authenticator の利用&lt;/h2>
+&lt;p>上記では Google Authenticator を解説しましたが、私は&lt;strong>Microsoft Authenticator&lt;/strong>を使用しています.&lt;/p>
+&lt;p>理由としては以下の通りです.&lt;/p>
+&lt;ul>
+&lt;li>バックアップ機能が搭載されていない&lt;/li>
+&lt;li>登録されているアプリケーションを並び替えると UI が壊れる
+&lt;ul>
+&lt;li>同一アプリケーションが複数表示される (誤って消すと両方とも消える)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>スマートフォン・アプリケーションでしか利用できない&lt;/li>
+&lt;/ul>
+&lt;p>非常にシンプルなのですが、UI が壊れるのも耐え難く、最大の理由としては「&lt;strong>バックアップ機能が搭載されていない&lt;/strong>」という点です. 万が一、デバイスが起動しなくなった際の再設定などの手間を考えると、あまり使いやすいとは言えません.&lt;/p>
+&lt;p>一方で、Microsoft Authenticator だと、Microsoft アカウントをアプリと同期することでバックアップが可能です. 詳しい方法に関しては、&lt;a class="link" href="https://support.microsoft.com/ja-jp/account-billing/%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E8%B3%87%E6%A0%BC%E6%83%85%E5%A0%B1%E3%82%92%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%81%8A%E3%82%88%E3%81%B3authenticator%E3%81%99%E3%82%8B-bb939936-7a8d-4e88-bc43-49bc1a700a40" target="_blank" rel="noopener"
+>こちら&lt;/a>を参照ください.&lt;/p>
+&lt;p>&lt;strong>※ iOS 版では iCloud でバックアップを行うため、iCloud のアカウントが必要となります.&lt;/strong>&lt;/p>
+&lt;p>しかし、Microsoft Authenticator も Google Authenticator と同じく、スマートフォン・アプリケーションでしか利用できません. 「PC でも使用したい！」と言う方は、&lt;a class="link" href="https://www.twilio.com/ja/" target="_blank" rel="noopener"
+>Twilio&lt;/a>社の&lt;code>Authy&lt;/code>を使用することをおすすめします.&lt;/p>
+&lt;p>&lt;strong>※ Authy を利用する場合は、別途 Authy のアカウントを作成する必要があります.&lt;/strong>&lt;/p>
+&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;p>今回は、2 段階認証の仕組みと、認証アプリケーションの引き継ぎ方法などについて解説しました.&lt;/p>
+&lt;p>2 段階認証アプリケーションを使用することで、アカウントの情報をよりセキュアに管理することができる反面、きちんと管理する必要があります. 特に 2 段階認証設定後の&lt;strong>バックアップコード&lt;/strong>の管理には十分、注意してください.&lt;/p>
+&lt;p>実体が無いとは言え、重要な資産なので、この記事を参考に大切に保管しましょう.&lt;/p></description></item><item><title>使用しているデバイスについて</title><link>https://example.com/p/%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Tue, 28 Sep 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>&lt;img src="https://example.com/p/%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/featured-image.webp" alt="Featured image of post 使用しているデバイスについて" />&lt;p>個人で使用しているデバイスの詳細情報について説明します.&lt;/p>
+&lt;h2 id="macbook-pro-13-inch-2019">Macbook Pro (13-inch, 2019)&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">項目&lt;/th>
+&lt;th>内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">OS&lt;/td>
+&lt;td>macOS 12.2 21D49 x86_64&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">CPU&lt;/td>
+&lt;td>Intel i7-8569U (8) @ 2.80GHz&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">GPU&lt;/td>
+&lt;td>Intel Iris Plus Graphics 655&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Memory&lt;/td>
+&lt;td>16 GB 2133 MHz LPDDR3&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal&lt;/td>
+&lt;td>iTerm2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal Font&lt;/td>
+&lt;td>FiraCodeNerdFontComplete-Regular&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Shell&lt;/td>
+&lt;td>zsh 5.8&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="pc">PC&lt;/h2>
+&lt;p>使用している PC には、3 つの OS がインストールされています。&lt;/p>
+&lt;h3 id="共通-desktop">共通 (Desktop)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">項目&lt;/th>
+&lt;th>内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">Motherboard&lt;/td>
+&lt;td>ROG STRIX H370-F GAMING (ASUSTeK COMPUTER INC.)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">CPU&lt;/td>
+&lt;td>Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">GPU&lt;/td>
+&lt;td>NVIDIA GeForce GTX 1060 6GB (MSI Co., Ltd.)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Memory&lt;/td>
+&lt;td>DDR4-2666MHz 8×4GB (Corsair Inc.)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Storage(OS)&lt;/td>
+&lt;td>Crucial MX500 500×2GB (Micron Technology, Inc.)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Storage&lt;/td>
+&lt;td>Western Digital Blue: 6TB, Green: 3×2TB (Western Digital Corporation)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="windowsos">WindowsOS&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">項目&lt;/th>
+&lt;th>内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">OS&lt;/td>
+&lt;td>Windows 11 Pro (64bit)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal&lt;/td>
+&lt;td>Windows Console&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal Font&lt;/td>
+&lt;td>FiraCode&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Shell&lt;/td>
+&lt;td>PowerShell v7.1.4&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="linux-1">Linux (1)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">項目&lt;/th>
+&lt;th>内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">OS&lt;/td>
+&lt;td>Manjaro Linux x86_64&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal&lt;/td>
+&lt;td>xfce4-terminal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal Font&lt;/td>
+&lt;td>FiraCode Nerd Font&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Shell&lt;/td>
+&lt;td>zsh 5.8&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="linux-2">Linux (2)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">項目&lt;/th>
+&lt;th>内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">OS&lt;/td>
+&lt;td>MX x86_64&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal&lt;/td>
+&lt;td>xfce4-terminal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Terminal Font&lt;/td>
+&lt;td>Lilex Nerd Font Mono Medium&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Shell&lt;/td>
+&lt;td>zsh 5.8&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>
