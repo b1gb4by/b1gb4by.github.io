@@ -1,0 +1,646 @@
+<!doctype html><html lang=en-us>
+<head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Rancher Desktop v1.0.0 has been released, and I tried to run it on MXLinux."><title>Running Rancher Desktop on MXLinux</title>
+<link rel=canonical href=https://example.com/p/running-rancher-desktop-on-mxlinux/>
+<link rel=stylesheet href=/scss/style.min.bbcfef3c56489f1f37b552146da519e6b6a74a4c92792bcc512c78e2f55f25e1.css><meta property="og:title" content="Running Rancher Desktop on MXLinux">
+<meta property="og:description" content="Rancher Desktop v1.0.0 has been released, and I tried to run it on MXLinux.">
+<meta property="og:url" content="https://example.com/p/running-rancher-desktop-on-mxlinux/">
+<meta property="og:site_name" content="A Life of Inquiry">
+<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="kubernetes"><meta property="article:tag" content="k3s"><meta property="article:tag" content="rancher"><meta property="article:tag" content="helm"><meta property="article:tag" content="containerd"><meta property="article:tag" content="moby"><meta property="article:tag" content="linux"><meta property="article:tag" content="mxlinux"><meta property="article:published_time" content="2022-01-27T00:00:00+00:00"><meta property="article:modified_time" content="2022-01-27T00:00:00+00:00"><meta property="og:image" content="https://example.com/p/running-rancher-desktop-on-mxlinux/featured-image.webp">
+<meta name=twitter:site content="@m0rer0">
+<meta name=twitter:creator content="@m0rer0"><meta name=twitter:title content="Running Rancher Desktop on MXLinux">
+<meta name=twitter:description content="Rancher Desktop v1.0.0 has been released, and I tried to run it on MXLinux."><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://example.com/p/running-rancher-desktop-on-mxlinux/featured-image.webp">
+<link rel="shortcut icon" href=img/favicon.svg>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BRRNK5J7PW',{anonymize_ip:!1})}</script>
+</head>
+<body class="article-page has-toc">
+<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>前のページ</span>
+</a>
+</div>
+<main class="main full-width">
+<article class="has-image main-article">
+<header class=article-header>
+<div class=article-image>
+<a href=/p/running-rancher-desktop-on-mxlinux/>
+<img src=/p/running-rancher-desktop-on-mxlinux/featured-image_hua255d1196849d3759ae697794b4989fc_2680_800x0_resize_q75_h2_box_2.webp srcset="/p/running-rancher-desktop-on-mxlinux/featured-image_hua255d1196849d3759ae697794b4989fc_2680_800x0_resize_q75_h2_box_2.webp 800w, /p/running-rancher-desktop-on-mxlinux/featured-image_hua255d1196849d3759ae697794b4989fc_2680_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=300 loading=lazy alt="Featured image of post Running Rancher Desktop on MXLinux">
+</a>
+</div>
+<div class=article-details>
+<header class=article-category>
+<a href=/categories/kubernetes/ style=background-color:#398ab9;color:#fff>
+Kubernetes
+</a>
+<a href=/categories/english/ style=background-color:#ff9f45;color:#fff>
+English
+</a>
+</header>
+<h2 class=article-title>
+<a href=/p/running-rancher-desktop-on-mxlinux/>Running Rancher Desktop on MXLinux</a>
+</h2>
+<h3 class=article-subtitle>
+Rancher Desktop v1.0.0 has been released, and I tried to run it on MXLinux.
+</h3>
+<footer class=article-time>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jan 27, 2022</time>
+</div>
+<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>
+読了時間: 4分
+</time>
+</div>
+</footer>
+</div>
+</header>
+<section class=article-content>
+<p>On January 26th, <a class=link href=https://rancherdesktop.io/ target=_blank rel=noopener>Rancher Desktop</a> was officially released as <a class=link href=https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0 target=_blank rel=noopener>v1.0.0</a>.</p>
+<p>In this article, I&rsquo;ll try to install and run Rancher Desktop on MXLinux.</p>
+<h2 id=what-is-rancher-desktop>What is Rancher Desktop?</h2>
+<p>Rancher Desktop is a desktop application built on Electron and Node.js that allows you to run Kubernetes and container management on your desktop.</p>
+<p>You can choose any version of Kubernetes to run.</p>
+<p>You can use <code>containerd</code> or <code>Moby (dockerd)</code> to build, push, pull and run container images. The built container images can be run immediately in Kubernetes without the need for a registry.</p>
+<h2 id=requirements>Requirements</h2>
+<p>It is an OSS desktop application that can run on macOS, Windows, and various Linux environments. It also supports M1, so it can run on almost any environment.</p>
+<p>The requirements for each environment are as follows.</p>
+<h3 id=macos>macOS</h3>
+<ul>
+<li><strong>macOS</strong>.
+<ul>
+<li>Catalina 10.15 or later</li>
+</ul>
+</li>
+<li>CPU architecture**
+<ul>
+<li>Intel CPU with Apple Silicon (M1) or VT-x</li>
+</ul>
+</li>
+</ul>
+<h3 id=windowsos>WindowsOS</h3>
+<ul>
+<li><strong>Windows</strong>.
+<ul>
+<li>Windows 10 build 1909 or later</li>
+<li>Home Edition is also supported</li>
+</ul>
+</li>
+<li><strong>Hyper-V (virtualization)</strong> is enabled</li>
+<li><strong>Windows Subsystem for Linux (WSL)</strong>.
+<ul>
+<li>Rancher Desktop requires WSL on Windows, but it will be installed automatically as part of the setup</li>
+<li>No need to download the distribution manually</li>
+</ul>
+</li>
+</ul>
+<h3 id=linux>Linux</h3>
+<ul>
+<li>Distributions that can install <code>.deb</code> or <code>.rpm</code> packages, or `AppImages</li>
+</ul>
+<h3 id=machine-specs>Machine specs</h3>
+<ul>
+<li>8GB memory</li>
+<li>4-core CPU</li>
+</ul>
+<h2 id=how-it-works>How it works</h2>
+<p>Rancher Desktop is wrapping other tools to make it work.</p>
+<p>On MacOS and Linux, it leverages virtual machines such as <a class=link href=https://github.com/lima-vm/lima target=_blank rel=noopener>Lima</a> and <a class=link href=https://www.qemu.org/ target=_blank rel=noopener>QEMU</a> to run <code>containerd</code> or <code>dockerd</code> and Kubernetes (<a class=link href=https://k3s.io/ target=_blank rel=noopener>k3s</a>).</p>
+<p>For Windows systems, we utilize <a class=link href=https://docs.microsoft.com/en-us/windows/wsl/ target=_blank rel=noopener>Windows Subsystem for Linux v2 (WSL2)</a>.</p>
+<blockquote>
+<p>The figure below is taken from <a class=link href=https://rancherdesktop.io/ target=_blank rel=noopener>rancher</a>
+how-it-works-rancher-desktop](how-it-works-rancher-desktop.webp)</p>
+</blockquote>
+<p>Rancher Desktop provides functions to build, push, and pull images using <a class=link href=https://github.com/containerd/nerdctl target=_blank rel=noopener>NERDCTL project</a> and Docker CLI.
+Note that both <code>nerdctl</code> and <code>docker</code> are automatically included in the path. On Windows, this is done during the installer, and on macOS and Linux, it is done at first run.</p>
+<p>To use either of these tools, Rancher Desktop must be running with the appropriate container runtime.</p>
+<p>For <code>nerdctl</code>, use the <code>containerd</code> runtime; for docker, use the <code>dockerd (moby)</code> runtime.</p>
+<blockquote>
+<p>About Lima</p>
+<p>Lima is similar to WSL, and boots a Linux virtual machine with automatic file sharing and port forwarding, and containerd. Lima is intended to be used on macOS hosts, but can be used on Linux hosts as well.</p>
+</blockquote>
+<blockquote>
+<p>About QEMU</p>
+<p>QEMU is an OSS PC emulator. It runs on Linux, Windows, etc. on various CPUs such as x86, SPARC, MIPS, etc. It has the feature that it can execute instructions of other CPUs while converting them into native code.</p>
+</blockquote>
+<blockquote>
+<p>About k3s</p>
+<p>k3s is one of the lightweight Kubernetes released by Rancher Labs, featuring a binary size of less than 40MB and a memory usage of only 512MB. Recently, it is expected to be used in IoT and Edge computing.</p>
+</blockquote>
+<blockquote>
+<p>About nerdctl</p>
+<p>nerdctl is a container manipulation tool for containerd. You can think of it as a docker command for containerd.</p>
+</blockquote>
+<h2 id=installing-on-mxlinux>Installing on MXLinux</h2>
+<p>Let&rsquo;s try to install Rancher Desktop on one of the Linux distributions, <a class=link href=https://mxlinux.org/ target=_blank rel=noopener>MXLinux</a>.</p>
+<p>To install, follow the <a class=link href=https://docs.rancherdesktop.io/installation#linux target=_blank rel=noopener>official documentation</a>, add the Rancher Desktop repository, and install Rancher Desktop.</p>
+<p>There are several packages available for installation on Linux, but since MXLinux is based on Debian(stable), we will use the <code>.deb</code> package.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># Obtain and register the repository</span>
+$ curl https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key <span class=p>|</span> sudo apt-key add -
+$ sudo add-apt-repository <span class=s1>&#39;deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./&#39;</span>
+
+<span class=c1># Updated package list</span>
+$ sudo apt update
+
+<span class=c1># Install Rancher Desktop</span>
+$ sudo apt install rancher-desktop
+</code></pre></td></tr></table>
+</div>
+</div><p>This completes the installation of Rancher Desktop. It&rsquo;s very easy.</p>
+<blockquote>
+<p>About MXLinux</p>
+<p>MXLinux is one of the most popular Linux distributions on <a class=link href=https://distrowatch.com/ target=_blank rel=noopener>DistroWatch.com</a>
+It is a joint project between antiX and the former MEPIS Linux community and is being developed in Greece and the United States.</p>
+</blockquote>
+<h2 id=launching-rancher-desktop>Launching Rancher Desktop</h2>
+<p>Let&rsquo;s run the installed Rancher Desktop. The application itself is very simple.</p>
+<h3 id=general>General</h3>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-general.webp width=944 height=636 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-general class=gallery-image data-flex-grow=148 data-flex-basis=356px></p>
+<h3 id=kubernetes-setting>Kubernetes Setting</h3>
+<p>Next, let&rsquo;s take a look at the Kubernetes configuration.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting.webp width=944 height=626 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-k8s-setting class=gallery-image data-flex-grow=150 data-flex-basis=361px></p>
+<p>In <code>Kubernetes version</code>, you can specify the version of Kubernetes. You can select from v1.23.3, the latest version at the time of writing, to v1.16.7, the oldest version.</p>
+<p>The <code>Port</code> is set to <code>6443</code> by default.</p>
+<p>For <code>Container runtime</code>, you can choose between <code>containerd</code> and <code>dockerd (moby)</code>.</p>
+<p>For <code>Memory (GB)</code> and <code>CPUs</code>, you can specify the number of memory and CPU cores. If you increase the value up to the red line, a warning message will be displayed as shown below.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger.webp width=944 height=626 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-k8s-setting-danger class=gallery-image data-flex-grow=150 data-flex-basis=361px></p>
+<p>If you want to clean up your environment once, you can easily reset it by pressing <code>Reset Kubernetes</code>.</p>
+<h3 id=supporting-utilities>Supporting Utilities</h3>
+<p>In the <code>Supporting Utilities</code> section, you can see the tools that were installed. For Docker, etc., which were already installed, a warning was carefully written.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities.webp width=944 height=626 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-supporting-utilities class=gallery-image data-flex-grow=150 data-flex-basis=361px></p>
+<h3 id=images>Images</h3>
+<p>In <code>Images</code>, you can see the images used by Rancher Desktop. Select <code>Scan</code> from <code>⋮</code> in the image list to scan the image for vulnerabilities using <a class=link href=https://github.com/aquasecurity/trivy target=_blank rel=noopener>Trivy</a>.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-images.webp width=944 height=712 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-images class=gallery-image data-flex-grow=132 data-flex-basis=318px></p>
+<p>Notice the <code>Image Namespace</code> here. In <code>containerd</code>, the concept of <code>namespace</code> exists as in Kubernetes.
+So, just as Kubernetes can have <code>namespace</code>, <code>containerd</code> can have <code>namespace</code> as well.
+In the above figure, the image exists in <code>namespace:k8s.io</code>.</p>
+<p>Let&rsquo;s check the <code>namespace</code> using the <code>nerdctl</code> command. Use <code>nerdctl namespace list</code> to display a list of <code>namespaces</code>.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl namespace list
+NAME        CONTAINERS    IMAGES    VOLUMES
+buildkit    <span class=m>0</span>             <span class=m>0</span>         <span class=m>0</span>
+k8s.io      <span class=m>22</span>            <span class=m>16</span>        <span class=m>0</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>When you run <code>nerdctl --namespace k8s.io ps</code>, you can see that the image exists in <code>k8s.io</code>.</p>
+<p>You can also use <code>nerdctl --namespace k8s.io ps</code> to check <code>namespace:k8s.io</code> for Kubernetes containers created with Rancher Desktop.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl --namespace k8s.io ps
+CONTAINER ID    IMAGE                                               COMMAND                   CREATED           STATUS    PORTS    NAMES
+1f642d94e7d5    docker.io/rancher/klipper-lb:v0.3.4                 <span class=s2>&#34;entry&#34;</span>                   <span class=m>50</span> minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-443
+2ca56d5f0874    docker.io/rancher/mirrored-library-traefik:2.5.6    <span class=s2>&#34;/entrypoint.sh --gl…&#34;</span>    <span class=m>49</span> minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik
+2f1c800451cf    docker.io/rancher/mirrored-coredns-coredns:1.8.6    <span class=s2>&#34;/coredns -conf /etc…&#34;</span>    <span class=m>49</span> minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq/coredns
+56bd8fba2fda    docker.io/rancher/klipper-lb:v0.3.4                 <span class=s2>&#34;entry&#34;</span>                   <span class=m>50</span> minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr/lb-port-80
+5908afd18045    docker.io/rancher/mirrored-pause:3.6                <span class=s2>&#34;/pause&#34;</span>                  <span class=m>49</span> minutes ago    Up                 k8s://kube-system/coredns-5789895cd-wgxlq
+8c16131e6d1b    docker.io/rancher/mirrored-pause:3.6                <span class=s2>&#34;/pause&#34;</span>                  <span class=m>50</span> minutes ago    Up                 k8s://kube-system/svclb-traefik-svnfr
+95b859fec9ed    docker.io/rancher/mirrored-pause:3.6                <span class=s2>&#34;/pause&#34;</span>                  <span class=m>49</span> minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh
+a0656b86ab35    docker.io/rancher/local-path-provisioner:v0.0.21    <span class=s2>&#34;local-path-provisio…&#34;</span>    <span class=m>49</span> minutes ago    Up                 k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner
+a5c31106d6d7    docker.io/rancher/mirrored-pause:3.6                <span class=s2>&#34;/pause&#34;</span>                  <span class=m>49</span> minutes ago    Up                 k8s://kube-system/traefik-6bb96f9bd8-cflf4
+c9417746b27d    docker.io/rancher/mirrored-pause:3.6                <span class=s2>&#34;/pause&#34;</span>                  <span class=m>49</span> minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd
+ce64e7b0a242    docker.io/rancher/mirrored-metrics-server:v0.5.2    <span class=s2>&#34;/metrics-server --c…&#34;</span>    <span class=m>49</span> minutes ago    Up                 k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=troubleshooting>Troubleshooting</h3>
+<p>In <code>Troubleshooting</code>, you can enable logging and initialize Rancher Desktop itself.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting.webp width=1077 height=712 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-troubleshooting class=gallery-image data-flex-grow=151 data-flex-basis=363px></p>
+<h2 id=検証>検証</h2>
+<p>Let&rsquo;s try to run a container on Rancher Desktop.</p>
+<h3 id=use-nerdctl>Use nerdctl</h3>
+<p>Try to start nginx using the <code>nerdctl</code> command. If <code>namespace</code> is not specified, it will be placed in <code>default</code> by default.</p>
+<h4 id=launch-nginx>Launch nginx</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
+docker.io/library/nginx:latest:                                                   resolved       <span class=p>|</span>++++++++++++++++++++++++++++++++++++++<span class=p>|</span>
+index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767:    <span class=k>done</span>           <span class=p>|</span>++++++++++++++++++++++++++++++++++++++<span class=p>|</span>
+...
+elapsed: 7.2 s                                                                    total:  54.1 M <span class=o>(</span>7.5 MiB/s<span class=o>)</span>
+484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=check-the-status-of-the-container>Check the status of the container.</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl ps
+CONTAINER ID    IMAGE                             COMMAND                   CREATED          STATUS    PORTS                   NAMES
+484e86556e00    docker.io/library/nginx:latest    <span class=s2>&#34;/docker-entrypoint.…&#34;</span>    <span class=m>6</span> minutes ago    Up        0.0.0.0:9999-&gt;80/tcp    nginx-484e8
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=check-the-namespace>Check the namespace</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl namespace list
+NAME      CONTAINERS IMAGES VOLUMES
+buildkit  <span class=m>0</span>          <span class=m>0</span>      <span class=m>0</span>
+default   <span class=m>1</span>          <span class=m>1</span>      <span class=m>0</span>
+k8s.io    <span class=m>22</span>         <span class=m>16</span>     <span class=m>0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=check-the-process-of-namespace-default>Check the process of namespace default</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/nerdctl --namespace default ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest <span class=s2>&#34;/docker-entrypoint.…&#34;</span> <span class=m>11</span> minutes ago Up 0.0.0.0:9999-&gt;80/tcp nginx-484e8
+</code></pre></td></tr></table>
+</div>
+</div><p>You can also see the nginx image in <code>namespace:default</code> from Rancher Desktop.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx.webp width=1077 height=386 srcset="/p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=rancher-desktop-run-nginx class=gallery-image data-flex-grow=279 data-flex-basis=669px></p>
+<p>Finally, try to access <code>localhost:9999</code> to check if nginx is up and running.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/run-nginx.webp width=713 height=311 srcset="/p/running-rancher-desktop-on-mxlinux/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=run-nginx class=gallery-image data-flex-grow=229 data-flex-basis=550px></p>
+<h3 id=use-helm>Use Helm</h3>
+<p>Rancher Desktop also installs Helm at startup, so let&rsquo;s deploy Grafana to Kubernetes using Helm.</p>
+<h4 id=add-grafana-repository-to-helm>Add Grafana repository to Helm</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/helm repo add grafana https://grafana.github.io/helm-charts
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=verify-that-the-repository-has-been-added-to-helm>Verify that the repository has been added to Helm</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/helm repo list
+NAME    URL
+grafana https://grafana.github.io/helm-charts
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=view-the-chart-from-the-added-grafana-repository>View the chart from the added Grafana repository</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/helm search repo grafana
+NAME                            CHART VERSION   APP VERSION DESCRIPTION
+grafana/grafana                 6.21.1          8.3.4       The leading tool <span class=k>for</span> querying and visualizing t...
+grafana/grafana-agent-operator  0.1.5           0.22.0      A Helm chart <span class=k>for</span> Grafana Agent Operator
+grafana/enterprise-logs         2.0.0           v1.3.0      Grafana Enterprise Logs
+grafana/enterprise-metrics      1.7.3           v1.6.1      Grafana Enterprise Metrics
+grafana/fluent-bit              2.3.0           v2.1.0      Uses fluent-bit Loki go plugin <span class=k>for</span> gathering lo...
+grafana/loki                    2.9.1           v2.4.2      Loki: like Prometheus, but <span class=k>for</span> logs.
+grafana/loki-canary             0.5.1           2.4.1       Helm chart <span class=k>for</span> Grafana Loki Canary
+grafana/loki-distributed        0.42.0          2.4.2       Helm chart <span class=k>for</span> Grafana Loki in microservices mode
+grafana/loki-simple-scalable    0.2.0           2.4.2       Helm chart <span class=k>for</span> Grafana Loki in simple, scalable...
+grafana/loki-stack              2.5.1           v2.1.0      Loki: like Prometheus, but <span class=k>for</span> logs.
+grafana/promtail                3.10.0          2.4.2       Promtail is an agent which ships the contents o...
+grafana/tempo                   0.13.0          1.3.0       Grafana Tempo Single Binary Mode
+grafana/tempo-distributed       0.15.0          1.3.0       Grafana Tempo in MicroService mode
+grafana/tempo-vulture           0.2.0           1.3.0       Grafana Tempo Vulture - A tool to monitor Tempo...
+</code></pre></td></tr></table>
+</div>
+</div><h4 id=helm-charts-released>Helm Charts Released</h4>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/kubectl create namespace monitoring
+$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
+W0128 03:37:33.477723  <span class=m>218028</span> warnings.go:70<span class=o>]</span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.480386  <span class=m>218028</span> warnings.go:70<span class=o>]</span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538004  <span class=m>218028</span> warnings.go:70<span class=o>]</span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538201  <span class=m>218028</span> warnings.go:70<span class=o>]</span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+NAME: grafana
+LAST DEPLOYED: Fri Jan <span class=m>28</span> 03:37:32 <span class=m>2022</span>
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: <span class=m>1</span>
+NOTES:
+1. Get your <span class=s1>&#39;admin&#39;</span> user password by running:
+
+   kubectl get secret --namespace monitoring grafana -o <span class=nv>jsonpath</span><span class=o>=</span><span class=s2>&#34;{.data.admin-password}&#34;</span> <span class=p>|</span> base64 --decode <span class=p>;</span> <span class=nb>echo</span>
+
+2. The Grafana server can be accessed via port <span class=m>80</span> on the following DNS name from within your cluster:
+
+   grafana.monitoring.svc.cluster.local
+
+   Get the Grafana URL to visit by running these commands in the same shell:
+
+     <span class=nb>export</span> <span class=nv>POD_NAME</span><span class=o>=</span><span class=k>$(</span>kubectl get pods --namespace monitoring -l <span class=s2>&#34;app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana&#34;</span> -o <span class=nv>jsonpath</span><span class=o>=</span><span class=s2>&#34;{.items[0].metadata.name}&#34;</span><span class=k>)</span>
+     kubectl --namespace monitoring port-forward <span class=nv>$POD_NAME</span> <span class=m>3000</span>
+
+3. Login with the password from step <span class=m>1</span> and the username: admin
+<span class=c1>#################################################################################</span>
+<span class=c1>######   WARNING: Persistence is disabled!!! You will lose your data when   #####</span>
+<span class=c1>######            the Grafana pod is terminated.                            #####</span>
+<span class=c1>#################################################################################</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Following the steps above, you should now be able to successfully login to Grafana.</p>
+<p><img src=/p/running-rancher-desktop-on-mxlinux/grafana-dashboard.webp width=883 height=593 srcset="/p/running-rancher-desktop-on-mxlinux/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_480x0_resize_q75_h2_box_2.webp 480w, /p/running-rancher-desktop-on-mxlinux/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy alt=grafana-dashboard class=gallery-image data-flex-grow=148 data-flex-basis=357px></p>
+<p>Finally, use the <code>kubectl</code> command to make sure that Grafana is up and running.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ ./.local/bin/kubectl get all --namespace monitoring
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/grafana-6b9d4f7f86-mwb4q   1/1     Running   <span class=m>0</span>          15m
+
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT<span class=o>(</span>S<span class=o>)</span>   AGE
+service/grafana   ClusterIP   10.43.218.65   &lt;none&gt;        80/TCP    15m
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana   1/1     <span class=m>1</span>            <span class=m>1</span>           15m
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/grafana-6b9d4f7f86   <span class=m>1</span>         <span class=m>1</span>         <span class=m>1</span>       15m
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see above, you can easily develop and deploy your application just by running Rancher Desktop.</p>
+<h2 id=impression>Impression</h2>
+<p>This time, I touched Rancher Desktop, which was released v1.0.0, and found it to be a very complete tool. If you are new to <code>containerd</code> or <code>nerdctl</code>, Rancher Desktop is a good opportunity for you.</p>
+<p>Last year, <a class=link href=https://www.docker.com/blog/updating-product-subscriptions/ target=_blank rel=noopener>Docker Desktop is now paid</a> became a big news, and Rancher Desktop, but
+If you switch from Docker Desktop, you will be able to use it without any problems. If you want to use Docker&rsquo;s runtime, you can switch from Rancher Desktop without much trouble.</p>
+<p>Also, I personally think that the ability to smoothly switch between Kubernetes versions is a big advantage.</p>
+<p>There is a great possibility that this will become one of the most popular ways to use containers in the future, so I will keep an eye on the future developments.</p>
+</section>
+<footer class=article-footer>
+<section class=article-tags>
+<a href=/tags/kubernetes/>kubernetes</a>
+<a href=/tags/k3s/>k3s</a>
+<a href=/tags/rancher/>rancher</a>
+<a href=/tags/helm/>helm</a>
+<a href=/tags/containerd/>containerd</a>
+<a href=/tags/moby/>moby</a>
+<a href=/tags/linux/>linux</a>
+<a href=/tags/mxlinux/>mxlinux</a>
+</section>
+<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span>
+</section>
+</footer>
+</article>
+<aside class=related-contents--wrapper>
+<h2 class=section-title>関連するコンテンツ</h2>
+<div class=related-contents>
+<div class="flex article-list--tile">
+<article class=has-image>
+<a href=/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/>
+<div class=article-image>
+<img src=/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/featured-image.64c2b1e041af97fb6e5bb2acf9019110_hua255d1196849d3759ae697794b4989fc_2680_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post MXLinux で Rancher Desktop を動かす" data-hash="md5-ZMKx4EGvl/tuW7Ks+QGREA==">
+</div>
+<div class=article-details>
+<h2 class=article-title>MXLinux で Rancher Desktop を動かす</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/karpenter-deep-dive/>
+<div class=article-image>
+<img src=/p/karpenter-deep-dive/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter Deep Dive " data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Karpenter Deep Dive </h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/>
+<div class=article-image>
+<img src=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter を調べてみた" data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Karpenter を調べてみた</h2>
+</div>
+</a>
+</article>
+</div>
+</div>
+</aside>
+<footer class=site-footer>
+<section class=copyright>
+&copy;
+2020 -
+2022 A Life of Inquiry
+</section>
+<section class=powerby>
+Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.8.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
+</section>
+</footer>
+<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
+<div class=pswp__bg></div>
+<div class=pswp__scroll-wrap>
+<div class=pswp__container>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+<div class=pswp__item></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class=pswp__top-bar>
+<div class=pswp__counter></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class=pswp__preloader>
+<div class=pswp__preloader__icn>
+<div class=pswp__preloader__cut>
+<div class=pswp__preloader__donut></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class=pswp__share-tooltip></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+</button>
+<div class=pswp__caption>
+<div class=pswp__caption__center></div>
+</div>
+</div>
+</div>
+</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
+</main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">目次</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#what-is-rancher-desktop>What is Rancher Desktop?</a></li>
+<li><a href=#requirements>Requirements</a>
+<ol>
+<li><a href=#macos>macOS</a></li>
+<li><a href=#windowsos>WindowsOS</a></li>
+<li><a href=#linux>Linux</a></li>
+<li><a href=#machine-specs>Machine specs</a></li>
+</ol>
+</li>
+<li><a href=#how-it-works>How it works</a></li>
+<li><a href=#installing-on-mxlinux>Installing on MXLinux</a></li>
+<li><a href=#launching-rancher-desktop>Launching Rancher Desktop</a>
+<ol>
+<li><a href=#general>General</a></li>
+<li><a href=#kubernetes-setting>Kubernetes Setting</a></li>
+<li><a href=#supporting-utilities>Supporting Utilities</a></li>
+<li><a href=#images>Images</a></li>
+<li><a href=#troubleshooting>Troubleshooting</a></li>
+</ol>
+</li>
+<li><a href=#検証>検証</a>
+<ol>
+<li><a href=#use-nerdctl>Use nerdctl</a>
+<ol>
+<li><a href=#launch-nginx>Launch nginx</a></li>
+<li><a href=#check-the-status-of-the-container>Check the status of the container.</a></li>
+<li><a href=#check-the-namespace>Check the namespace</a></li>
+<li><a href=#check-the-process-of-namespace-default>Check the process of namespace default</a></li>
+</ol>
+</li>
+<li><a href=#use-helm>Use Helm</a>
+<ol>
+<li><a href=#add-grafana-repository-to-helm>Add Grafana repository to Helm</a></li>
+<li><a href=#verify-that-the-repository-has-been-added-to-helm>Verify that the repository has been added to Helm</a></li>
+<li><a href=#view-the-chart-from-the-added-grafana-repository>View the chart from the added Grafana repository</a></li>
+<li><a href=#helm-charts-released>Helm Charts Released</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#impression>Impression</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+</body>
+</html>

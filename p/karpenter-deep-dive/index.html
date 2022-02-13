@@ -1,15 +1,15 @@
 <!doctype html><html lang=en-us>
 <head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Karpenter について深堀りします"><title>Karpenter Deep Dive</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Let's take a deep dive into Karpenter"><title>Karpenter Deep Dive </title>
 <link rel=canonical href=https://example.com/p/karpenter-deep-dive/>
-<link rel=stylesheet href=/scss/style.min.bbcfef3c56489f1f37b552146da519e6b6a74a4c92792bcc512c78e2f55f25e1.css><meta property="og:title" content="Karpenter Deep Dive">
-<meta property="og:description" content="Karpenter について深堀りします">
+<link rel=stylesheet href=/scss/style.min.bbcfef3c56489f1f37b552146da519e6b6a74a4c92792bcc512c78e2f55f25e1.css><meta property="og:title" content="Karpenter Deep Dive ">
+<meta property="og:description" content="Let's take a deep dive into Karpenter">
 <meta property="og:url" content="https://example.com/p/karpenter-deep-dive/">
 <meta property="og:site_name" content="A Life of Inquiry">
 <meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="AWS"><meta property="article:tag" content="EKS"><meta property="article:tag" content="kubernetes"><meta property="article:tag" content="auto-scaling"><meta property="article:published_time" content="2021-12-16T00:00:00+00:00"><meta property="article:modified_time" content="2021-12-16T00:00:00+00:00"><meta property="og:image" content="https://example.com/p/karpenter-deep-dive/featured-image.webp">
 <meta name=twitter:site content="@m0rer0">
-<meta name=twitter:creator content="@m0rer0"><meta name=twitter:title content="Karpenter Deep Dive">
-<meta name=twitter:description content="Karpenter について深堀りします"><meta name=twitter:card content="summary_large_image">
+<meta name=twitter:creator content="@m0rer0"><meta name=twitter:title content="Karpenter Deep Dive ">
+<meta name=twitter:description content="Let's take a deep dive into Karpenter"><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://example.com/p/karpenter-deep-dive/featured-image.webp">
 <link rel="shortcut icon" href=img/favicon.svg>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script>
@@ -29,7 +29,7 @@ extended">
 <header class=article-header>
 <div class=article-image>
 <a href=/p/karpenter-deep-dive/>
-<img src=/p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_800x0_resize_q75_h2_box_2.webp srcset="/p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_800x0_resize_q75_h2_box_2.webp 800w, /p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=400 loading=lazy alt="Featured image of post Karpenter Deep Dive">
+<img src=/p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_800x0_resize_q75_h2_box_2.webp srcset="/p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_800x0_resize_q75_h2_box_2.webp 800w, /p/karpenter-deep-dive/featured-image_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=400 loading=lazy alt="Featured image of post Karpenter Deep Dive ">
 </a>
 </div>
 <div class=article-details>
@@ -37,12 +37,15 @@ extended">
 <a href=/categories/kubernetes/ style=background-color:#398ab9;color:#fff>
 Kubernetes
 </a>
+<a href=/categories/english/ style=background-color:#ff9f45;color:#fff>
+English
+</a>
 </header>
 <h2 class=article-title>
-<a href=/p/karpenter-deep-dive/>Karpenter Deep Dive</a>
+<a href=/p/karpenter-deep-dive/>Karpenter Deep Dive </a>
 </h2>
 <h3 class=article-subtitle>
-Karpenter について深堀りします
+Let's take a deep dive into Karpenter
 </h3>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
@@ -50,56 +53,55 @@ Karpenter について深堀りします
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-読了時間: 10分
+読了時間: 9分
 </time>
 </div>
 </footer>
 </div>
 </header>
 <section class=article-content>
-<p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.</p>
-<p>今回は、それについて深堀りしてみます.</p>
-<h2 id=はじめに>はじめに</h2>
-<p>これは <a class=link href=https://qiita.com/advent-calendar/2021/kubernetes target=_blank rel=noopener>Kubernetes Advent Calendar 2021</a> 18 日目の記事です.</p>
-<h2 id=karpenter-とは>Karpenter とは</h2>
-<p>Karpenter は、<strong>「Just-in-time Nodes for Any Kubernetes Cluster」</strong> と公式で記載されている通り、スケジュールが不能な Pod に対して、瞬時に新しい Node をプロビジョニングする機能を提供します. それにより、Kubernetes クラスター上でワークロードを実行する際の効率とコスト改善をゴールとしています.</p>
-<p>Karpenter の動作は以下の通りになります.</p>
+<p>Recently, Karpenter graduated from AWS re:Invent with autoscaling of Nodes in Kubernetes clusters.</p>
+<p>In this article, we&rsquo;ll take a deeper look at it.</p>
+<h2 id=introduction>Introduction</h2>
+<p>This is the 18th day of the [Kubernetes Advent Calendar 2021](&lt;(<a class=link href=https://qiita.com/advent-calendar/2021/kubernetes%29%29 target=_blank rel=noopener>https://qiita.com/advent-calendar/2021/kubernetes))</a>.</p>
+<h2 id=what-is-karpenter>What is Karpenter?</h2>
+<p>Officially described as &ldquo;Just-in-time Nodes for Any Kubernetes Cluster&rdquo;, Karpenter provides the ability to instantly provision new Nodes for unscheduled Pods. The goal is to improve the efficiency and cost of running workloads on Kubernetes clusters.</p>
+<p>Karpenter works as follows.</p>
 <ul>
-<li>Kubernetes スケジューラがスケジューリング不能とマークした Pod を監視する</li>
-<li>Pod から要求された以下のスケジューリング制約の評価
+<li>Monitor Pods that the Kubernetes scheduler has marked as unschedulable</li>
+<li>Evaluate the following scheduling constraints as requested by the Pod
 <ul>
-<li>リソース要求</li>
-<li>Node セレクタ</li>
-<li>アフィニティ</li>
-<li>トレラント</li>
-<li>トポロジー拡散制約</li>
+<li>Resource Request</li>
+<li>Node Selector</li>
+<li>Affinity</li>
+<li>Tolerant</li>
+<li>Topology spreading constraints</li>
 </ul>
 </li>
-<li>Pod の要件を満たす Node のプロビジョニング</li>
-<li>新しい Node で実行する Pod のスケジューリング</li>
-<li>Node が不要になったら削除する</li>
+<li>Provisioning a Node to meet Pod requirements</li>
+<li>Scheduling a Pod to run on a new Node</li>
+<li>Deleting a Node when it is no longer needed</li>
 </ul>
 <blockquote>
-<p>Karpenter の利用方法について</p>
-<p>Karpenter は 2021 年 12 月 現在、AWS のみをサポートしています.</p>
+<p>How to use Karpenter</p>
+<p>Karpenter will only support AWS as of December 2021.</p>
 </blockquote>
-<h2 id=kubernetes-におけるオートスケール>Kubernetes におけるオートスケール</h2>
-<p>Kubernetes には、Pod と Node それぞれにオートスケールする機能が提供されています.</p>
+<h2 id=autoscale-in-kubernetes>Autoscale in Kubernetes</h2>
 <h3 id=pod>Pod</h3>
-<p>Pod には、以下の 2 種類のスケール方法があります.</p>
-<h4 id=水平スケール-horizontal-pod-autoscaler>水平スケール (Horizontal Pod Autoscaler)</h4>
-<p>Pod の水平スケールは、Pod 数を増やすことにより処理性能を向上させるスケール方法です. CPU やメモリなど、ユーザが独自に設定したメトリクスなども判断の材料として使えます.</p>
-<p>Pod 数は以下の計算式で算出されます.</p>
-<p><code>希望するレプリカ数 = ceil[&lt;現在の Pod数> * (&lt;現在の指標値 / &lt;ターゲットとする指標値>)]</code></p>
-<h4 id=垂直スケール-vertical-pod-autoscaler>垂直スケール (Vertical Pod Autoscaler)</h4>
-<p>Pod が利用可能なリソースを増やすことで処理性能を向上させるスケール方法です. こちらは、CPU やメモリを判断材料に使用します. どちらかと言うとリソース使用率の最適化を行っているイメージです.</p>
+<p>There are two ways to scale the Pod.</p>
+<h4 id=horizontal-pod-auto-scaler>Horizontal Pod Auto scaler</h4>
+<p>Horizontal pod scaling is a method of scaling to improve processing performance by increasing the number of pods. User-defined metrics such as CPU, memory, etc. can also be used to make decisions.</p>
+<p>The number of pods is calculated by the following formula.</p>
+<p><code>Number of replicas desired = ceil[&lt;current number of pods> * (&lt;current index value / &lt;target index value>)]</code>.</p>
+<h4 id=vertical-pod-auto-scaler>Vertical Pod Auto scaler</h4>
+<p>This is a method of scaling that improves processing performance by increasing the resources available to the pod. In this case, the CPU and memory are used as criteria. It is more like optimizing the resource utilization.</p>
 <h3 id=node>Node</h3>
-<h4 id=node-の水平オートスケーラー-cluster-autoscaler>Node の水平オートスケーラー (Cluster Autoscaler)</h4>
-<p>ワーカー Node の台数を増やすことによって処理性能を向上させるスケール方法です. Pod の水平スケールなどと連携することも可能です.</p>
-<h2 id=インストール方法>インストール方法</h2>
-<p>Karpenter は、Helm Chart でクラスタにインストールされます.
-Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要とします.</p>
-<p>現在、Karpenter を使用する際に必要なユーティリティは以下の通りです.</p>
+<h4 id=cluster-auto-scaler>Cluster Auto scaler</h4>
+<p>It is a method of scaling to improve processing performance by increasing the number of worker Nodes. It can also be used in conjunction with horizontal scaling of Pods.</p>
+<h2 id=how-to-install>How to install</h2>
+<p>Karpenter will be installed on the cluster with Helm Chart.
+Karpenter also requires IAM Roles for Service Accounts (IRSA).</p>
+<p>Currently, the utilities required to use Karpenter are as follows</p>
 <ul>
 <li><a class=link href=https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html target=_blank rel=noopener>AWS CLI</a></li>
 <li><code>kubectl</code>
@@ -118,25 +120,25 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 </ul>
 </li>
 </ul>
-<p>AWS への Karpenter のインストール方法は、<a class=link href=https://karpenter.sh/docs/getting-started/#install target=_blank rel=noopener>こちら</a>の公式ドキュメントの <strong>「Getting Started with Karpenter on AWS」</strong> を参考にすると良いと思います.</p>
-<p>Karpenter の Helm Chart は<a class=link href=https://github.com/aws/karpenter/tree/main/charts/karpenter target=_blank rel=noopener>こちら</a>から確認することができます.</p>
+<p>To learn how to install Karpenter on AWS, please refer to the official document &ldquo;<a class=link href=https://karpenter.sh/docs/getting-started/#install target=_blank rel=noopener>Getting Started with Karpenter on AWS</a>&rdquo;.</p>
+<p>Karpenter&rsquo;s Helm Chart can be found <a class=link href=https://github.com/aws/karpenter/tree/main/charts/karpenter target=_blank rel=noopener>here</a>.</p>
 <blockquote>
-<p>Terraform を用いたインストール</p>
-<p><a class=link href=https://learn.hashicorp.com/tutorials/terraform/install-cli target=_blank rel=noopener>Terraform</a> を使用したインストール方法もあります.詳しくは<a class=link href=https://karpenter.sh/docs/getting-started-with-terraform/ target=_blank rel=noopener>こちら</a>を参照してください.</p>
+<p>Installation with Terraform</p>
+<p>Kapenter also provides an installation method using <a class=link href=https://learn.hashicorp.com/tutorials/terraform/install-cli target=_blank rel=noopener>Terraform</a>. See <a class=link href=https://karpenter.sh/docs/getting-started-with-terraform/ target=_blank rel=noopener>here</a> for details.</p>
 </blockquote>
-<p>概要図は下図の通りです。</p>
+<p>An overview diagram is shown in the figure below.</p>
 <p><img src=/karpenter-overview.webp loading=lazy alt="Karpenter Overview"></p>
-<h2 id=プロビジョナーの設定>プロビジョナーの設定</h2>
-<p>Karpenter の仕事は、スケジュールできない Pod を処理する Node を追加し、その Node で Pod をスケジュールし、不要になったら Node を削除することです.</p>
-<p>Karpenter を設定するには、Karpenter がスケジューリング不能な Pod と期限付き Node を管理する方法を定義するプロビジョナーを作成します.</p>
-<p>以下は、Karpenter のプロビジョナーについて知っておくと良いと思います.</p>
+<h2 id=configure-the-provisioner>Configure the provisioner</h2>
+<p>Karpenter&rsquo;s job is to add Nodes that handle non-schedulable Pods, schedule Pods on those Nodes, and remove the Nodes when they are no longer needed.</p>
+<p>To configure Karpenter, create a provisioner that defines how Karpenter will manage non-schedulable Pods and timed Nodes.</p>
+<p>The following is what you need to know about Karpenter provisioners.</p>
 <h3 id=unschedulable-pods>Unschedulable pods</h3>
-<p>Karpenter は、ステータス条件 <code>Unschedulable=True</code> を持つ Pod のみをプロビジョニングしようとします. これは、kube-scheduler が既存の容量に Pod をスケジュールすることに失敗したときに設定されます.</p>
+<p>Karpenter will only attempt to provision Pods with the status condition <code>Unschedulable=True</code>. This will be set when the kube-scheduler fails to schedule a Pod to an existing capacity.</p>
 <h3 id=provisioner-cr>Provisioner CR</h3>
-<p>Karpenter では、プロビジョニング構成を指定するために、<code>Provisioner</code> というカスタムリソースを定義しています.</p>
-<p>各プロビジョナーは個別の Node セットを管理しますが、Pod はそのスケジューリング制約をサポートする任意のプロビジョナーにスケジュールすることができます.</p>
-<p>プロビジョナーには、プロビジョニング可能な Node と Node の属性（Node を削除するためのタイマーなど）に影響を与える制約が含まれています.</p>
-<p>以下が プロビジョナーのリソースになります.</p>
+<p>Karpenter defines a custom resource called <code>Provisioner</code> to specify the provisioning configuration.</p>
+<p>Each provisioner manages a separate set of Nodes, but a Pod can be scheduled to any provisioner that supports its scheduling constraints.</p>
+<p>A provisioner contains constraints that affect the Nodes that can be provisioned and the attributes of the Nodes (such as timers for removing Nodes).</p>
+<p>The following are the resources of the provisioner.</p>
 <div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt> 1
@@ -195,32 +197,32 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 </span><span class=w>  </span><span class=nt>provider</span><span class=p>:</span><span class=w> </span>{}<span class=w>
 </span></code></pre></td></tr></table>
 </div>
-</div><p><code>spec.ttlSecondsUntilExpired</code>は、コントローラが Node を終了するまでに待つ秒数で、Node の作成時から計測されます. これは、最終的に一貫した Node アップグレード、メモリリーク保護、破壊テストのような機能を実装するのに便利です. このフィールドが設定されていない場合、有効期限切れによる終了は無効になります.</p>
-<p><code>spec.ttlSecondsAfterEmpty</code>は、Node が空になったことを検出した時点から、コントローラが Node を削除しようとするまでに待つ秒数です. Node は、デーモンセットを除いて、その Node にスケジュールされている Pod がない場合、空であると見なされます.</p>
-<p><code>spec.requirements</code>は、プロビジョニングされた Node のパラメータを制約します. <code>nodeAffinity</code> や <code>nodeSelector</code> と組み合わせることも可能です. 演算子 <code>{ In, NotIn }</code> は、値を含めたり除外したりするためにサポートされています.</p>
-<h2 id=node-のデプロビジョニング>Node のデプロビジョニング</h2>
-<p>Karpenter では、不要になった Node を以下のように削除しています.</p>
+</div><p>The <code>spec.ttlSecondsUntilExpired</code> is the number of seconds the controller will wait before exiting the Node, measured from the time the Node is created. This is useful to eventually implement features like consistent Node upgrades, memory leak protection, and destructive testing. If this field is not set, termination due to expiration will be disabled.</p>
+<p>The <code>spec.ttlSecondsAfterEmpty</code> is the number of seconds the controller will wait between the time it detects that a Node is empty and the time it tries to remove the Node. A Node is considered empty if there are no Pods scheduled for that Node, except for the daemonset.</p>
+<p>The <code>spec.requirements</code> constrains the parameters of the provisioned Node. It can be combined with <code>nodeAffinity</code> and <code>nodeSelector</code>. The <code>{ In, NotIn }</code> operator is supported to include or exclude values.</p>
+<h2 id=deprovisioning-node>Deprovisioning Node</h2>
+<p>Karpenter deletes the nodes that are no longer needed as follows.</p>
 <h3 id=finalizer>Finalizer</h3>
-<p>Karpenter は、作成する各 Node にファイナライザービットを配置します。</p>
-<p>これらの Node を削除するリクエスト（TTL や手動での kubectl による Node 削除など）が来ると、Karpenter は Node をコード化し、すべての Pod を排出して EC2 インスタンスを終了させ、Node オブジェクトを削除する.</p>
-<p>Karpenter は、Node を適切に削除するために必要なすべてのクリーンアップ作業を処理します.</p>
+<p>Karpenter will place a finalizer bit in each Node it creates.</p>
+<p>When a request to delete these Nodes comes in (such as a TTL or manual Node deletion via kubectl), Karpenter codes the Node, ejects all Pods, terminates the EC2 instance, and deletes the Node object.</p>
+<p>Karpenter handles all the cleanup work required to properly delete the Node.</p>
 <h3 id=node-expiry>Node Expiry</h3>
-<p>Node の有効期限値 (<code>ttlSecondsUntilExpired</code>)に達すると、その Node は（まだワークロードを実行していても）Pod から排出され、削除されます.</p>
+<p>When a Node reaches its expiration value (<code>ttlSecondsUntilExpired</code>), it will be ejected and removed from the Pod (even if it is still running a workload).</p>
 <h3 id=empty-nodes>Empty Nodes</h3>
-<p>Karpenter が管理する Node で稼働している最後のワークロード Pod がなくなると、その Node には <code>emptiness</code> タイムスタンプが付与されます。その「Node が空になる」有効期限 (<code>ttlSecondsAfterEmpty</code>) 達すると、ファイナライズがトリガーされます.</p>
+<p>When the last workload Pod running on a Karpenter-managed Node runs out, that Node will be given an <code>emptiness</code> timestamp. When its &ldquo;Node is empty&rdquo; expiration date (<code>ttlSecondsAfterEmpty</code>) is reached, finalization is triggered.</p>
 <blockquote>
-<p>Node を削除する方法について</p>
-<p>Karpenter が Node を削除する方法の詳細については、Node のデプロビジョニングの<a class=link href=https://karpenter.sh/docs/tasks/deprov-nodes/ target=_blank rel=noopener>詳細</a>を参照してください.</p>
+<p>About how to remove Node</p>
+<p>For more information on how Karpenter deletes Nodes, see <a class=link href=https://karpenter.sh/docs/tasks/deprov-nodes/ target=_blank rel=noopener>Details</a> on Node deprovisioning.</p>
 </blockquote>
-<h2 id=node-のアップグレード>Node のアップグレード</h2>
-<p>Node をアップグレードする簡単な方法は、<code>ttlSecondsUntilExpired</code> を設定することです。Node は設定された期間後に終了し、より新しい Node と入れ替わります.</p>
-<h2 id=制約条件>制約条件</h2>
-<p>プロビジョナーで定義された制約や、デプロイされる Pod から要求された制約がないため、Karpenter はクラウドプロバイダが利用できる機能全体から選択されます. Node は、任意のインスタンスタイプを使用して作成し、任意のゾーンで実行することができます.</p>
-<h2 id=スケジューリング>スケジューリング</h2>
-<p>Karpenter は、Kubernetes のスケジューラーが <code>unschedulable</code> とマークした Pod をスケジュールします. スケジューリング制約と起動容量を解決した後、Node を作成し、Pod をバインドします. このステートレスなアプローチは、レースコンディションを回避し、パフォーマンスを向上させるのに役立ちます. 起動した Node に何か問題があれば、Kubernetes は自動的に新しい Node に Pod を移行します.Karpenter が Node を立ち上げると、その Node は Kubernetes のスケジューラーがその上でをスケジュールすることも可能になります.</p>
-<h2 id=クラウドプロバイダー>クラウドプロバイダー</h2>
-<p>Karpenter は、関連するクラウドプロバイダーに新しい Node のプロビジョニングの要求を行います. 最初にサポートされるクラウドプロバイダーは AWS ですが、Karpenter は他のクラウドプロバイダーでも動作するように設計されています. Kubernetes のよく知られたラベルを使用しながら、プロビジョナーは、クラウドプロバイダーに固有のいくつかの値を設定することができます.</p>
-<p>個人でプロバイダーの開発する場合は、リポジトリの<code>pkg/cloudprovider/</code>配下に作成します. ディレクトリ構造は以下の通りです. <code>fake</code>ディレクトリは、参考例として用意されています.</p>
+<h2 id=upgrade-node>Upgrade Node</h2>
+<p>An easy way to upgrade a Node is to set <code>ttlSecondsUntilExpired</code>, which will expire after a set period of time and be replaced by a newer Node.</p>
+<h2 id=constraints>Constraints</h2>
+<p>Because there are no constraints defined by the provisioner or requested by the Pod being deployed, Karpenter is selected from the entire set of features available from the cloud provider. Nodes can be created using any instance type and run in any zone.</p>
+<h2 id=scheduling>Scheduling</h2>
+<p>Karpenter schedules Pods that are marked as <code>unschedulable</code> by the Kubernetes scheduler. After resolving scheduling constraints and startup capacity, it creates a Node and binds the Pod. This stateless approach will help you avoid race conditions and improve performance. If there is a problem with a launched Node, Kubernetes will automatically migrate the Pod to a new Node. When Karpenter launches a Node, it will also allow Kubernetes' scheduler to schedule on it.</p>
+<h2 id=cloud-provider>Cloud provider</h2>
+<p>Karpenter makes a request to the relevant cloud provider for provisioning a new Node. The first supported cloud provider is AWS, but Karpenter is designed to work with other cloud providers as well. While using the well-known labels of Kubernetes, the provisioner can set a number of values specific to the cloud provider.</p>
+<p>If you are developing your own provider, you can create it in the repository under <code>pkg/cloudprovider/</code>. The directory structure is as follows. The <code>fake</code> directory is provided as an example for reference.</p>
 <div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -243,7 +245,7 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 └── registry
 </code></pre></td></tr></table>
 </div>
-</div><p>まず、<code>pkg/cloudprovider/registry</code>配下で、クラウドプロバイダー毎に以下の以下のファイルを作成することで登録ができます.</p>
+</div><p>First, you need to create the following files for each cloud provider under <code>pkg/cloudprovider/registry</code> to register them.</p>
 <div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -266,7 +268,7 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 <span class=p>}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>また、<code>pkg/cloudprovider</code>配下で、クラウドプロバイダーごとに環境に合わせて作成します. <code>fake</code> ディレクトリを確認すると以下のファイルが用意されています. その他の必要な情報は環境に合わせて追加すると良いです.</p>
+</div><p>You can also create one for each cloud provider under <code>pkg/cloudprovider</code> for your environment. If you check the <code>fake</code> directory, you will find the following files. You can add other necessary information according to your environment.</p>
 <div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
@@ -279,27 +281,27 @@ Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要としま
 └── instancetype.go
 </code></pre></td></tr></table>
 </div>
-</div><h2 id=cluster-autoscaler-との違い>Cluster Autoscaler との違い</h2>
-<p>Karpenter と同様に、Kubernetes Cluster Autoscaler は、現在のキャパシティでは対応できない Pod の実行要求が来たときに、Node を追加するように設計されています.
-Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほとんどの主要な Kubernetes クラウドプロバイダーが実装しています. プロビジョニングを見直すことで、Karpenter は以下の改善を提供しています.</p>
-<h3 id=クラウドの柔軟性を活かした設計>クラウドの柔軟性を活かした設計</h3>
-<p>Karpenter は、AWS で利用できるあらゆる種類のインスタンスに効率的に対応できる能力を備えています. Cluster Autoscaler は、もともと何百ものインスタンスタイプ、ゾーン、購入オプションに対応できるような柔軟性を持って構築されたものではありません.</p>
-<h3 id=グループレスの-node-プロビジョニング>グループレスの Node プロビジョニング</h3>
-<p>Karpenter は、Node グループのようなオーケストレーションの仕組みを使わずに、各インスタンスを直接管理します. これにより、キャパシティが利用できない場合、数分ではなくミリ秒単位で再試行することができます. また、何百もの Node グループを作成することなく、多様なインスタンスタイプ、アベイラビリティゾーン、および購入オプションを活用することができます.</p>
-<h3 id=スケジューリングの実施>スケジューリングの実施</h3>
-<p>Cluster Autoscaler は、作成した Node に Pod をバインドしません. その代わり、Node がオンラインになった後に同じスケジューリング決定を行うために <code>kube-scheduler</code> に依存します.Karpenter が起動した Node には、すぐにその Pod がバインドされます。kubelet` はスケジューラーや Node の準備が整うのを待つ必要がありません. イメージの事前プルも含め、コンテナランタイムの準備をすぐに開始できます.これにより、Node の起動レイテンシを数秒短縮することができます.</p>
-<h2 id=所感>所感</h2>
-<p>今回は、Karpenter について少し深堀りしてみました.</p>
-<p>個人的には、GKE Autopilot の動的 Node プロビジョニングプロセスと同じなのかなと思っています. Karpenter はそのツールの OSS 版と言えると思います. GKE Autopilot と同様に、Karpenter はスケジューリング不能な Pod の仕様を観測し、集約されたリソース要求を計算し、すべての Pod の実行に必要な容量を持つ基礎的な計算サービス（Amazon EC2 など）に要求を送信します.</p>
-<p>また、Karpenter では、カスタムリソースを定義して、以下の Node のプロビジョニング構成を指定することができます. 構成を柔軟に変更できる点は、かなり大きいメリットだと感じました.</p>
+</div><h2 id=difference-from-cluster-auto-scaler>Difference from Cluster Auto scaler</h2>
+<p>Like Karpenter, the Kubernetes Cluster Auto scaler is designed to add Nodes when a request comes in to run a Pod that cannot be handled by the current capacity.
+Cluster Auto scaler is part of the Kubernetes project and is implemented by most of the major Kubernetes cloud providers. By rethinking provisioning, Karpenter provides the following improvements.</p>
+<h3 id=designed-to-take-advantage-of-the-flexibility-of-the-cloud>Designed to take advantage of the flexibility of the cloud</h3>
+<p>Karpenter has the ability to efficiently handle any type of instance available in AWS. Cluster Autoscaler was not originally built with the flexibility to support hundreds of instance types, zones, and purchase options.</p>
+<h3 id=group-less-node-provisioning>Group less Node Provisioning</h3>
+<p>Karpenter manages each instance directly, without orchestration mechanisms such as Node groups. This allows you to retry in milliseconds instead of minutes if capacity is not available. It also allows you to take advantage of a variety of instance types, availability zones, and purchasing options without having to create hundreds of Node groups.</p>
+<h3 id=scheduling-implementation>Scheduling Implementation</h3>
+<p>Cluster Autoscaler does not bind a Pod to the Node it creates. Instead, it relies on the <code>kube-scheduler</code> to make the same scheduling decision after the Node comes online. The Node started by Karpenter is bound to its Pod immediately. kubelet<code> does not need to wait for the scheduler or Node to be ready. kubelet</code> does not need to wait for the scheduler or Node to be ready, it can start preparing the container runtime immediately, including pre-pulling images. This can reduce the Node startup latency by a few seconds.</p>
+<h2 id=thoughts>Thoughts</h2>
+<p>In this article, I&rsquo;ve tried to dig a little deeper into Karpenter.</p>
+<p>Personally, I think it&rsquo;s the same as GKE Autopilot&rsquo;s dynamic Node provisioning process. I think Karpenter is an OSS version of that tool. Like GKE Autopilot, Karpenter observes the specification of non-schedulable pods, computes aggregate resource requests, and sends the requests to an underlying compute service (such as Amazon EC2) that has the capacity required to run all the pods.</p>
+<p>Karpenter also allows you to define custom resources and specify the provisioning configuration for the following Nodes. We found the flexibility to change the configuration to be a significant advantage.</p>
 <ul>
-<li>インスタンスサイズ/タイプ、トポロジー(ゾーンなど)</li>
-<li>アーキテクチャ(arm64、amd64 など)</li>
-<li>ライフサイクルタイプ(スポット、オンデマンド、プリエンプティブなど)</li>
+<li>Instance size/type, topology (zone, etc.)</li>
+<li>Architecture (arm64, amd64, etc.)</li>
+<li>Lifecycle type (spot, on-demand, pre-emptive, etc.)</li>
 </ul>
-<p>一方、Karpenter は、Node が不要になった場合、デプロビジョンを行うこともできます. これは、Node の有効期限設定 (<code>ttlSecondsUntilExpired</code>) または Karpenter プロビジョニングされた Node 上で実行されている最後のワークロードが終了したとき (<code>ttlSecondsAfterEmpty</code>) に決定することができます. この 2 つのイベントのどちらかがトリガーとなり、Node をコード化し、Pod を排出し、基盤となるコンピュートリソースを終了させ、Node オブジェクトを削除するファイナライゼーションが行われます. このデプロビジョニング機能は、Node を最新の AMI で最新の状態に保つためにも使用できます.</p>
-<p>Karpenter を使えば、Node のプロビジョニング、オートスケール、アップグレードをオフロードして、アプリケーションの実行に集中することができると思います. Karpenter はあらゆる種類の Kubernetes アプリケーションで動作しますが、特に、大量の多様な計算リソースを迅速にプロビジョニングおよびデプロビジョニングする必要があるユースケースで優れたパフォーマンスを発揮すると思います. (機械学習モデルのトレーニング、シミュレーションの実行、複雑な金融計算を行うバッチジョブなど)</p>
-<p>現在は、AWS のみでしか動作しませんが今後の動向には注目していきたいと思います. また、時間があれば他クラウドへの実装などもしてみようと思います.</p>
+<p>On the other hand, Karpenter can also deprovision a Node when it is no longer needed. This can be determined by setting the Node&rsquo;s expiration date (<code>ttlSecondsUntilExpired</code>) or when the last workload running on a Karpenter provisioned Node has finished (<code>ttlSecondsAfterEmpty</code>). Either of these two events triggers a finalization that codes the Node, ejects the Pod, terminates the underlying compute resource, and deletes the Node object. This deprovisioning feature can also be used to keep Node up-to-date with the latest AMI.</p>
+<p>With Karpenter, I believe you can offload Node provisioning, autoscaling and upgrading and focus on running your application. Karpenter works with all kinds of Kubernetes applications, but I think it performs especially well in use cases where large amounts of diverse compute resources need to be provisioned and de-provisioned quickly. (Training machine learning models, running simulations, batch jobs with complex financial calculations, etc.)</p>
+<p>Currently, it only runs on AWS, but we will keep an eye on it in the future. If I have time, I&rsquo;ll try to implement it on other clouds as well.</p>
 </section>
 <footer class=article-footer>
 <section class=article-tags>
@@ -317,6 +319,26 @@ Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほと�
 <h2 class=section-title>関連するコンテンツ</h2>
 <div class=related-contents>
 <div class="flex article-list--tile">
+<article class=has-image>
+<a href=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/>
+<div class=article-image>
+<img src=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter を調べてみた" data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Karpenter を調べてみた</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/running-rancher-desktop-on-mxlinux/>
+<div class=article-image>
+<img src=/p/running-rancher-desktop-on-mxlinux/featured-image.64c2b1e041af97fb6e5bb2acf9019110_hua255d1196849d3759ae697794b4989fc_2680_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Running Rancher Desktop on MXLinux" data-hash="md5-ZMKx4EGvl/tuW7Ks+QGREA==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Running Rancher Desktop on MXLinux</h2>
+</div>
+</a>
+</article>
 <article class=has-image>
 <a href=/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/>
 <div class=article-image>
@@ -386,49 +408,49 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <div class=widget--toc>
 <nav id=TableOfContents>
 <ol>
-<li><a href=#はじめに>はじめに</a></li>
-<li><a href=#karpenter-とは>Karpenter とは</a></li>
-<li><a href=#kubernetes-におけるオートスケール>Kubernetes におけるオートスケール</a>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#what-is-karpenter>What is Karpenter?</a></li>
+<li><a href=#autoscale-in-kubernetes>Autoscale in Kubernetes</a>
 <ol>
 <li><a href=#pod>Pod</a>
 <ol>
-<li><a href=#水平スケール-horizontal-pod-autoscaler>水平スケール (Horizontal Pod Autoscaler)</a></li>
-<li><a href=#垂直スケール-vertical-pod-autoscaler>垂直スケール (Vertical Pod Autoscaler)</a></li>
+<li><a href=#horizontal-pod-auto-scaler>Horizontal Pod Auto scaler</a></li>
+<li><a href=#vertical-pod-auto-scaler>Vertical Pod Auto scaler</a></li>
 </ol>
 </li>
 <li><a href=#node>Node</a>
 <ol>
-<li><a href=#node-の水平オートスケーラー-cluster-autoscaler>Node の水平オートスケーラー (Cluster Autoscaler)</a></li>
+<li><a href=#cluster-auto-scaler>Cluster Auto scaler</a></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a href=#インストール方法>インストール方法</a></li>
-<li><a href=#プロビジョナーの設定>プロビジョナーの設定</a>
+<li><a href=#how-to-install>How to install</a></li>
+<li><a href=#configure-the-provisioner>Configure the provisioner</a>
 <ol>
 <li><a href=#unschedulable-pods>Unschedulable pods</a></li>
 <li><a href=#provisioner-cr>Provisioner CR</a></li>
 </ol>
 </li>
-<li><a href=#node-のデプロビジョニング>Node のデプロビジョニング</a>
+<li><a href=#deprovisioning-node>Deprovisioning Node</a>
 <ol>
 <li><a href=#finalizer>Finalizer</a></li>
 <li><a href=#node-expiry>Node Expiry</a></li>
 <li><a href=#empty-nodes>Empty Nodes</a></li>
 </ol>
 </li>
-<li><a href=#node-のアップグレード>Node のアップグレード</a></li>
-<li><a href=#制約条件>制約条件</a></li>
-<li><a href=#スケジューリング>スケジューリング</a></li>
-<li><a href=#クラウドプロバイダー>クラウドプロバイダー</a></li>
-<li><a href=#cluster-autoscaler-との違い>Cluster Autoscaler との違い</a>
+<li><a href=#upgrade-node>Upgrade Node</a></li>
+<li><a href=#constraints>Constraints</a></li>
+<li><a href=#scheduling>Scheduling</a></li>
+<li><a href=#cloud-provider>Cloud provider</a></li>
+<li><a href=#difference-from-cluster-auto-scaler>Difference from Cluster Auto scaler</a>
 <ol>
-<li><a href=#クラウドの柔軟性を活かした設計>クラウドの柔軟性を活かした設計</a></li>
-<li><a href=#グループレスの-node-プロビジョニング>グループレスの Node プロビジョニング</a></li>
-<li><a href=#スケジューリングの実施>スケジューリングの実施</a></li>
+<li><a href=#designed-to-take-advantage-of-the-flexibility-of-the-cloud>Designed to take advantage of the flexibility of the cloud</a></li>
+<li><a href=#group-less-node-provisioning>Group less Node Provisioning</a></li>
+<li><a href=#scheduling-implementation>Scheduling Implementation</a></li>
 </ol>
 </li>
-<li><a href=#所感>所感</a></li>
+<li><a href=#thoughts>Thoughts</a></li>
 </ol>
 </nav>
 </div>

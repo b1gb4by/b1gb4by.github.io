@@ -95,6 +95,10 @@ Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動
 </ul>
 </li>
 </ul>
+<h3 id=linux>Linux</h3>
+<ul>
+<li><code>.deb</code>や<code>.rpm</code>パッケージ、または<code>AppImages</code>をインストールできるディストリビューション</li>
+</ul>
 <h3 id=マシンスペック>マシンスペック</h3>
 <ul>
 <li>8GB のメモリー</li>
@@ -119,6 +123,10 @@ Rancher Desktop v1.0.0 がリリースされたので、実際に MXLinux で動
 <blockquote>
 <p>QEMU について</p>
 <p>QEMU は、OSS の PC エミュレーターです. x86 や SPARC、MIPS といったさまざまな CPU 上の Linux、Windows などで動作し、ほかの CPU の命令をネイティブコードに変換しながら実行できるという特徴を持ちます.</p>
+</blockquote>
+<blockquote>
+<p>k3s について</p>
+<p>k3s は、Rancher Labs 社が発表した軽量な Kubernetes の 1 つで、40MB 未満のバイナリと、わずか 512MB のメモリ使用量を特徴としています. 最近では、IoT や Edge コンピューティングなどでの活用が期待されています.</p>
 </blockquote>
 <blockquote>
 <p>nerdctl について</p>
@@ -155,7 +163,7 @@ $ sudo apt install rancher-desktop
 </div><p>以上で、Rancher Desktop のインストールは完了です. 非常に簡単ですね.</p>
 <blockquote>
 <p>MXLinux について</p>
-<p>MXLinux は DistroWatch.com でも 注目度の高い Linux ディストリビューションです. antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築されたプロジェクトでギリシャおよびアメリカにて開発されています.</p>
+<p>MXLinux は <a class=link href=https://distrowatch.com/ target=_blank rel=noopener>DistroWatch.com</a> でも 注目度の高い Linux ディストリビューションです. antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築されたプロジェクトでギリシャおよびアメリカにて開発されています.</p>
 </blockquote>
 <h2 id=rancher-desktop-の起動>Rancher Desktop の起動</h2>
 <p>インストールした Rancher Desktop を起動してみます. アプリケーション自体は非常にシンプルでした.</p>
@@ -493,12 +501,32 @@ Docker Desktop から乗り換えたとしても遜色なく利用できるか�
 <div class=related-contents>
 <div class="flex article-list--tile">
 <article class=has-image>
-<a href=/p/karpenter-deep-dive/>
+<a href=/p/running-rancher-desktop-on-mxlinux/>
 <div class=article-image>
-<img src=/p/karpenter-deep-dive/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter Deep Dive" data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+<img src=/p/running-rancher-desktop-on-mxlinux/featured-image.64c2b1e041af97fb6e5bb2acf9019110_hua255d1196849d3759ae697794b4989fc_2680_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Running Rancher Desktop on MXLinux" data-hash="md5-ZMKx4EGvl/tuW7Ks+QGREA==">
 </div>
 <div class=article-details>
-<h2 class=article-title>Karpenter Deep Dive</h2>
+<h2 class=article-title>Running Rancher Desktop on MXLinux</h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/karpenter-deep-dive/>
+<div class=article-image>
+<img src=/p/karpenter-deep-dive/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter Deep Dive " data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Karpenter Deep Dive </h2>
+</div>
+</a>
+</article>
+<article class=has-image>
+<a href=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/>
+<div class=article-image>
+<img src=/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/featured-image.42e5a871dc85f15560a5799b51b4dc79_hudfe33c2ee595f9550b80579d6c3a9c6b_13198_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Karpenter を調べてみた" data-hash="md5-QuWocdyF8VVgpXmbUbTceQ==">
+</div>
+<div class=article-details>
+<h2 class=article-title>Karpenter を調べてみた</h2>
 </div>
 </a>
 </article>
@@ -566,6 +594,7 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <ol>
 <li><a href=#macos>macOS</a></li>
 <li><a href=#windowsos>WindowsOS</a></li>
+<li><a href=#linux>Linux</a></li>
 <li><a href=#マシンスペック>マシンスペック</a></li>
 </ol>
 </li>
