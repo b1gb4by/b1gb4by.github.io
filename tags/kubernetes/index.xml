@@ -1,9 +1,1526 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kubernetes on A Life of Inquiry</title><link>https://example.com/tags/kubernetes/</link><description>Recent content in kubernetes on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid><description>&lt;p>1 月 26 日に、&lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kubernetes on A Life of Inquiry</title><link>https://example.com/tags/kubernetes/</link><description>Recent content in kubernetes on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid><description>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/featured-image.webp" alt="Featured image of post MXLinux で Rancher Desktop を動かす" />&lt;p>1 月 26 日に、&lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
 >Rancher Desktop&lt;/a> が正式に &lt;a class="link" href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0" target="_blank" rel="noopener"
 >v1.0.0&lt;/a> としてリリースされました.&lt;/p>
-&lt;p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.&lt;/p></description></item><item><title>Running Rancher Desktop on MXLinux</title><link>https://example.com/p/running-rancher-desktop-on-mxlinux/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/running-rancher-desktop-on-mxlinux/</guid><description>&lt;p>On January 26th, &lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+&lt;p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.&lt;/p>
+&lt;h2 id="rancher-desktop-とは">Rancher Desktop とは&lt;/h2>
+&lt;p>Rancher Desktop は Electron と Node.js をベースに構築されたデスクトップアプリケーションであり、デスクトップ上で Kubernetes とコンテナ管理を実行することができます.&lt;/p>
+&lt;p>また、実行する Kubernetes のバージョンを自由に選択することができます.&lt;/p>
+&lt;p>&lt;code>containerd&lt;/code>、または&lt;code>Moby (dockerd)&lt;/code>を使って、コンテナイメージのビルド、プッシュ、プル、実行が可能です. ビルドしたコンテナイメージは、レジストリを必要とせず、すぐに Kubernetes で実行できます.&lt;/p>
+&lt;h2 id="必要条件">必要条件&lt;/h2>
+&lt;p>OSS のデスクトップアプリケーションで、macOS や Windows、そして Linux の様々な環境で動作させることができます. M1 にも対応しているため、ほとんどの環境で動作が可能になりました.&lt;/p>
+&lt;p>環境での必要条件は以下の通りです.&lt;/p>
+&lt;h3 id="macos">macOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>macOS&lt;/strong>
+&lt;ul>
+&lt;li>Catalina 10.15 以降&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>CPU アーキテクチャ&lt;/strong>
+&lt;ul>
+&lt;li>Apple Silicon（M1）または VT-x 搭載の Intel CPU&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="windowsos">WindowsOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Windows&lt;/strong>
+&lt;ul>
+&lt;li>Windows 10 ビルド 1909 以降&lt;/li>
+&lt;li>Home エディションにも対応&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Hyper-V(仮想化機能)&lt;/strong> が有効化されている&lt;/li>
+&lt;li>&lt;strong>Windows Subsystem for Linux (WSL)&lt;/strong>
+&lt;ul>
+&lt;li>Rancher Desktop は、Windows 上で WSL が必要ですが、セットアップの一部として自動的にインストールされます&lt;/li>
+&lt;li>手動でディストリビューションをダウンロードは不要&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="linux">Linux&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>.deb&lt;/code>や&lt;code>.rpm&lt;/code>パッケージ、または&lt;code>AppImages&lt;/code>をインストールできるディストリビューション&lt;/li>
+&lt;/ul>
+&lt;h3 id="マシンスペック">マシンスペック&lt;/h3>
+&lt;ul>
+&lt;li>8GB のメモリー&lt;/li>
+&lt;li>4 コアの CPU&lt;/li>
+&lt;/ul>
+&lt;h2 id="動作の仕組み">動作の仕組み&lt;/h2>
+&lt;p>Rancher Desktop は、他のツールをラッピングしながら、動作を実現しています.&lt;/p>
+&lt;p>MacOS と Linux では、&lt;a class="link" href="https://github.com/lima-vm/lima" target="_blank" rel="noopener"
+>Lima&lt;/a> や &lt;a class="link" href="https://www.qemu.org/" target="_blank" rel="noopener"
+>QEMU&lt;/a> といった仮想マシンを活用して&lt;code>containerd&lt;/code>または&lt;code>dockerd&lt;/code>と Kubernetes (&lt;a class="link" href="https://k3s.io/" target="_blank" rel="noopener"
+>k3s&lt;/a>) を実行します.&lt;/p>
+&lt;p>Windows システムでは、&lt;a class="link" href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank" rel="noopener"
+>Windows Subsystem for Linux v2 (WSL2)&lt;/a> を利用しています.&lt;/p>
+&lt;blockquote>
+&lt;p>下図は &lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+>rancher&lt;/a> から引用
+&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop.webp"
+width="1366"
+height="644"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop_huc944728323fcd0410ee5ea0609183cd8_25796_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/how-it-works-rancher-desktop_huc944728323fcd0410ee5ea0609183cd8_25796_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="how-it-works-rancher-desktop"
+class="gallery-image"
+data-flex-grow="212"
+data-flex-basis="509px"
+>&lt;/p>
+&lt;/blockquote>
+&lt;p>Rancher Desktop では、&lt;a class="link" href="https://github.com/containerd/nerdctl" target="_blank" rel="noopener"
+>NERDCTL プロジェクト&lt;/a>と Docker CLI を利用して、イメージを build、push、pull する機能が用意されています.
+なお、&lt;code>nerdctl&lt;/code> と &lt;code>docker&lt;/code> の両方が自動的にパスに入れられます. Windows ではインストーラー中に、macOS と Linux では初回実行時に行われます.&lt;/p>
+&lt;p>いずれのツールを使用する場合も、Rancher Desktop が適切なコンテナランタイムで実行されている必要があります.&lt;/p>
+&lt;p>&lt;code>nerdctl&lt;/code>の場合は、&lt;code>containerd&lt;/code>ランタイムを使用します。docker の場合は、&lt;code>dockerd (moby)&lt;/code>ランタイムを使用します.&lt;/p>
+&lt;blockquote>
+&lt;p>Lima について&lt;/p>
+&lt;p>Lima は WSL と似ており、自動ファイル共有とポート転送、および containerd を備えた Linux の仮想マシンを起動します. Lima は macOS ホストで使われることが想定されていますが、Linux ホストでも使うことができます.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>QEMU について&lt;/p>
+&lt;p>QEMU は、OSS の PC エミュレーターです. x86 や SPARC、MIPS といったさまざまな CPU 上の Linux、Windows などで動作し、ほかの CPU の命令をネイティブコードに変換しながら実行できるという特徴を持ちます.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>k3s について&lt;/p>
+&lt;p>k3s は、Rancher Labs 社が発表した軽量な Kubernetes の 1 つで、40MB 未満のバイナリと、わずか 512MB のメモリ使用量を特徴としています. 最近では、IoT や Edge コンピューティングなどでの活用が期待されています.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>nerdctl について&lt;/p>
+&lt;p>nerdctl は containerd 向けのコンテナの操作ツールです. containerd 用の docker コマンドだと考えていただければと思います.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="mxlinux-へのインストール">MXLinux へのインストール&lt;/h2>
+&lt;p>Rancher Desktop を Linux ディストリビューションの 1 つである &lt;a class="link" href="https://mxlinux.org/" target="_blank" rel="noopener"
+>MXLinux&lt;/a> にインストールしてみます.&lt;/p>
+&lt;p>インストール方法は&lt;a class="link" href="https://docs.rancherdesktop.io/installation#linux" target="_blank" rel="noopener"
+>公式ドキュメント&lt;/a>に従って、Rancher Desktop のリポジトリを追加し、Rancher Desktop をインストールします.&lt;/p>
+&lt;p>Linux へのインストールはいくつかのパッケージがありますが、MXLinux は Debian(stable) ベースのため、&lt;code>.deb&lt;/code>パッケージを使用します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># リポジトリを取得し、登録&lt;/span>
+$ curl https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key &lt;span class="p">|&lt;/span> sudo apt-key add -
+$ sudo add-apt-repository &lt;span class="s1">&amp;#39;deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./&amp;#39;&lt;/span>
+&lt;span class="c1"># パッケージ一覧を更新&lt;/span>
+$ sudo apt update
+&lt;span class="c1"># Rancher Desktop をインストール&lt;/span>
+$ sudo apt install rancher-desktop
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上で、Rancher Desktop のインストールは完了です. 非常に簡単ですね.&lt;/p>
+&lt;blockquote>
+&lt;p>MXLinux について&lt;/p>
+&lt;p>MXLinux は &lt;a class="link" href="https://distrowatch.com/" target="_blank" rel="noopener"
+>DistroWatch.com&lt;/a> でも 注目度の高い Linux ディストリビューションです. antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築されたプロジェクトでギリシャおよびアメリカにて開発されています.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="rancher-desktop-の起動">Rancher Desktop の起動&lt;/h2>
+&lt;p>インストールした Rancher Desktop を起動してみます. アプリケーション自体は非常にシンプルでした.&lt;/p>
+&lt;h3 id="general">General&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general.webp"
+width="944"
+height="636"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-general"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="356px"
+>&lt;/p>
+&lt;h3 id="kubernetes-setting">Kubernetes Setting&lt;/h3>
+&lt;p>次に、Kubernetes の設定を見てみます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>&lt;code>Kubernetes version&lt;/code>では、Kubernetes のバージョンを指定できます. 執筆時点での最新バージョンである v1.23.3 から、最も古いバージョンで v1.16.7 まで選択が可能です.&lt;/p>
+&lt;p>&lt;code>Port&lt;/code>はデフォルトでは、&lt;code>6443&lt;/code>が設定されています.&lt;/p>
+&lt;p>&lt;code>Container runtime&lt;/code>では、&lt;code>containerd&lt;/code>または&lt;code>dockerd (moby)&lt;/code>のどちらかを選択可能です.&lt;/p>
+&lt;p>&lt;code>Memory (GB)&lt;/code>, &lt;code>CPUs&lt;/code>は、メモリー、CPU のコア数を指定できます. 赤いラインまで数値を上げると、下図のように警告文が表示されます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting-danger"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>一度、環境をクリーンアップしたい場合は、&lt;code>Reset Kubernetes&lt;/code>を押すことで簡単にリセットすることができます.&lt;/p>
+&lt;h3 id="supporting-utilities">Supporting Utilities&lt;/h3>
+&lt;p>&lt;code>Supporting Utilities&lt;/code>では、インストールされたツール郡が表示されています. 既にインストールされていた Docker などに対しては、丁寧に注意喚起が書かれていました.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-supporting-utilities"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;h3 id="images">Images&lt;/h3>
+&lt;p>&lt;code>Images&lt;/code> では、Rancher Desktop で使用しているイメージが表示されています. イメージ一覧の&lt;code>⋮&lt;/code>から&lt;code>Scan&lt;/code>を選択すると、イメージの脆弱性を &lt;a class="link" href="https://github.com/aquasecurity/trivy" target="_blank" rel="noopener"
+>Trivy&lt;/a> を使用してスキャンしてくれる.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images.webp"
+width="944"
+height="712"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-images"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;p>ここで、&lt;code>Image Namespace&lt;/code>に注目してください. &lt;code>containerd&lt;/code>では、Kubernetes と同様に&lt;code>namespace&lt;/code>という概念が存在しています.
+そのため、Kubenetes が &lt;code>namespace&lt;/code>を持つことができるように、&lt;code>containerd&lt;/code>も同じように&lt;code>namespace&lt;/code>を持つことができます.
+上図では、&lt;code>namespace:k8s.io&lt;/code>にイメージが存在しているということになります.&lt;/p>
+&lt;p>実際に&lt;code>nerdctl&lt;/code>コマンドを使用して、&lt;code>namespace&lt;/code>を確認してみます. &lt;code>nerdctl namespace list&lt;/code>で&lt;code>namespace&lt;/code>の一覧を表示します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>実行してみると、&lt;code>k8s.io&lt;/code>にイメージが存在していることが確認できました.&lt;/p>
+&lt;p>また、&lt;code>nerdctl --namespace k8s.io ps&lt;/code>で&lt;code>namespace:k8s.io&lt;/code>で、Rancher Desktop で作成した Kubernetes のコンテナ群が確認できます.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace k8s.io ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+1f642d94e7d5 docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-443
+2ca56d5f0874 docker.io/rancher/mirrored-library-traefik:2.5.6 &lt;span class="s2">&amp;#34;/entrypoint.sh --gl…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik
+2f1c800451cf docker.io/rancher/mirrored-coredns-coredns:1.8.6 &lt;span class="s2">&amp;#34;/coredns -conf /etc…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq/coredns
+56bd8fba2fda docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-80
+5908afd18045 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq
+8c16131e6d1b docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr
+95b859fec9ed docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh
+a0656b86ab35 docker.io/rancher/local-path-provisioner:v0.0.21 &lt;span class="s2">&amp;#34;local-path-provisio…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner
+a5c31106d6d7 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4
+c9417746b27d docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd
+ce64e7b0a242 docker.io/rancher/mirrored-metrics-server:v0.5.2 &lt;span class="s2">&amp;#34;/metrics-server --c…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="troubleshooting">Troubleshooting&lt;/h3>
+&lt;p>&lt;code>Troubleshooting&lt;/code>では、ログの有効化、また Rancher Desktop 自体の初期化ができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting.webp"
+width="1077"
+height="712"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-troubleshooting"
+class="gallery-image"
+data-flex-grow="151"
+data-flex-basis="363px"
+>&lt;/p>
+&lt;h2 id="検証">検証&lt;/h2>
+&lt;p>Rancher Desktop 上で、実際にコンテナなどを動かして見ます.&lt;/p>
+&lt;h3 id="nerdctl-の使用">nerdctl の使用&lt;/h3>
+&lt;p>&lt;code>nerdctl&lt;/code>コマンドを使用して、nginx を起動してみます. &lt;code>namespace&lt;/code> は未指定の場合、デフォルトで&lt;code>default&lt;/code>に配置されます.&lt;/p>
+&lt;h4 id="nginx-を起動">nginx を起動&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
+docker.io/library/nginx:latest: resolved &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767: &lt;span class="k">done&lt;/span> &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+...
+elapsed: 7.2 s total: 54.1 M &lt;span class="o">(&lt;/span>7.5 MiB/s&lt;span class="o">)&lt;/span>
+484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="コンテナの状態を確認">コンテナの状態を確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">6&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="namespace-を確認">namespace を確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+default &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="namespace-default-のプロセスを確認">namespace default のプロセスを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace default ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">11&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>また、Rancher Desktop からも&lt;code>namespace:default&lt;/code>に nginx イメージを確認することができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx.webp"
+width="1077"
+height="386"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-run-nginx"
+class="gallery-image"
+data-flex-grow="279"
+data-flex-basis="669px"
+>&lt;/p>
+&lt;p>最後に、&lt;code>localhost:9999&lt;/code>にアクセスして、nginx の起動を確認してみます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx.webp"
+width="713"
+height="311"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="run-nginx"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="550px"
+>&lt;/p>
+&lt;h3 id="helm-の使用">Helm の使用&lt;/h3>
+&lt;p>Rancher Desktop では、起動時に Helm もインストールされるので、Helm を使って Kubernetes に Grafana をデプロイしてみます.&lt;/p>
+&lt;h4 id="helm-に-grafana-のリポジトリを追加">Helm に Grafana のリポジトリを追加&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo add grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="helm-にリポジトリが追加されていることを確認">Helm にリポジトリが追加されていることを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo list
+NAME URL
+grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="追加した-grafana-リポジトリからチャートを確認">追加した Grafana リポジトリからチャートを確認&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm search repo grafana
+NAME CHART VERSION APP VERSION DESCRIPTION
+grafana/grafana 6.21.1 8.3.4 The leading tool &lt;span class="k">for&lt;/span> querying and visualizing t...
+grafana/grafana-agent-operator 0.1.5 0.22.0 A Helm chart &lt;span class="k">for&lt;/span> Grafana Agent Operator
+grafana/enterprise-logs 2.0.0 v1.3.0 Grafana Enterprise Logs
+grafana/enterprise-metrics 1.7.3 v1.6.1 Grafana Enterprise Metrics
+grafana/fluent-bit 2.3.0 v2.1.0 Uses fluent-bit Loki go plugin &lt;span class="k">for&lt;/span> gathering lo...
+grafana/loki 2.9.1 v2.4.2 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/loki-canary 0.5.1 2.4.1 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki Canary
+grafana/loki-distributed 0.42.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in microservices mode
+grafana/loki-simple-scalable 0.2.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in simple, scalable...
+grafana/loki-stack 2.5.1 v2.1.0 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/promtail 3.10.0 2.4.2 Promtail is an agent which ships the contents o...
+grafana/tempo 0.13.0 1.3.0 Grafana Tempo Single Binary Mode
+grafana/tempo-distributed 0.15.0 1.3.0 Grafana Tempo in MicroService mode
+grafana/tempo-vulture 0.2.0 1.3.0 Grafana Tempo Vulture - A tool to monitor Tempo...
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="helm-チャートをリリース">Helm チャートをリリース&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl create namespace monitoring
+$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
+W0128 03:37:33.477723 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.480386 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538004 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538201 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+NAME: grafana
+LAST DEPLOYED: Fri Jan &lt;span class="m">28&lt;/span> 03:37:32 &lt;span class="m">2022&lt;/span>
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: &lt;span class="m">1&lt;/span>
+NOTES:
+1. Get your &lt;span class="s1">&amp;#39;admin&amp;#39;&lt;/span> user password by running:
+kubectl get secret --namespace monitoring grafana -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.data.admin-password}&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> base64 --decode &lt;span class="p">;&lt;/span> &lt;span class="nb">echo&lt;/span>
+2. The Grafana server can be accessed via port &lt;span class="m">80&lt;/span> on the following DNS name from within your cluster:
+grafana.monitoring.svc.cluster.local
+Get the Grafana URL to visit by running these commands in the same shell:
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">POD_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>kubectl get pods --namespace monitoring -l &lt;span class="s2">&amp;#34;app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana&amp;#34;&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.items[0].metadata.name}&amp;#34;&lt;/span>&lt;span class="k">)&lt;/span>
+kubectl --namespace monitoring port-forward &lt;span class="nv">$POD_NAME&lt;/span> &lt;span class="m">3000&lt;/span>
+3. Login with the password from step &lt;span class="m">1&lt;/span> and the username: admin
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;span class="c1">###### WARNING: Persistence is disabled!!! You will lose your data when #####&lt;/span>
+&lt;span class="c1">###### the Grafana pod is terminated. #####&lt;/span>
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上記の手順に従って、正常に Grafana にログインすることができました.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard.webp"
+width="883"
+height="593"
+srcset="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="grafana-dashboard"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="357px"
+>&lt;/p>
+&lt;p>最後に、&lt;code>kubectl&lt;/code>コマンドを使って Grafana が立ち上がっていることを確認します.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl get all --namespace monitoring
+NAME READY STATUS RESTARTS AGE
+pod/grafana-6b9d4f7f86-mwb4q 1/1 Running &lt;span class="m">0&lt;/span> 15m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+service/grafana ClusterIP 10.43.218.65 &amp;lt;none&amp;gt; 80/TCP 15m
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/grafana 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/grafana-6b9d4f7f86 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上のように、Rancher Desktop を起動するだけでアプリケーションの開発やデプロイが簡単に行うことができました.&lt;/p>
+&lt;h2 id="所感">所感&lt;/h2>
+&lt;p>今回は、v1.0.0 がリリースされた Rancher Desktop を触ってみましたが、非常に完成度の高いツールでした. &lt;code>containerd&lt;/code>、&lt;code>nerdctl&lt;/code>を初めて触る方も Rancher Desktop は良い機会だと思います.&lt;/p>
+&lt;p>昨年、&lt;a class="link" href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener"
+>Docker Desktop が有料化&lt;/a>が大きなニュースとなり、それに伴い、密かに代替案として注目されていた Rancher Desktop ですが、
+Docker Desktop から乗り換えたとしても遜色なく利用できるかと思います. 万が一、Docker のランタイムを使用したいと思えば、Rancher Desktop 上から切り替えれば良いので、大して手間は掛かりません.&lt;/p>
+&lt;p>また、Kubernetes のバージョンをスムーズに切り替えられるのも個人的には大きなメリットなのかなと思います.&lt;/p>
+&lt;p>これから、コンテナを利用する手段の 1 つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.&lt;/p></description></item><item><title>Running Rancher Desktop on MXLinux</title><link>https://example.com/p/running-rancher-desktop-on-mxlinux/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/running-rancher-desktop-on-mxlinux/</guid><description>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/featured-image.webp" alt="Featured image of post Running Rancher Desktop on MXLinux" />&lt;p>On January 26th, &lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
 >Rancher Desktop&lt;/a> was officially released as &lt;a class="link" href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0" target="_blank" rel="noopener"
 >v1.0.0&lt;/a>.&lt;/p>
-&lt;p>In this article, I&amp;rsquo;ll try to install and run Rancher Desktop on MXLinux.&lt;/p></description></item><item><title>Karpenter Deep Dive</title><link>https://example.com/p/karpenter-deep-dive/</link><pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/karpenter-deep-dive/</guid><description>&lt;p>Recently, Karpenter graduated from AWS re:Invent with autoscaling of Nodes in Kubernetes clusters.&lt;/p>
-&lt;p>In this article, we&amp;rsquo;ll take a deeper look at it.&lt;/p></description></item><item><title>Karpenter を調べてみた</title><link>https://example.com/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.&lt;/p>
-&lt;p>今回は、それについて深堀りしてみます.&lt;/p></description></item></channel></rss>
+&lt;p>In this article, I&amp;rsquo;ll try to install and run Rancher Desktop on MXLinux.&lt;/p>
+&lt;h2 id="what-is-rancher-desktop">What is Rancher Desktop?&lt;/h2>
+&lt;p>Rancher Desktop is a desktop application built on Electron and Node.js that allows you to run Kubernetes and container management on your desktop.&lt;/p>
+&lt;p>You can choose any version of Kubernetes to run.&lt;/p>
+&lt;p>You can use &lt;code>containerd&lt;/code> or &lt;code>Moby (dockerd)&lt;/code> to build, push, pull and run container images. The built container images can be run immediately in Kubernetes without the need for a registry.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;p>It is an OSS desktop application that can run on macOS, Windows, and various Linux environments. It also supports M1, so it can run on almost any environment.&lt;/p>
+&lt;p>The requirements for each environment are as follows.&lt;/p>
+&lt;h3 id="macos">macOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>macOS&lt;/strong>.
+&lt;ul>
+&lt;li>Catalina 10.15 or later&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>CPU architecture**
+&lt;ul>
+&lt;li>Intel CPU with Apple Silicon (M1) or VT-x&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="windowsos">WindowsOS&lt;/h3>
+&lt;ul>
+&lt;li>&lt;strong>Windows&lt;/strong>.
+&lt;ul>
+&lt;li>Windows 10 build 1909 or later&lt;/li>
+&lt;li>Home Edition is also supported&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Hyper-V (virtualization)&lt;/strong> is enabled&lt;/li>
+&lt;li>&lt;strong>Windows Subsystem for Linux (WSL)&lt;/strong>.
+&lt;ul>
+&lt;li>Rancher Desktop requires WSL on Windows, but it will be installed automatically as part of the setup&lt;/li>
+&lt;li>No need to download the distribution manually&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="linux">Linux&lt;/h3>
+&lt;ul>
+&lt;li>Distributions that can install &lt;code>.deb&lt;/code> or &lt;code>.rpm&lt;/code> packages, or `AppImages&lt;/li>
+&lt;/ul>
+&lt;h3 id="machine-specs">Machine specs&lt;/h3>
+&lt;ul>
+&lt;li>8GB memory&lt;/li>
+&lt;li>4-core CPU&lt;/li>
+&lt;/ul>
+&lt;h2 id="how-it-works">How it works&lt;/h2>
+&lt;p>Rancher Desktop is wrapping other tools to make it work.&lt;/p>
+&lt;p>On MacOS and Linux, it leverages virtual machines such as &lt;a class="link" href="https://github.com/lima-vm/lima" target="_blank" rel="noopener"
+>Lima&lt;/a> and &lt;a class="link" href="https://www.qemu.org/" target="_blank" rel="noopener"
+>QEMU&lt;/a> to run &lt;code>containerd&lt;/code> or &lt;code>dockerd&lt;/code> and Kubernetes (&lt;a class="link" href="https://k3s.io/" target="_blank" rel="noopener"
+>k3s&lt;/a>).&lt;/p>
+&lt;p>For Windows systems, we utilize &lt;a class="link" href="https://docs.microsoft.com/en-us/windows/wsl/" target="_blank" rel="noopener"
+>Windows Subsystem for Linux v2 (WSL2)&lt;/a>.&lt;/p>
+&lt;blockquote>
+&lt;p>The figure below is taken from &lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+>rancher&lt;/a>
+how-it-works-rancher-desktop](how-it-works-rancher-desktop.webp)&lt;/p>
+&lt;/blockquote>
+&lt;p>Rancher Desktop provides functions to build, push, and pull images using &lt;a class="link" href="https://github.com/containerd/nerdctl" target="_blank" rel="noopener"
+>NERDCTL project&lt;/a> and Docker CLI.
+Note that both &lt;code>nerdctl&lt;/code> and &lt;code>docker&lt;/code> are automatically included in the path. On Windows, this is done during the installer, and on macOS and Linux, it is done at first run.&lt;/p>
+&lt;p>To use either of these tools, Rancher Desktop must be running with the appropriate container runtime.&lt;/p>
+&lt;p>For &lt;code>nerdctl&lt;/code>, use the &lt;code>containerd&lt;/code> runtime; for docker, use the &lt;code>dockerd (moby)&lt;/code> runtime.&lt;/p>
+&lt;blockquote>
+&lt;p>About Lima&lt;/p>
+&lt;p>Lima is similar to WSL, and boots a Linux virtual machine with automatic file sharing and port forwarding, and containerd. Lima is intended to be used on macOS hosts, but can be used on Linux hosts as well.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>About QEMU&lt;/p>
+&lt;p>QEMU is an OSS PC emulator. It runs on Linux, Windows, etc. on various CPUs such as x86, SPARC, MIPS, etc. It has the feature that it can execute instructions of other CPUs while converting them into native code.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>About k3s&lt;/p>
+&lt;p>k3s is one of the lightweight Kubernetes released by Rancher Labs, featuring a binary size of less than 40MB and a memory usage of only 512MB. Recently, it is expected to be used in IoT and Edge computing.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>About nerdctl&lt;/p>
+&lt;p>nerdctl is a container manipulation tool for containerd. You can think of it as a docker command for containerd.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="installing-on-mxlinux">Installing on MXLinux&lt;/h2>
+&lt;p>Let&amp;rsquo;s try to install Rancher Desktop on one of the Linux distributions, &lt;a class="link" href="https://mxlinux.org/" target="_blank" rel="noopener"
+>MXLinux&lt;/a>.&lt;/p>
+&lt;p>To install, follow the &lt;a class="link" href="https://docs.rancherdesktop.io/installation#linux" target="_blank" rel="noopener"
+>official documentation&lt;/a>, add the Rancher Desktop repository, and install Rancher Desktop.&lt;/p>
+&lt;p>There are several packages available for installation on Linux, but since MXLinux is based on Debian(stable), we will use the &lt;code>.deb&lt;/code> package.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># Obtain and register the repository&lt;/span>
+$ curl https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key &lt;span class="p">|&lt;/span> sudo apt-key add -
+$ sudo add-apt-repository &lt;span class="s1">&amp;#39;deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./&amp;#39;&lt;/span>
+&lt;span class="c1"># Updated package list&lt;/span>
+$ sudo apt update
+&lt;span class="c1"># Install Rancher Desktop&lt;/span>
+$ sudo apt install rancher-desktop
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This completes the installation of Rancher Desktop. It&amp;rsquo;s very easy.&lt;/p>
+&lt;blockquote>
+&lt;p>About MXLinux&lt;/p>
+&lt;p>MXLinux is one of the most popular Linux distributions on &lt;a class="link" href="https://distrowatch.com/" target="_blank" rel="noopener"
+>DistroWatch.com&lt;/a>
+It is a joint project between antiX and the former MEPIS Linux community and is being developed in Greece and the United States.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="launching-rancher-desktop">Launching Rancher Desktop&lt;/h2>
+&lt;p>Let&amp;rsquo;s run the installed Rancher Desktop. The application itself is very simple.&lt;/p>
+&lt;h3 id="general">General&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-general.webp"
+width="944"
+height="636"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-general_hu059a24df2025e717491b18316bbc5d3f_30608_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-general"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="356px"
+>&lt;/p>
+&lt;h3 id="kubernetes-setting">Kubernetes Setting&lt;/h3>
+&lt;p>Next, let&amp;rsquo;s take a look at the Kubernetes configuration.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting_hu7151ea4143d487d9b27e51c7bf52205f_24220_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>In &lt;code>Kubernetes version&lt;/code>, you can specify the version of Kubernetes. You can select from v1.23.3, the latest version at the time of writing, to v1.16.7, the oldest version.&lt;/p>
+&lt;p>The &lt;code>Port&lt;/code> is set to &lt;code>6443&lt;/code> by default.&lt;/p>
+&lt;p>For &lt;code>Container runtime&lt;/code>, you can choose between &lt;code>containerd&lt;/code> and &lt;code>dockerd (moby)&lt;/code>.&lt;/p>
+&lt;p>For &lt;code>Memory (GB)&lt;/code> and &lt;code>CPUs&lt;/code>, you can specify the number of memory and CPU cores. If you increase the value up to the red line, a warning message will be displayed as shown below.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-k8s-setting-danger_huc9b36cd09d0ffb131933753ab27b2b69_25280_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-k8s-setting-danger"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;p>If you want to clean up your environment once, you can easily reset it by pressing &lt;code>Reset Kubernetes&lt;/code>.&lt;/p>
+&lt;h3 id="supporting-utilities">Supporting Utilities&lt;/h3>
+&lt;p>In the &lt;code>Supporting Utilities&lt;/code> section, you can see the tools that were installed. For Docker, etc., which were already installed, a warning was carefully written.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities.webp"
+width="944"
+height="626"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-supporting-utilities_huff6a285d550fd0eb5e37c441ba9d155e_22744_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-supporting-utilities"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;h3 id="images">Images&lt;/h3>
+&lt;p>In &lt;code>Images&lt;/code>, you can see the images used by Rancher Desktop. Select &lt;code>Scan&lt;/code> from &lt;code>⋮&lt;/code> in the image list to scan the image for vulnerabilities using &lt;a class="link" href="https://github.com/aquasecurity/trivy" target="_blank" rel="noopener"
+>Trivy&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-images.webp"
+width="944"
+height="712"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-images_hu0d05a7dd4f6db0e258fd2797df031a80_36154_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-images"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;p>Notice the &lt;code>Image Namespace&lt;/code> here. In &lt;code>containerd&lt;/code>, the concept of &lt;code>namespace&lt;/code> exists as in Kubernetes.
+So, just as Kubernetes can have &lt;code>namespace&lt;/code>, &lt;code>containerd&lt;/code> can have &lt;code>namespace&lt;/code> as well.
+In the above figure, the image exists in &lt;code>namespace:k8s.io&lt;/code>.&lt;/p>
+&lt;p>Let&amp;rsquo;s check the &lt;code>namespace&lt;/code> using the &lt;code>nerdctl&lt;/code> command. Use &lt;code>nerdctl namespace list&lt;/code> to display a list of &lt;code>namespaces&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>When you run &lt;code>nerdctl --namespace k8s.io ps&lt;/code>, you can see that the image exists in &lt;code>k8s.io&lt;/code>.&lt;/p>
+&lt;p>You can also use &lt;code>nerdctl --namespace k8s.io ps&lt;/code> to check &lt;code>namespace:k8s.io&lt;/code> for Kubernetes containers created with Rancher Desktop.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace k8s.io ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+1f642d94e7d5 docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-443
+2ca56d5f0874 docker.io/rancher/mirrored-library-traefik:2.5.6 &lt;span class="s2">&amp;#34;/entrypoint.sh --gl…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4/traefik
+2f1c800451cf docker.io/rancher/mirrored-coredns-coredns:1.8.6 &lt;span class="s2">&amp;#34;/coredns -conf /etc…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq/coredns
+56bd8fba2fda docker.io/rancher/klipper-lb:v0.3.4 &lt;span class="s2">&amp;#34;entry&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr/lb-port-80
+5908afd18045 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/coredns-5789895cd-wgxlq
+8c16131e6d1b docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">50&lt;/span> minutes ago Up k8s://kube-system/svclb-traefik-svnfr
+95b859fec9ed docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh
+a0656b86ab35 docker.io/rancher/local-path-provisioner:v0.0.21 &lt;span class="s2">&amp;#34;local-path-provisio…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/local-path-provisioner-6c79684f77-plbxh/local-path-provisioner
+a5c31106d6d7 docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/traefik-6bb96f9bd8-cflf4
+c9417746b27d docker.io/rancher/mirrored-pause:3.6 &lt;span class="s2">&amp;#34;/pause&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd
+ce64e7b0a242 docker.io/rancher/mirrored-metrics-server:v0.5.2 &lt;span class="s2">&amp;#34;/metrics-server --c…&amp;#34;&lt;/span> &lt;span class="m">49&lt;/span> minutes ago Up k8s://kube-system/metrics-server-7cd5fcb6b7-4cbkd/metrics-server
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="troubleshooting">Troubleshooting&lt;/h3>
+&lt;p>In &lt;code>Troubleshooting&lt;/code>, you can enable logging and initialize Rancher Desktop itself.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting.webp"
+width="1077"
+height="712"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-troubleshooting_huf225ebab95640cf0cebc4ea1e8bd02aa_21400_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-troubleshooting"
+class="gallery-image"
+data-flex-grow="151"
+data-flex-basis="363px"
+>&lt;/p>
+&lt;h2 id="検証">検証&lt;/h2>
+&lt;p>Let&amp;rsquo;s try to run a container on Rancher Desktop.&lt;/p>
+&lt;h3 id="use-nerdctl">Use nerdctl&lt;/h3>
+&lt;p>Try to start nginx using the &lt;code>nerdctl&lt;/code> command. If &lt;code>namespace&lt;/code> is not specified, it will be placed in &lt;code>default&lt;/code> by default.&lt;/p>
+&lt;h4 id="launch-nginx">Launch nginx&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl run -d -p 9999:80 nginx
+docker.io/library/nginx:latest: resolved &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+index-sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767: &lt;span class="k">done&lt;/span> &lt;span class="p">|&lt;/span>++++++++++++++++++++++++++++++++++++++&lt;span class="p">|&lt;/span>
+...
+elapsed: 7.2 s total: 54.1 M &lt;span class="o">(&lt;/span>7.5 MiB/s&lt;span class="o">)&lt;/span>
+484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="check-the-status-of-the-container">Check the status of the container.&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">6&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="check-the-namespace">Check the namespace&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl namespace list
+NAME CONTAINERS IMAGES VOLUMES
+buildkit &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+default &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">0&lt;/span>
+k8s.io &lt;span class="m">22&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="check-the-process-of-namespace-default">Check the process of namespace default&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/nerdctl --namespace default ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+484e86556e00 docker.io/library/nginx:latest &lt;span class="s2">&amp;#34;/docker-entrypoint.…&amp;#34;&lt;/span> &lt;span class="m">11&lt;/span> minutes ago Up 0.0.0.0:9999-&amp;gt;80/tcp nginx-484e8
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can also see the nginx image in &lt;code>namespace:default&lt;/code> from Rancher Desktop.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx.webp"
+width="1077"
+height="386"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/rancher-desktop-run-nginx_hu64b47d25b1c5382769f0d3d19ec04581_15450_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="rancher-desktop-run-nginx"
+class="gallery-image"
+data-flex-grow="279"
+data-flex-basis="669px"
+>&lt;/p>
+&lt;p>Finally, try to access &lt;code>localhost:9999&lt;/code> to check if nginx is up and running.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/run-nginx.webp"
+width="713"
+height="311"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/run-nginx_hue4500114d1f5983fc71b7d3be58ac512_23222_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="run-nginx"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="550px"
+>&lt;/p>
+&lt;h3 id="use-helm">Use Helm&lt;/h3>
+&lt;p>Rancher Desktop also installs Helm at startup, so let&amp;rsquo;s deploy Grafana to Kubernetes using Helm.&lt;/p>
+&lt;h4 id="add-grafana-repository-to-helm">Add Grafana repository to Helm&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo add grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="verify-that-the-repository-has-been-added-to-helm">Verify that the repository has been added to Helm&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm repo list
+NAME URL
+grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="view-the-chart-from-the-added-grafana-repository">View the chart from the added Grafana repository&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/helm search repo grafana
+NAME CHART VERSION APP VERSION DESCRIPTION
+grafana/grafana 6.21.1 8.3.4 The leading tool &lt;span class="k">for&lt;/span> querying and visualizing t...
+grafana/grafana-agent-operator 0.1.5 0.22.0 A Helm chart &lt;span class="k">for&lt;/span> Grafana Agent Operator
+grafana/enterprise-logs 2.0.0 v1.3.0 Grafana Enterprise Logs
+grafana/enterprise-metrics 1.7.3 v1.6.1 Grafana Enterprise Metrics
+grafana/fluent-bit 2.3.0 v2.1.0 Uses fluent-bit Loki go plugin &lt;span class="k">for&lt;/span> gathering lo...
+grafana/loki 2.9.1 v2.4.2 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/loki-canary 0.5.1 2.4.1 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki Canary
+grafana/loki-distributed 0.42.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in microservices mode
+grafana/loki-simple-scalable 0.2.0 2.4.2 Helm chart &lt;span class="k">for&lt;/span> Grafana Loki in simple, scalable...
+grafana/loki-stack 2.5.1 v2.1.0 Loki: like Prometheus, but &lt;span class="k">for&lt;/span> logs.
+grafana/promtail 3.10.0 2.4.2 Promtail is an agent which ships the contents o...
+grafana/tempo 0.13.0 1.3.0 Grafana Tempo Single Binary Mode
+grafana/tempo-distributed 0.15.0 1.3.0 Grafana Tempo in MicroService mode
+grafana/tempo-vulture 0.2.0 1.3.0 Grafana Tempo Vulture - A tool to monitor Tempo...
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="helm-charts-released">Helm Charts Released&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl create namespace monitoring
+$ ./.local/bin/helm install grafana --namespace monitoring grafana/grafana
+W0128 03:37:33.477723 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.480386 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538004 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+W0128 03:37:33.538201 &lt;span class="m">218028&lt;/span> warnings.go:70&lt;span class="o">]&lt;/span> policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+NAME: grafana
+LAST DEPLOYED: Fri Jan &lt;span class="m">28&lt;/span> 03:37:32 &lt;span class="m">2022&lt;/span>
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: &lt;span class="m">1&lt;/span>
+NOTES:
+1. Get your &lt;span class="s1">&amp;#39;admin&amp;#39;&lt;/span> user password by running:
+kubectl get secret --namespace monitoring grafana -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.data.admin-password}&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> base64 --decode &lt;span class="p">;&lt;/span> &lt;span class="nb">echo&lt;/span>
+2. The Grafana server can be accessed via port &lt;span class="m">80&lt;/span> on the following DNS name from within your cluster:
+grafana.monitoring.svc.cluster.local
+Get the Grafana URL to visit by running these commands in the same shell:
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">POD_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>kubectl get pods --namespace monitoring -l &lt;span class="s2">&amp;#34;app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana&amp;#34;&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.items[0].metadata.name}&amp;#34;&lt;/span>&lt;span class="k">)&lt;/span>
+kubectl --namespace monitoring port-forward &lt;span class="nv">$POD_NAME&lt;/span> &lt;span class="m">3000&lt;/span>
+3. Login with the password from step &lt;span class="m">1&lt;/span> and the username: admin
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;span class="c1">###### WARNING: Persistence is disabled!!! You will lose your data when #####&lt;/span>
+&lt;span class="c1">###### the Grafana pod is terminated. #####&lt;/span>
+&lt;span class="c1">#################################################################################&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Following the steps above, you should now be able to successfully login to Grafana.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/running-rancher-desktop-on-mxlinux/grafana-dashboard.webp"
+width="883"
+height="593"
+srcset="https://example.com/p/running-rancher-desktop-on-mxlinux/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/running-rancher-desktop-on-mxlinux/grafana-dashboard_hue6ce27b56b920f20ad161f85bcfd5a62_34598_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+alt="grafana-dashboard"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="357px"
+>&lt;/p>
+&lt;p>Finally, use the &lt;code>kubectl&lt;/code> command to make sure that Grafana is up and running.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">$ ./.local/bin/kubectl get all --namespace monitoring
+NAME READY STATUS RESTARTS AGE
+pod/grafana-6b9d4f7f86-mwb4q 1/1 Running &lt;span class="m">0&lt;/span> 15m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+service/grafana ClusterIP 10.43.218.65 &amp;lt;none&amp;gt; 80/TCP 15m
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/grafana 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/grafana-6b9d4f7f86 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 15m
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As you can see above, you can easily develop and deploy your application just by running Rancher Desktop.&lt;/p>
+&lt;h2 id="impression">Impression&lt;/h2>
+&lt;p>This time, I touched Rancher Desktop, which was released v1.0.0, and found it to be a very complete tool. If you are new to &lt;code>containerd&lt;/code> or &lt;code>nerdctl&lt;/code>, Rancher Desktop is a good opportunity for you.&lt;/p>
+&lt;p>Last year, &lt;a class="link" href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener"
+>Docker Desktop is now paid&lt;/a> became a big news, and Rancher Desktop, but
+If you switch from Docker Desktop, you will be able to use it without any problems. If you want to use Docker&amp;rsquo;s runtime, you can switch from Rancher Desktop without much trouble.&lt;/p>
+&lt;p>Also, I personally think that the ability to smoothly switch between Kubernetes versions is a big advantage.&lt;/p>
+&lt;p>There is a great possibility that this will become one of the most popular ways to use containers in the future, so I will keep an eye on the future developments.&lt;/p></description></item><item><title>Karpenter Deep Dive</title><link>https://example.com/p/karpenter-deep-dive/</link><pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/karpenter-deep-dive/</guid><description>&lt;img src="https://example.com/p/karpenter-deep-dive/featured-image.webp" alt="Featured image of post Karpenter Deep Dive " />&lt;p>Recently, Karpenter graduated from AWS re:Invent with autoscaling of Nodes in Kubernetes clusters.&lt;/p>
+&lt;p>In this article, we&amp;rsquo;ll take a deeper look at it.&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>This is the 18th day of the [Kubernetes Advent Calendar 2021](&amp;lt;(&lt;a class="link" href="https://qiita.com/advent-calendar/2021/kubernetes%29%29" target="_blank" rel="noopener"
+>https://qiita.com/advent-calendar/2021/kubernetes))&lt;/a>.&lt;/p>
+&lt;h2 id="what-is-karpenter">What is Karpenter?&lt;/h2>
+&lt;p>Officially described as &amp;ldquo;Just-in-time Nodes for Any Kubernetes Cluster&amp;rdquo;, Karpenter provides the ability to instantly provision new Nodes for unscheduled Pods. The goal is to improve the efficiency and cost of running workloads on Kubernetes clusters.&lt;/p>
+&lt;p>Karpenter works as follows.&lt;/p>
+&lt;ul>
+&lt;li>Monitor Pods that the Kubernetes scheduler has marked as unschedulable&lt;/li>
+&lt;li>Evaluate the following scheduling constraints as requested by the Pod
+&lt;ul>
+&lt;li>Resource Request&lt;/li>
+&lt;li>Node Selector&lt;/li>
+&lt;li>Affinity&lt;/li>
+&lt;li>Tolerant&lt;/li>
+&lt;li>Topology spreading constraints&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Provisioning a Node to meet Pod requirements&lt;/li>
+&lt;li>Scheduling a Pod to run on a new Node&lt;/li>
+&lt;li>Deleting a Node when it is no longer needed&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>How to use Karpenter&lt;/p>
+&lt;p>Karpenter will only support AWS as of December 2021.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="autoscale-in-kubernetes">Autoscale in Kubernetes&lt;/h2>
+&lt;h3 id="pod">Pod&lt;/h3>
+&lt;p>There are two ways to scale the Pod.&lt;/p>
+&lt;h4 id="horizontal-pod-auto-scaler">Horizontal Pod Auto scaler&lt;/h4>
+&lt;p>Horizontal pod scaling is a method of scaling to improve processing performance by increasing the number of pods. User-defined metrics such as CPU, memory, etc. can also be used to make decisions.&lt;/p>
+&lt;p>The number of pods is calculated by the following formula.&lt;/p>
+&lt;p>&lt;code>Number of replicas desired = ceil[&amp;lt;current number of pods&amp;gt; * (&amp;lt;current index value / &amp;lt;target index value&amp;gt;)]&lt;/code>.&lt;/p>
+&lt;h4 id="vertical-pod-auto-scaler">Vertical Pod Auto scaler&lt;/h4>
+&lt;p>This is a method of scaling that improves processing performance by increasing the resources available to the pod. In this case, the CPU and memory are used as criteria. It is more like optimizing the resource utilization.&lt;/p>
+&lt;h3 id="node">Node&lt;/h3>
+&lt;h4 id="cluster-auto-scaler">Cluster Auto scaler&lt;/h4>
+&lt;p>It is a method of scaling to improve processing performance by increasing the number of worker Nodes. It can also be used in conjunction with horizontal scaling of Pods.&lt;/p>
+&lt;h2 id="how-to-install">How to install&lt;/h2>
+&lt;p>Karpenter will be installed on the cluster with Helm Chart.
+Karpenter also requires IAM Roles for Service Accounts (IRSA).&lt;/p>
+&lt;p>Currently, the utilities required to use Karpenter are as follows&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html" target="_blank" rel="noopener"
+>AWS CLI&lt;/a>&lt;/li>
+&lt;li>&lt;code>kubectl&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/" target="_blank" rel="noopener"
+>the Kubernetes CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>eksctl&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html" target="_blank" rel="noopener"
+>the CLI for AWS EKS&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>helm&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://karpenter.sh/docs/getting-started/#install" target="_blank" rel="noopener"
+>the package manager for Kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>To learn how to install Karpenter on AWS, please refer to the official document &amp;ldquo;&lt;a class="link" href="https://karpenter.sh/docs/getting-started/#install" target="_blank" rel="noopener"
+>Getting Started with Karpenter on AWS&lt;/a>&amp;rdquo;.&lt;/p>
+&lt;p>Karpenter&amp;rsquo;s Helm Chart can be found &lt;a class="link" href="https://github.com/aws/karpenter/tree/main/charts/karpenter" target="_blank" rel="noopener"
+>here&lt;/a>.&lt;/p>
+&lt;blockquote>
+&lt;p>Installation with Terraform&lt;/p>
+&lt;p>Kapenter also provides an installation method using &lt;a class="link" href="https://learn.hashicorp.com/tutorials/terraform/install-cli" target="_blank" rel="noopener"
+>Terraform&lt;/a>. See &lt;a class="link" href="https://karpenter.sh/docs/getting-started-with-terraform/" target="_blank" rel="noopener"
+>here&lt;/a> for details.&lt;/p>
+&lt;/blockquote>
+&lt;p>An overview diagram is shown in the figure below.&lt;/p>
+&lt;p>&lt;img src="https://example.com/karpenter-overview.webp"
+loading="lazy"
+alt="Karpenter Overview"
+>&lt;/p>
+&lt;h2 id="configure-the-provisioner">Configure the provisioner&lt;/h2>
+&lt;p>Karpenter&amp;rsquo;s job is to add Nodes that handle non-schedulable Pods, schedule Pods on those Nodes, and remove the Nodes when they are no longer needed.&lt;/p>
+&lt;p>To configure Karpenter, create a provisioner that defines how Karpenter will manage non-schedulable Pods and timed Nodes.&lt;/p>
+&lt;p>The following is what you need to know about Karpenter provisioners.&lt;/p>
+&lt;h3 id="unschedulable-pods">Unschedulable pods&lt;/h3>
+&lt;p>Karpenter will only attempt to provision Pods with the status condition &lt;code>Unschedulable=True&lt;/code>. This will be set when the kube-scheduler fails to schedule a Pod to an existing capacity.&lt;/p>
+&lt;h3 id="provisioner-cr">Provisioner CR&lt;/h3>
+&lt;p>Karpenter defines a custom resource called &lt;code>Provisioner&lt;/code> to specify the provisioning configuration.&lt;/p>
+&lt;p>Each provisioner manages a separate set of Nodes, but a Pod can be scheduled to any provisioner that supports its scheduling constraints.&lt;/p>
+&lt;p>A provisioner contains constraints that affect the Nodes that can be provisioned and the attributes of the Nodes (such as timers for removing Nodes).&lt;/p>
+&lt;p>The following are the resources of the provisioner.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">karpenter.sh/v1alpha5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Provisioner&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ttlSecondsUntilExpired&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2592000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ttlSecondsAfterEmpty&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">30&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">taints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com/special-taint&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">effect&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">NoSchedule&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">billing-team&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my-team&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">requirements&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;node.kubernetes.io/instance-type&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;m5.large&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;m5.2xlarge&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;topology.kubernetes.io/zone&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;us-west-2a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;us-west-2b&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kubernetes.io/arch&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;arm64&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;amd64&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;karpenter.sh/capacity-type&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;spot&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;on-demand&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">provider&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The &lt;code>spec.ttlSecondsUntilExpired&lt;/code> is the number of seconds the controller will wait before exiting the Node, measured from the time the Node is created. This is useful to eventually implement features like consistent Node upgrades, memory leak protection, and destructive testing. If this field is not set, termination due to expiration will be disabled.&lt;/p>
+&lt;p>The &lt;code>spec.ttlSecondsAfterEmpty&lt;/code> is the number of seconds the controller will wait between the time it detects that a Node is empty and the time it tries to remove the Node. A Node is considered empty if there are no Pods scheduled for that Node, except for the daemonset.&lt;/p>
+&lt;p>The &lt;code>spec.requirements&lt;/code> constrains the parameters of the provisioned Node. It can be combined with &lt;code>nodeAffinity&lt;/code> and &lt;code>nodeSelector&lt;/code>. The &lt;code>{ In, NotIn }&lt;/code> operator is supported to include or exclude values.&lt;/p>
+&lt;h2 id="deprovisioning-node">Deprovisioning Node&lt;/h2>
+&lt;p>Karpenter deletes the nodes that are no longer needed as follows.&lt;/p>
+&lt;h3 id="finalizer">Finalizer&lt;/h3>
+&lt;p>Karpenter will place a finalizer bit in each Node it creates.&lt;/p>
+&lt;p>When a request to delete these Nodes comes in (such as a TTL or manual Node deletion via kubectl), Karpenter codes the Node, ejects all Pods, terminates the EC2 instance, and deletes the Node object.&lt;/p>
+&lt;p>Karpenter handles all the cleanup work required to properly delete the Node.&lt;/p>
+&lt;h3 id="node-expiry">Node Expiry&lt;/h3>
+&lt;p>When a Node reaches its expiration value (&lt;code>ttlSecondsUntilExpired&lt;/code>), it will be ejected and removed from the Pod (even if it is still running a workload).&lt;/p>
+&lt;h3 id="empty-nodes">Empty Nodes&lt;/h3>
+&lt;p>When the last workload Pod running on a Karpenter-managed Node runs out, that Node will be given an &lt;code>emptiness&lt;/code> timestamp. When its &amp;ldquo;Node is empty&amp;rdquo; expiration date (&lt;code>ttlSecondsAfterEmpty&lt;/code>) is reached, finalization is triggered.&lt;/p>
+&lt;blockquote>
+&lt;p>About how to remove Node&lt;/p>
+&lt;p>For more information on how Karpenter deletes Nodes, see &lt;a class="link" href="https://karpenter.sh/docs/tasks/deprov-nodes/" target="_blank" rel="noopener"
+>Details&lt;/a> on Node deprovisioning.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="upgrade-node">Upgrade Node&lt;/h2>
+&lt;p>An easy way to upgrade a Node is to set &lt;code>ttlSecondsUntilExpired&lt;/code>, which will expire after a set period of time and be replaced by a newer Node.&lt;/p>
+&lt;h2 id="constraints">Constraints&lt;/h2>
+&lt;p>Because there are no constraints defined by the provisioner or requested by the Pod being deployed, Karpenter is selected from the entire set of features available from the cloud provider. Nodes can be created using any instance type and run in any zone.&lt;/p>
+&lt;h2 id="scheduling">Scheduling&lt;/h2>
+&lt;p>Karpenter schedules Pods that are marked as &lt;code>unschedulable&lt;/code> by the Kubernetes scheduler. After resolving scheduling constraints and startup capacity, it creates a Node and binds the Pod. This stateless approach will help you avoid race conditions and improve performance. If there is a problem with a launched Node, Kubernetes will automatically migrate the Pod to a new Node. When Karpenter launches a Node, it will also allow Kubernetes' scheduler to schedule on it.&lt;/p>
+&lt;h2 id="cloud-provider">Cloud provider&lt;/h2>
+&lt;p>Karpenter makes a request to the relevant cloud provider for provisioning a new Node. The first supported cloud provider is AWS, but Karpenter is designed to work with other cloud providers as well. While using the well-known labels of Kubernetes, the provisioner can set a number of values specific to the cloud provider.&lt;/p>
+&lt;p>If you are developing your own provider, you can create it in the repository under &lt;code>pkg/cloudprovider/&lt;/code>. The directory structure is as follows. The &lt;code>fake&lt;/code> directory is provided as an example for reference.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">.
+├── aws
+│   ├── apis
+│   │   └── v1alpha1
+│   └── fake
+├── fake
+├── metrics
+└── registry
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>First, you need to create the following files for each cloud provider under &lt;code>pkg/cloudprovider/registry&lt;/code> to register them.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-golang" data-lang="golang">&lt;span class="c1">// +build &amp;lt;YOUR_PROVIDER_NAME&amp;gt;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="s">&amp;#34;github.com/aws/karpenter/pkg/cloudprovider/&amp;lt;YOUR_PROVIDER_NAME&amp;gt;&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">NewCloudProvider&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">cloudprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CloudProvider&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">YOUR_PROVIDER_NAME&lt;/span>&lt;span class="p">&amp;gt;.&lt;/span>&lt;span class="nf">NewCloudProvider&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can also create one for each cloud provider under &lt;code>pkg/cloudprovider&lt;/code> for your environment. If you check the &lt;code>fake&lt;/code> directory, you will find the following files. You can add other necessary information according to your environment.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">.
+├── cloudprovider.go
+└── instancetype.go
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="difference-from-cluster-auto-scaler">Difference from Cluster Auto scaler&lt;/h2>
+&lt;p>Like Karpenter, the Kubernetes Cluster Auto scaler is designed to add Nodes when a request comes in to run a Pod that cannot be handled by the current capacity.
+Cluster Auto scaler is part of the Kubernetes project and is implemented by most of the major Kubernetes cloud providers. By rethinking provisioning, Karpenter provides the following improvements.&lt;/p>
+&lt;h3 id="designed-to-take-advantage-of-the-flexibility-of-the-cloud">Designed to take advantage of the flexibility of the cloud&lt;/h3>
+&lt;p>Karpenter has the ability to efficiently handle any type of instance available in AWS. Cluster Autoscaler was not originally built with the flexibility to support hundreds of instance types, zones, and purchase options.&lt;/p>
+&lt;h3 id="group-less-node-provisioning">Group less Node Provisioning&lt;/h3>
+&lt;p>Karpenter manages each instance directly, without orchestration mechanisms such as Node groups. This allows you to retry in milliseconds instead of minutes if capacity is not available. It also allows you to take advantage of a variety of instance types, availability zones, and purchasing options without having to create hundreds of Node groups.&lt;/p>
+&lt;h3 id="scheduling-implementation">Scheduling Implementation&lt;/h3>
+&lt;p>Cluster Autoscaler does not bind a Pod to the Node it creates. Instead, it relies on the &lt;code>kube-scheduler&lt;/code> to make the same scheduling decision after the Node comes online. The Node started by Karpenter is bound to its Pod immediately. kubelet&lt;code> does not need to wait for the scheduler or Node to be ready. kubelet&lt;/code> does not need to wait for the scheduler or Node to be ready, it can start preparing the container runtime immediately, including pre-pulling images. This can reduce the Node startup latency by a few seconds.&lt;/p>
+&lt;h2 id="thoughts">Thoughts&lt;/h2>
+&lt;p>In this article, I&amp;rsquo;ve tried to dig a little deeper into Karpenter.&lt;/p>
+&lt;p>Personally, I think it&amp;rsquo;s the same as GKE Autopilot&amp;rsquo;s dynamic Node provisioning process. I think Karpenter is an OSS version of that tool. Like GKE Autopilot, Karpenter observes the specification of non-schedulable pods, computes aggregate resource requests, and sends the requests to an underlying compute service (such as Amazon EC2) that has the capacity required to run all the pods.&lt;/p>
+&lt;p>Karpenter also allows you to define custom resources and specify the provisioning configuration for the following Nodes. We found the flexibility to change the configuration to be a significant advantage.&lt;/p>
+&lt;ul>
+&lt;li>Instance size/type, topology (zone, etc.)&lt;/li>
+&lt;li>Architecture (arm64, amd64, etc.)&lt;/li>
+&lt;li>Lifecycle type (spot, on-demand, pre-emptive, etc.)&lt;/li>
+&lt;/ul>
+&lt;p>On the other hand, Karpenter can also deprovision a Node when it is no longer needed. This can be determined by setting the Node&amp;rsquo;s expiration date (&lt;code>ttlSecondsUntilExpired&lt;/code>) or when the last workload running on a Karpenter provisioned Node has finished (&lt;code>ttlSecondsAfterEmpty&lt;/code>). Either of these two events triggers a finalization that codes the Node, ejects the Pod, terminates the underlying compute resource, and deletes the Node object. This deprovisioning feature can also be used to keep Node up-to-date with the latest AMI.&lt;/p>
+&lt;p>With Karpenter, I believe you can offload Node provisioning, autoscaling and upgrading and focus on running your application. Karpenter works with all kinds of Kubernetes applications, but I think it performs especially well in use cases where large amounts of diverse compute resources need to be provisioned and de-provisioned quickly. (Training machine learning models, running simulations, batch jobs with complex financial calculations, etc.)&lt;/p>
+&lt;p>Currently, it only runs on AWS, but we will keep an eye on it in the future. If I have time, I&amp;rsquo;ll try to implement it on other clouds as well.&lt;/p></description></item><item><title>Karpenter を調べてみた</title><link>https://example.com/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate><guid>https://example.com/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;img src="https://example.com/p/karpenter-%E3%82%92%E8%AA%BF%E3%81%B9%E3%81%A6%E3%81%BF%E3%81%9F/featured-image.webp" alt="Featured image of post Karpenter を調べてみた" />&lt;p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする Karpenter が GA になりました.&lt;/p>
+&lt;p>今回は、それについて深堀りしてみます.&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>これは &lt;a class="link" href="https://qiita.com/advent-calendar/2021/kubernetes" target="_blank" rel="noopener"
+>Kubernetes Advent Calendar 2021&lt;/a> 18 日目の記事です.&lt;/p>
+&lt;h2 id="karpenter-とは">Karpenter とは&lt;/h2>
+&lt;p>Karpenter は、&lt;strong>「Just-in-time Nodes for Any Kubernetes Cluster」&lt;/strong> と公式で記載されている通り、スケジュールが不能な Pod に対して、瞬時に新しい Node をプロビジョニングする機能を提供します. それにより、Kubernetes クラスター上でワークロードを実行する際の効率とコスト改善をゴールとしています.&lt;/p>
+&lt;p>Karpenter の動作は以下の通りになります.&lt;/p>
+&lt;ul>
+&lt;li>Kubernetes スケジューラがスケジューリング不能とマークした Pod を監視する&lt;/li>
+&lt;li>Pod から要求された以下のスケジューリング制約の評価
+&lt;ul>
+&lt;li>リソース要求&lt;/li>
+&lt;li>Node セレクタ&lt;/li>
+&lt;li>アフィニティ&lt;/li>
+&lt;li>トレラント&lt;/li>
+&lt;li>トポロジー拡散制約&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Pod の要件を満たす Node のプロビジョニング&lt;/li>
+&lt;li>新しい Node で実行する Pod のスケジューリング&lt;/li>
+&lt;li>Node が不要になったら削除する&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Karpenter の利用方法について&lt;/p>
+&lt;p>Karpenter は 2021 年 12 月 現在、AWS のみをサポートしています.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="kubernetes-におけるオートスケール">Kubernetes におけるオートスケール&lt;/h2>
+&lt;p>Kubernetes には、Pod と Node それぞれにオートスケールする機能が提供されています.&lt;/p>
+&lt;h3 id="pod">Pod&lt;/h3>
+&lt;p>Pod には、以下の 2 種類のスケール方法があります.&lt;/p>
+&lt;h4 id="水平スケール-horizontal-pod-autoscaler">水平スケール (Horizontal Pod Autoscaler)&lt;/h4>
+&lt;p>Pod の水平スケールは、Pod 数を増やすことにより処理性能を向上させるスケール方法です. CPU やメモリなど、ユーザが独自に設定したメトリクスなども判断の材料として使えます.&lt;/p>
+&lt;p>Pod 数は以下の計算式で算出されます.&lt;/p>
+&lt;p>&lt;code>希望するレプリカ数 = ceil[&amp;lt;現在の Pod数&amp;gt; * (&amp;lt;現在の指標値 / &amp;lt;ターゲットとする指標値&amp;gt;)]&lt;/code>&lt;/p>
+&lt;h4 id="垂直スケール-vertical-pod-autoscaler">垂直スケール (Vertical Pod Autoscaler)&lt;/h4>
+&lt;p>Pod が利用可能なリソースを増やすことで処理性能を向上させるスケール方法です. こちらは、CPU やメモリを判断材料に使用します. どちらかと言うとリソース使用率の最適化を行っているイメージです.&lt;/p>
+&lt;h3 id="node">Node&lt;/h3>
+&lt;h4 id="node-の水平オートスケーラー-cluster-autoscaler">Node の水平オートスケーラー (Cluster Autoscaler)&lt;/h4>
+&lt;p>ワーカー Node の台数を増やすことによって処理性能を向上させるスケール方法です. Pod の水平スケールなどと連携することも可能です.&lt;/p>
+&lt;h2 id="インストール方法">インストール方法&lt;/h2>
+&lt;p>Karpenter は、Helm Chart でクラスタにインストールされます.
+Karpenter はさらに、IAM Roles for Service Accounts (IRSA)を必要とします.&lt;/p>
+&lt;p>現在、Karpenter を使用する際に必要なユーティリティは以下の通りです.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html" target="_blank" rel="noopener"
+>AWS CLI&lt;/a>&lt;/li>
+&lt;li>&lt;code>kubectl&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/" target="_blank" rel="noopener"
+>the Kubernetes CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>eksctl&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html" target="_blank" rel="noopener"
+>the CLI for AWS EKS&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>helm&lt;/code>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://karpenter.sh/docs/getting-started/#install" target="_blank" rel="noopener"
+>the package manager for Kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>AWS への Karpenter のインストール方法は、&lt;a class="link" href="https://karpenter.sh/docs/getting-started/#install" target="_blank" rel="noopener"
+>こちら&lt;/a>の公式ドキュメントの &lt;strong>「Getting Started with Karpenter on AWS」&lt;/strong> を参考にすると良いと思います.&lt;/p>
+&lt;p>Karpenter の Helm Chart は&lt;a class="link" href="https://github.com/aws/karpenter/tree/main/charts/karpenter" target="_blank" rel="noopener"
+>こちら&lt;/a>から確認することができます.&lt;/p>
+&lt;blockquote>
+&lt;p>Terraform を用いたインストール&lt;/p>
+&lt;p>&lt;a class="link" href="https://learn.hashicorp.com/tutorials/terraform/install-cli" target="_blank" rel="noopener"
+>Terraform&lt;/a> を使用したインストール方法もあります.詳しくは&lt;a class="link" href="https://karpenter.sh/docs/getting-started-with-terraform/" target="_blank" rel="noopener"
+>こちら&lt;/a>を参照してください.&lt;/p>
+&lt;/blockquote>
+&lt;p>概要図は下図の通りです。&lt;/p>
+&lt;p>&lt;img src="https://example.com/karpenter-overview.webp"
+loading="lazy"
+alt="Karpenter Overview"
+>&lt;/p>
+&lt;h2 id="プロビジョナーの設定">プロビジョナーの設定&lt;/h2>
+&lt;p>Karpenter の仕事は、スケジュールできない Pod を処理する Node を追加し、その Node で Pod をスケジュールし、不要になったら Node を削除することです.&lt;/p>
+&lt;p>Karpenter を設定するには、Karpenter がスケジューリング不能な Pod と期限付き Node を管理する方法を定義するプロビジョナーを作成します.&lt;/p>
+&lt;p>以下は、Karpenter のプロビジョナーについて知っておくと良いと思います.&lt;/p>
+&lt;h3 id="unschedulable-pods">Unschedulable pods&lt;/h3>
+&lt;p>Karpenter は、ステータス条件 &lt;code>Unschedulable=True&lt;/code> を持つ Pod のみをプロビジョニングしようとします. これは、kube-scheduler が既存の容量に Pod をスケジュールすることに失敗したときに設定されます.&lt;/p>
+&lt;h3 id="provisioner-cr">Provisioner CR&lt;/h3>
+&lt;p>Karpenter では、プロビジョニング構成を指定するために、&lt;code>Provisioner&lt;/code> というカスタムリソースを定義しています.&lt;/p>
+&lt;p>各プロビジョナーは個別の Node セットを管理しますが、Pod はそのスケジューリング制約をサポートする任意のプロビジョナーにスケジュールすることができます.&lt;/p>
+&lt;p>プロビジョナーには、プロビジョニング可能な Node と Node の属性（Node を削除するためのタイマーなど）に影響を与える制約が含まれています.&lt;/p>
+&lt;p>以下が プロビジョナーのリソースになります.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">karpenter.sh/v1alpha5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Provisioner&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ttlSecondsUntilExpired&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2592000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ttlSecondsAfterEmpty&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">30&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">taints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com/special-taint&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">effect&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">NoSchedule&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">billing-team&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my-team&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">requirements&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;node.kubernetes.io/instance-type&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;m5.large&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;m5.2xlarge&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;topology.kubernetes.io/zone&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;us-west-2a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;us-west-2b&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kubernetes.io/arch&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;arm64&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;amd64&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;karpenter.sh/capacity-type&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">In&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">values&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;spot&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;on-demand&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">provider&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>spec.ttlSecondsUntilExpired&lt;/code>は、コントローラが Node を終了するまでに待つ秒数で、Node の作成時から計測されます. これは、最終的に一貫した Node アップグレード、メモリリーク保護、破壊テストのような機能を実装するのに便利です. このフィールドが設定されていない場合、有効期限切れによる終了は無効になります.&lt;/p>
+&lt;p>&lt;code>spec.ttlSecondsAfterEmpty&lt;/code>は、Node が空になったことを検出した時点から、コントローラが Node を削除しようとするまでに待つ秒数です. Node は、デーモンセットを除いて、その Node にスケジュールされている Pod がない場合、空であると見なされます.&lt;/p>
+&lt;p>&lt;code>spec.requirements&lt;/code>は、プロビジョニングされた Node のパラメータを制約します. &lt;code>nodeAffinity&lt;/code> や &lt;code>nodeSelector&lt;/code> と組み合わせることも可能です. 演算子 &lt;code>{ In, NotIn }&lt;/code> は、値を含めたり除外したりするためにサポートされています.&lt;/p>
+&lt;h2 id="node-のデプロビジョニング">Node のデプロビジョニング&lt;/h2>
+&lt;p>Karpenter では、不要になった Node を以下のように削除しています.&lt;/p>
+&lt;h3 id="finalizer">Finalizer&lt;/h3>
+&lt;p>Karpenter は、作成する各 Node にファイナライザービットを配置します。&lt;/p>
+&lt;p>これらの Node を削除するリクエスト（TTL や手動での kubectl による Node 削除など）が来ると、Karpenter は Node をコード化し、すべての Pod を排出して EC2 インスタンスを終了させ、Node オブジェクトを削除する.&lt;/p>
+&lt;p>Karpenter は、Node を適切に削除するために必要なすべてのクリーンアップ作業を処理します.&lt;/p>
+&lt;h3 id="node-expiry">Node Expiry&lt;/h3>
+&lt;p>Node の有効期限値 (&lt;code>ttlSecondsUntilExpired&lt;/code>)に達すると、その Node は（まだワークロードを実行していても）Pod から排出され、削除されます.&lt;/p>
+&lt;h3 id="empty-nodes">Empty Nodes&lt;/h3>
+&lt;p>Karpenter が管理する Node で稼働している最後のワークロード Pod がなくなると、その Node には &lt;code>emptiness&lt;/code> タイムスタンプが付与されます。その「Node が空になる」有効期限 (&lt;code>ttlSecondsAfterEmpty&lt;/code>) 達すると、ファイナライズがトリガーされます.&lt;/p>
+&lt;blockquote>
+&lt;p>Node を削除する方法について&lt;/p>
+&lt;p>Karpenter が Node を削除する方法の詳細については、Node のデプロビジョニングの&lt;a class="link" href="https://karpenter.sh/docs/tasks/deprov-nodes/" target="_blank" rel="noopener"
+>詳細&lt;/a>を参照してください.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="node-のアップグレード">Node のアップグレード&lt;/h2>
+&lt;p>Node をアップグレードする簡単な方法は、&lt;code>ttlSecondsUntilExpired&lt;/code> を設定することです。Node は設定された期間後に終了し、より新しい Node と入れ替わります.&lt;/p>
+&lt;h2 id="制約条件">制約条件&lt;/h2>
+&lt;p>プロビジョナーで定義された制約や、デプロイされる Pod から要求された制約がないため、Karpenter はクラウドプロバイダが利用できる機能全体から選択されます. Node は、任意のインスタンスタイプを使用して作成し、任意のゾーンで実行することができます.&lt;/p>
+&lt;h2 id="スケジューリング">スケジューリング&lt;/h2>
+&lt;p>Karpenter は、Kubernetes のスケジューラーが &lt;code>unschedulable&lt;/code> とマークした Pod をスケジュールします. スケジューリング制約と起動容量を解決した後、Node を作成し、Pod をバインドします. このステートレスなアプローチは、レースコンディションを回避し、パフォーマンスを向上させるのに役立ちます. 起動した Node に何か問題があれば、Kubernetes は自動的に新しい Node に Pod を移行します.Karpenter が Node を立ち上げると、その Node は Kubernetes のスケジューラーがその上でをスケジュールすることも可能になります.&lt;/p>
+&lt;h2 id="クラウドプロバイダー">クラウドプロバイダー&lt;/h2>
+&lt;p>Karpenter は、関連するクラウドプロバイダーに新しい Node のプロビジョニングの要求を行います. 最初にサポートされるクラウドプロバイダーは AWS ですが、Karpenter は他のクラウドプロバイダーでも動作するように設計されています. Kubernetes のよく知られたラベルを使用しながら、プロビジョナーは、クラウドプロバイダーに固有のいくつかの値を設定することができます.&lt;/p>
+&lt;p>個人でプロバイダーの開発する場合は、リポジトリの&lt;code>pkg/cloudprovider/&lt;/code>配下に作成します. ディレクトリ構造は以下の通りです. &lt;code>fake&lt;/code>ディレクトリは、参考例として用意されています.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">.
+├── aws
+│   ├── apis
+│   │   └── v1alpha1
+│   └── fake
+├── fake
+├── metrics
+└── registry
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>まず、&lt;code>pkg/cloudprovider/registry&lt;/code>配下で、クラウドプロバイダー毎に以下の以下のファイルを作成することで登録ができます.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-golang" data-lang="golang">&lt;span class="c1">// +build &amp;lt;YOUR_PROVIDER_NAME&amp;gt;
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="s">&amp;#34;github.com/aws/karpenter/pkg/cloudprovider/&amp;lt;YOUR_PROVIDER_NAME&amp;gt;&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">NewCloudProvider&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">cloudprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CloudProvider&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">YOUR_PROVIDER_NAME&lt;/span>&lt;span class="p">&amp;gt;.&lt;/span>&lt;span class="nf">NewCloudProvider&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>また、&lt;code>pkg/cloudprovider&lt;/code>配下で、クラウドプロバイダーごとに環境に合わせて作成します. &lt;code>fake&lt;/code> ディレクトリを確認すると以下のファイルが用意されています. その他の必要な情報は環境に合わせて追加すると良いです.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">.
+├── cloudprovider.go
+└── instancetype.go
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="cluster-autoscaler-との違い">Cluster Autoscaler との違い&lt;/h2>
+&lt;p>Karpenter と同様に、Kubernetes Cluster Autoscaler は、現在のキャパシティでは対応できない Pod の実行要求が来たときに、Node を追加するように設計されています.
+Cluster Autoscaler は Kubernetes プロジェクトの一部であり、ほとんどの主要な Kubernetes クラウドプロバイダーが実装しています. プロビジョニングを見直すことで、Karpenter は以下の改善を提供しています.&lt;/p>
+&lt;h3 id="クラウドの柔軟性を活かした設計">クラウドの柔軟性を活かした設計&lt;/h3>
+&lt;p>Karpenter は、AWS で利用できるあらゆる種類のインスタンスに効率的に対応できる能力を備えています. Cluster Autoscaler は、もともと何百ものインスタンスタイプ、ゾーン、購入オプションに対応できるような柔軟性を持って構築されたものではありません.&lt;/p>
+&lt;h3 id="グループレスの-node-プロビジョニング">グループレスの Node プロビジョニング&lt;/h3>
+&lt;p>Karpenter は、Node グループのようなオーケストレーションの仕組みを使わずに、各インスタンスを直接管理します. これにより、キャパシティが利用できない場合、数分ではなくミリ秒単位で再試行することができます. また、何百もの Node グループを作成することなく、多様なインスタンスタイプ、アベイラビリティゾーン、および購入オプションを活用することができます.&lt;/p>
+&lt;h3 id="スケジューリングの実施">スケジューリングの実施&lt;/h3>
+&lt;p>Cluster Autoscaler は、作成した Node に Pod をバインドしません. その代わり、Node がオンラインになった後に同じスケジューリング決定を行うために &lt;code>kube-scheduler&lt;/code> に依存します.Karpenter が起動した Node には、すぐにその Pod がバインドされます。kubelet` はスケジューラーや Node の準備が整うのを待つ必要がありません. イメージの事前プルも含め、コンテナランタイムの準備をすぐに開始できます.これにより、Node の起動レイテンシを数秒短縮することができます.&lt;/p>
+&lt;h2 id="所感">所感&lt;/h2>
+&lt;p>今回は、Karpenter について少し深堀りしてみました.&lt;/p>
+&lt;p>個人的には、GKE Autopilot の動的 Node プロビジョニングプロセスと同じなのかなと思っています. Karpenter はそのツールの OSS 版と言えると思います. GKE Autopilot と同様に、Karpenter はスケジューリング不能な Pod の仕様を観測し、集約されたリソース要求を計算し、すべての Pod の実行に必要な容量を持つ基礎的な計算サービス（Amazon EC2 など）に要求を送信します.&lt;/p>
+&lt;p>また、Karpenter では、カスタムリソースを定義して、以下の Node のプロビジョニング構成を指定することができます. 構成を柔軟に変更できる点は、かなり大きいメリットだと感じました.&lt;/p>
+&lt;ul>
+&lt;li>インスタンスサイズ/タイプ、トポロジー(ゾーンなど)&lt;/li>
+&lt;li>アーキテクチャ(arm64、amd64 など)&lt;/li>
+&lt;li>ライフサイクルタイプ(スポット、オンデマンド、プリエンプティブなど)&lt;/li>
+&lt;/ul>
+&lt;p>一方、Karpenter は、Node が不要になった場合、デプロビジョンを行うこともできます. これは、Node の有効期限設定 (&lt;code>ttlSecondsUntilExpired&lt;/code>) または Karpenter プロビジョニングされた Node 上で実行されている最後のワークロードが終了したとき (&lt;code>ttlSecondsAfterEmpty&lt;/code>) に決定することができます. この 2 つのイベントのどちらかがトリガーとなり、Node をコード化し、Pod を排出し、基盤となるコンピュートリソースを終了させ、Node オブジェクトを削除するファイナライゼーションが行われます. このデプロビジョニング機能は、Node を最新の AMI で最新の状態に保つためにも使用できます.&lt;/p>
+&lt;p>Karpenter を使えば、Node のプロビジョニング、オートスケール、アップグレードをオフロードして、アプリケーションの実行に集中することができると思います. Karpenter はあらゆる種類の Kubernetes アプリケーションで動作しますが、特に、大量の多様な計算リソースを迅速にプロビジョニングおよびデプロビジョニングする必要があるユースケースで優れたパフォーマンスを発揮すると思います. (機械学習モデルのトレーニング、シミュレーションの実行、複雑な金融計算を行うバッチジョブなど)&lt;/p>
+&lt;p>現在は、AWS のみでしか動作しませんが今後の動向には注目していきたいと思います. また、時間があれば他クラウドへの実装などもしてみようと思います.&lt;/p></description></item></channel></rss>
