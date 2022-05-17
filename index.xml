@@ -122,8 +122,8 @@ data-flex-basis="1489px"
 &lt;li>公開されているカスタムコントローラー群の理解&lt;/li>
 &lt;li>カスタムコントローラーの実装、動作検証&lt;/li>
 &lt;/ul>
-&lt;h2 id="おすすめの書籍文献">おすすめの書籍、文献&lt;/h2>
-&lt;p>ここでは、ロードマップにそって学習を行う上で著者自身がお薦めする書籍や、文献を紹介します.&lt;/p>
+&lt;h2 id="おすすめの書籍文献など">おすすめの書籍、文献など&lt;/h2>
+&lt;p>ここでは、ロードマップにそって学習を行う上で著者自身がお薦めする書籍や、文献などを紹介します.&lt;/p>
 &lt;h3 id="書籍">書籍&lt;/h3>
 &lt;h4 id="仕組みと使い方がわかる-dockerkubernetes-のきほんのきほん">仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん&lt;/h4>
 &lt;ul>
@@ -362,7 +362,10 @@ data-flex-basis="1390px"
 >CKS (Certified Kubernetes Security Specialist)&lt;/a>&lt;/h4>
 &lt;p>CKA の試験を更にセキュリティに焦点を当てた試験となります.&lt;/p>
 &lt;p>この試験を受けるには、事前に CKA に合格している必要があります.&lt;/p>
-&lt;h2 id="まとめ">まとめ&lt;/h2></description></item><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid><description>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/featured-image.webp" alt="Featured image of post MXLinux で Rancher Desktop を動かす" />&lt;p>1 月 26 日に、&lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
+&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;p>今回は、Kubernetes の学習ロードマップを考えてまとめてみました.&lt;/p>
+&lt;p>筆者自身も Kubernetes を触り始めてまだ日が浅いため、上記のものを参考に日々精進しています.&lt;/p>
+&lt;p>これをきっかけに一人でも多くの方が Kubernetes に興味をもっていただけることを切に願います.&lt;/p></description></item><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</link><pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/</guid><description>&lt;img src="https://example.com/p/mxlinux-%E3%81%A7-rancher-desktop-%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99/featured-image.webp" alt="Featured image of post MXLinux で Rancher Desktop を動かす" />&lt;p>1 月 26 日に、&lt;a class="link" href="https://rancherdesktop.io/" target="_blank" rel="noopener"
 >Rancher Desktop&lt;/a> が正式に &lt;a class="link" href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0" target="_blank" rel="noopener"
 >v1.0.0&lt;/a> としてリリースされました.&lt;/p>
 &lt;p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.&lt;/p>
