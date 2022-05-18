@@ -1,8 +1,8 @@
-<!doctype html><html lang=en-us dir=ltr>
+<!doctype html><html lang=en-us>
 <head><meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Kubernetesを初めて学習するかたに向けてのロードマップを作成しました."><title>Kubernetes初学者ロードマップ</title>
 <link rel=canonical href=https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/>
-<link rel=stylesheet href=/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css><meta property="og:title" content="Kubernetes初学者ロードマップ">
+<link rel=stylesheet href=/scss/style.min.bbcfef3c56489f1f37b552146da519e6b6a74a4c92792bcc512c78e2f55f25e1.css><meta property="og:title" content="Kubernetes初学者ロードマップ">
 <meta property="og:description" content="Kubernetesを初めて学習するかたに向けてのロードマップを作成しました.">
 <meta property="og:url" content="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/">
 <meta property="og:site_name" content="A Life of Inquiry">
@@ -15,88 +15,15 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script>
 <script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-BRRNK5J7PW',{anonymize_ip:!1})}</script>
 </head>
-<body class=article-page>
+<body class="article-page has-toc">
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky">
-<button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=メニューを開く・閉じる>
-<span class=hamburger-box>
-<span class=hamburger-inner></span>
-</span>
-</button>
-<header>
-<figure class=site-avatar>
-<a href=/>
-<img src=/img/avatar_hu5372fe48105301b323223a4833650598_27882_300x0_resize_q75_h2_box_2.webp width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<div class="container main-container flex
+extended">
+<div id=article-toolbar>
+<a href=/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
+<span>前のページ</span>
 </a>
-<span class=emoji>🍥</span>
-</figure>
-<div class=site-meta>
-<h1 class=site-name><a href=/>A Life of Inquiry</a></h1>
-<h2 class=site-description>I'm an inquisitive person who enjoys life.</h2>
 </div>
-</header><ol class=social-menu>
-<li>
-<a href=https://www.facebook.com/edb320b7e6fdaca76043d9ae236bd7c4 target=_blank title=Facebook><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 011-1h3V3h-3a5 5 0 00-5 5v2H7"/></svg>
-</a>
-</li>
-<li>
-<a href=https://github.com/t4i5uKE target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-</a>
-</li>
-<li>
-<a href=https://www.linkedin.com/in/taisuke-okamoto-793a53187/ target=_blank title=LinkedIn><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.01"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg>
-</a>
-</li>
-<li>
-<a href="https://open.spotify.com/user/21b7yx6vkj66csord5swswvza?si=aa4b8603112146fe" target=_blank title=Spotify><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-spotify" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="9"/><path d="M8 11.973c2.5-1.473 5.5-.973 7.5.527"/><path d="M9 15c1.5-1 4-1 5 .5"/><path d="M7 9c2-1 6-2 10 .5"/></svg>
-</a>
-</li>
-<li>
-<a href=https://steamcommunity.com/profiles/76561198842072742/ target=_blank title=Steam><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-steam" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.5 5a4.5 4.5.0 11-.653 8.953L11.5 16.962V17a3 3 0 01-2.824 2.995L8.5 20a3 3 0 01-2.94-2.402L3 16.5V13l3.51 1.755a2.989 2.989.0 012.834-.635l2.727-3.818A4.5 4.5.0 0116.5 5z"/><circle fill="currentcolor" cx="16.5" cy="9.5" r="1"/></svg>
-</a>
-</li>
-<li>
-<a href=https://twitter.com/m0rer0 target=_blank title=Twitter><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg>
-</a>
-</li>
-</ol><ol class=menu id=main-menu>
-<li>
-<a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-<span>Home</span>
-</a>
-</li>
-<li>
-<a href=/whoru/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-<span>WHORU?</span>
-</a>
-</li>
-<li>
-<a href=/resume-en/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
-<span>Resume (EN)</span>
-</a>
-</li>
-<li>
-<a href=/resume-jp/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-id" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
-<span>Resume (JP)</span>
-</a>
-</li>
-<li>
-<a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-<span>Archives</span>
-</a>
-</li>
-<li>
-<a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
-<span>Search</span>
-</a>
-</li>
-<div class=menu-bottom-section>
-<li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
-<span>ダークモード</span>
-</li>
-</div>
-</ol>
-</aside>
 <main class="main full-width">
 <article class="has-image main-article">
 <header class=article-header>
@@ -111,14 +38,12 @@
 Kubernetes
 </a>
 </header>
-<div class=article-title-wrapper>
 <h2 class=article-title>
 <a href=/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/>Kubernetes初学者ロードマップ</a>
 </h2>
 <h3 class=article-subtitle>
 Kubernetesを初めて学習するかたに向けてのロードマップを作成しました.
 </h3>
-</div>
 <footer class=article-time>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>May 13, 2022</time>
@@ -231,7 +156,7 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 <p>しかし、実際にマネージドクラウド(AWS, GCP, Azure など)で運用する場合、あまり気にする必要はありません.</p>
 <p>個人で Kubernetes のコントローラーなどを開発していきたい方は Step 5 に挑戦してみましょう.</p>
 <p>なお、Kubernetes 関連の周辺ツールは、Go 言語で書かれている事が多いです.</p>
-<p>Go 言語を初めて触る方は、後日記載予定の「Go言語学習ロードマップ」をご覧いただければと思います.</p>
+<p>Go 言語を初めて触る方は、後日記載予定の「Go 言語学習ロードマップ」をご覧いただければと思います.</p>
 <h4 id=step5-を学ぶポイント>Step5 を学ぶポイント</h4>
 <ul>
 <li>カスタムコントローラーの基礎の理解</li>
@@ -249,7 +174,7 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 <li>Step2</li>
 </ul>
 </li>
-<li>コンテナに初めて触れる方やバックエンドの技術に詳しくない方でもLinux の知識や、サーバの基礎なども併せて記載されているため読みやすいです</li>
+<li>コンテナに初めて触れる方やバックエンドの技術に詳しくない方でも Linux の知識や、サーバの基礎なども併せて記載されているため読みやすいです</li>
 <li>イラストも多く、視覚的に知識をインプットすることができます</li>
 </ul>
 <p><a href="https://www.amazon.co.jp/%E4%BB%95%E7%B5%84%E3%81%BF%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%8B-Docker%EF%BC%86Kubernetes%E3%81%AE%E3%81%8D%E3%81%BB%E3%82%93%E3%81%AE%E3%81%8D%E3%81%BB%E3%82%93-Compass-Books%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%B0%8F%E7%AC%A0%E5%8E%9F-ebook/dp/B08T961HKP?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=3OZORHAGRHLNJ&keywords=docker&qid=1652509596&refinements=p_72%3A2275269051&rnid=2275267051&s=digital-text&sprefix=docker%2Cdigital-text%2C166&sr=1-3&linkCode=li2&tag=m0rer00e-22&linkId=29136c59c8b11b9bb0449836fc8e286c&language=ja_JP&ref_=as_li_ss_il" target=_blank><img border=0 src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B08T961HKP&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP"></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=B08T961HKP" width=1 height=1 border=0 alt style=border:none!important;margin:0!important></p>
@@ -262,7 +187,7 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 </ul>
 </li>
 <li>コンテナを体系的に学ぶことができます</li>
-<li>コンテナを用いたCI/CD、アプリケーションの運用方法も基本から記載されています</li>
+<li>コンテナを用いた CI/CD、アプリケーションの運用方法も基本から記載されています</li>
 </ul>
 <p><a href="https://www.amazon.co.jp/gp/product/B0998CHJ9W?&linkCode=li2&tag=m0rer00e-22&linkId=50d67ea8029c01f16853feb26fa680a4&language=ja_JP&ref_=as_li_ss_il" target=_blank><img border=0 src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0998CHJ9W&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP"></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=B0998CHJ9W" width=1 height=1 border=0 alt style=border:none!important;margin:0!important></p>
 <h4 id=イラストでわかる-docker-と-kubernetes>イラストでわかる Docker と Kubernetes</h4>
@@ -325,6 +250,11 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 <li>Kubernetes で拡張機能(カスタムコントローラー)を開発する入門です</li>
 </ul>
 <p><a href="https://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-Kubernetes%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%BC%E3%81%B8%E3%81%AE%E9%81%93-%E6%8A%80%E8%A1%93%E3%81%AE%E6%B3%89%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA%EF%BC%88NextPublishing%EF%BC%89-%E7%A3%AF-%E8%B3%A2%E5%A4%A7/dp/4844378546?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=2J9AWAYV9O5PE&keywords=kubernetes&qid=1652514210&sprefix=kubernete%2Caps%2C177&sr=8-15&linkCode=li2&tag=m0rer00e-22&linkId=9a58d18c159b1c8ae59d0fefa64a2a16&language=ja_JP&ref_=as_li_ss_il" target=_blank><img border=0 src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4844378546&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP"></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=4844378546" width=1 height=1 border=0 alt style=border:none!important;margin:0!important></p>
+<h4 id=kubernetes-ネットワーク-徹底解説>Kubernetes ネットワーク 徹底解説</h4>
+<ul>
+<li>Kubernetes のネットワークの実現方法について説明されています</li>
+</ul>
+<p><a class=link href=https://zenn.dev/taisho6339 target=_blank rel=noopener><img src=/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network.webp width=250 height=350 srcset="/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network_hud85a280dae654ab31c568be9089e1d4e_12688_480x0_resize_q75_h2_box_2.webp 480w, /p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network_hud85a280dae654ab31c568be9089e1d4e_12688_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy class=gallery-image data-flex-grow=71 data-flex-basis=171px></a></p>
 <h3 id=e-learning>e-Learning</h3>
 <h4 id=katacoda>Katacoda</h4>
 <p><img src=/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo.webp width=1929 height=363 srcset="/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo_hu17cde74a4961802c95ad7dcf7c82a69e_33890_480x0_resize_q75_h2_box_2.webp 480w, /p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo_hu17cde74a4961802c95ad7dcf7c82a69e_33890_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy class=gallery-image data-flex-grow=531 data-flex-basis=1275px></p>
@@ -336,9 +266,9 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 <p>Microsoft が提供している、トレーニングになります.</p>
 <p>動画ベースで各項目を説明しており、Kubernetes の基本を理解すると共に、様々な Kubernetes の機能などについても解説してくれています.</p>
 <p>トレーニングは、<a class=link href=https://azure.microsoft.com/ja-jp/resources/kubernetes-learning-and-training/#overview target=_blank rel=noopener>こちら</a>から受講することができます.</p>
-<h4 id=つくって学ぶkubebuilder>つくって学ぶKubebuilder</h4>
+<h4 id=つくって学ぶ-kubebuilder>つくって学ぶ Kubebuilder</h4>
 <p><img src=/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder.webp width=1263 height=218 srcset="/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder_hu5150391d9c0e842dedaa570fef006154_12894_480x0_resize_q75_h2_box_2.webp 480w, /p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder_hu5150391d9c0e842dedaa570fef006154_12894_1024x0_resize_q75_h2_box_2.webp 1024w" loading=lazy class=gallery-image data-flex-grow=579 data-flex-basis=1390px></p>
-<p><a class=link href="https://github.com/zoetrope?tab=repositories" target=_blank rel=noopener>@zoetrope</a>さんによって提供されており、Kubebuilderと呼ばれるフレームワークを使用して、Kubernetesを拡張するためのカスタムコントローラー/オペレーターを開発するため方法を解説されています.</p>
+<p><a class=link href="https://github.com/zoetrope?tab=repositories" target=_blank rel=noopener>@zoetrope</a>さんによって提供されており、Kubebuilder と呼ばれるフレームワークを使用して、Kubernetes を拡張するためのカスタムコントローラー/オペレーターを開発するため方法を解説されています.</p>
 <p>Step5 に進まれた方は、この記事を読んでカスタムコントローラー/オペレーターの開発手法を理解すると良いでしょう.</p>
 <h2 id=その他>その他</h2>
 <h3 id=情報収集>情報収集</h3>
@@ -410,7 +340,7 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 <p>※ <a class=link href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-administrator-cka-jp/ target=_blank rel=noopener>日本語での試験</a>が可能です.</p>
 <h4 id=ckad-certified-kubernetes-application-developerhttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-application-developer-ckad><a class=link href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-application-developer-ckad/ target=_blank rel=noopener>CKAD (Certified Kubernetes Application Developer)</a></h4>
 <p>CKA と比べ、アプリケーション開発者向けの試験になります.</p>
-<p>Kubernetesの基本的な機能に加え、Kubernetesをアプリをデプロイ・運用する基盤として十分に利用できるスキルがあるかが求められます.</p>
+<p>Kubernetes の基本的な機能に加え、Kubernetes をアプリをデプロイ・運用する基盤として十分に利用できるスキルがあるかが求められます.</p>
 <p>※ <a class=link href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-application-developer-ckad-jp/ target=_blank rel=noopener>日本語での試験</a>が可能です.</p>
 <h4 id=cks-certified-kubernetes-security-specialisthttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-security-specialist><a class=link href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-security-specialist/ target=_blank rel=noopener>CKS (Certified Kubernetes Security Specialist)</a></h4>
 <p>CKA の試験を更にセキュリティに焦点を当てた試験となります.</p>
@@ -485,7 +415,7 @@ Kubernetesを初めて学習するかたに向けてのロードマップを作�
 </section>
 <section class=powerby>
 Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-テーマ <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.11.0>Stack</a></b> は <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> によって設計されています。
+Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.8.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
 </section>
 </footer>
 <div class=pswp tabindex=-1 role=dialog aria-hidden=true>
@@ -525,6 +455,107 @@ Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
 </div>
 </div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
 </main>
+<aside class="sidebar right-sidebar sticky">
+<section class="widget archives">
+<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+</div>
+<h2 class="widget-title section-title">目次</h2>
+<div class=widget--toc>
+<nav id=TableOfContents>
+<ol>
+<li><a href=#はじめに>はじめに</a></li>
+<li><a href=#そもそも-kubernetes-とは>そもそも Kubernetes とは？</a>
+<ol>
+<li><a href=#kubernetes-の読み方>Kubernetes の読み方</a></li>
+<li><a href=#何をしているの>何をしているの？</a></li>
+</ol>
+</li>
+<li><a href=#学習ロードマップ>学習ロードマップ</a>
+<ol>
+<li><a href=#step1-コンテナの基礎理解>Step1. コンテナの基礎理解</a>
+<ol>
+<li><a href=#step1-を学ぶポイント>Step1 を学ぶポイント</a></li>
+</ol>
+</li>
+<li><a href=#step2-kubernetes-の基礎理解>Step2. Kubernetes の基礎理解</a>
+<ol>
+<li><a href=#step2-を学ぶポイント>Step2 を学ぶポイント</a></li>
+</ol>
+</li>
+<li><a href=#step3-kubernetes-の利用>Step3. Kubernetes の利用</a>
+<ol>
+<li><a href=#step3-を学ぶポイント>Step3 を学ぶポイント</a></li>
+</ol>
+</li>
+<li><a href=#step4-エコシステムの利用>Step4. エコシステムの利用</a>
+<ol>
+<li><a href=#step4-を学ぶポイント>Step4 を学ぶポイント</a></li>
+</ol>
+</li>
+<li><a href=#step5-内部ツールの理解実装>Step5. 内部ツールの理解・実装</a>
+<ol>
+<li><a href=#step5-を学ぶポイント>Step5 を学ぶポイント</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#おすすめの書籍文献など>おすすめの書籍、文献など</a>
+<ol>
+<li><a href=#書籍>書籍</a>
+<ol>
+<li><a href=#仕組みと使い方がわかる-dockerkubernetes-のきほんのきほん>仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん</a></li>
+<li><a href=#docker-コンテナ開発環境構築の基本>Docker コンテナ開発・環境構築の基本</a></li>
+<li><a href=#イラストでわかる-docker-と-kubernetes>イラストでわかる Docker と Kubernetes</a></li>
+<li><a href=#kubernetes-完全ガイド-第-2-版>Kubernetes 完全ガイド 第 2 版</a></li>
+<li><a href=#kubernetes-cicd-パイプラインの実装>Kubernetes CI/CD パイプラインの実装</a></li>
+<li><a href=#dockerkubernetes-開発運用のためのセキュリティ実践ガイド>Docker/Kubernetes 開発・運用のためのセキュリティ実践ガイド</a></li>
+<li><a href=#実践入門-kubernetes-カスタムコントローラーへの道>実践入門 Kubernetes カスタムコントローラーへの道</a></li>
+<li><a href=#kubernetes-ネットワーク-徹底解説>Kubernetes ネットワーク 徹底解説</a></li>
+</ol>
+</li>
+<li><a href=#e-learning>e-Learning</a>
+<ol>
+<li><a href=#katacoda>Katacoda</a></li>
+<li><a href=#kubernetes-学習とトレーニング-microsoft>Kubernetes 学習とトレーニング (Microsoft)</a></li>
+<li><a href=#つくって学ぶ-kubebuilder>つくって学ぶ Kubebuilder</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#その他>その他</a>
+<ol>
+<li><a href=#情報収集>情報収集</a></li>
+<li><a href=#コミュニティの参加>コミュニティの参加</a>
+<ol>
+<li><a href=#kubernetes-slack>Kubernetes Slack</a></li>
+</ol>
+</li>
+<li><a href=#勉強会など>勉強会など</a>
+<ol>
+<li><a href=#kubernetes-meetup-tokyohttpsk8sjpconnpasscom><a href=https://k8sjp.connpass.com/>Kubernetes Meetup Tokyo</a></a></li>
+<li><a href=#kubernetes-meetup-novicehttpsk8s-novice-jpconnpasscom><a href=https://k8s-novice-jp.connpass.com/>Kubernetes Meetup Novice</a></a></li>
+<li><a href=#kubernetes-変更内容共有会httpskubernetes-updatesconnpasscom><a href=https://kubernetes-updates.connpass.com/>Kubernetes 変更内容共有会</a></a></li>
+<li><a href=#kubernetes-internal>Kubernetes Internal</a></li>
+<li><a href=#ochaoracle-cloud-hangout-cafe-cafehttpsochacafeconnpasscom><a href=https://ochacafe.connpass.com/>OCHa(Oracle Cloud Hangout cafe) Cafe</a></a></li>
+<li><a href=#kubeconn--cloudnativeconnhttpswwwcncfiokubecon-cloudnativecon-events><a href=https://www.cncf.io/kubecon-cloudnativecon-events/>KubeConn + CloudNativeConn</a></a></li>
+<li><a href=#cloud-native-dayshttpscloudnativedaysconnpasscom><a href=https://cloudnativedays.connpass.com/>Cloud Native Days</a></a></li>
+</ol>
+</li>
+<li><a href=#資格>資格</a>
+<ol>
+<li><a href=#cka-certified-kubernetes-administratorhttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-administrator-cka><a href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-administrator-cka/>CKA (Certified Kubernetes Administrator)</a></a></li>
+<li><a href=#ckad-certified-kubernetes-application-developerhttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-application-developer-ckad><a href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-application-developer-ckad/>CKAD (Certified Kubernetes Application Developer)</a></a></li>
+<li><a href=#cks-certified-kubernetes-security-specialisthttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-security-specialist><a href=https://training.linuxfoundation.org/ja/certification/certified-kubernetes-security-specialist/>CKS (Certified Kubernetes Security Specialist)</a></a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#まとめ>まとめ</a></li>
+</ol>
+</nav>
+</div>
+</section>
+</aside>
 </div>
 <script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
 <script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
