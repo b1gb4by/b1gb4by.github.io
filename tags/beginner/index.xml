@@ -1,3 +1,567 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>beginner on A Life of Inquiry</title><link>https://example.com/tags/beginner/</link><description>Recent content in beginner on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 13 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/beginner/index.xml" rel="self" type="application/rss+xml"/><item><title>Go 初学者ロードマップ</title><link>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
-&lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p></description></item><item><title>Kubernetes初学者ロードマップ</title><link>https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;p>Kubernetes を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
-&lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>beginner on A Life of Inquiry</title><link>https://example.com/tags/beginner/</link><description>Recent content in beginner on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 13 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/tags/beginner/index.xml" rel="self" type="application/rss+xml"/><item><title>Go 初学者ロードマップ</title><link>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/golang-beginner-loadmap.webp" alt="Featured image of post Go 初学者ロードマップ" />&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
+&lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>本ページは、筆者が全くの知見のない初学者が Go を学習し、利用していく上で必要な知識やスキルの習得方法を示したものです.&lt;/p>
+&lt;p>そのため、本ページでは概要や用語の説明などは行いません.&lt;/p>
+&lt;p>また、本ページの指針を全て達成することで Go の全てを網羅し、&lt;strong>完全に理解&lt;/strong>できる訳ではありません.&lt;/p>
+&lt;p>必要な知識が必要な場合は個人で別途で調査、理解をする必要があることを予めご了承ください.&lt;/p>
+&lt;h2 id="go-とは">Go とは？&lt;/h2>
+&lt;p>Go は、2009 年、Google の Robert Griesemer、Robert &amp;ldquo;Rob&amp;rdquo; C. Pike、Kenneth Lane Thompson によって設計されました.&lt;/p>
+&lt;p>Go は以下の特徴を持っています.&lt;/p>
+&lt;ul>
+&lt;li>静的型付け&lt;/li>
+&lt;li>C 言語の伝統に則ったコンパイル言語&lt;/li>
+&lt;li>メモリ安全性&lt;/li>
+&lt;li>ガベージコレクション&lt;/li>
+&lt;li>構造的型付け&lt;/li>
+&lt;li>CSP スタイルの並行性&lt;/li>
+&lt;li>etc&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;h2 id="はじめの一歩を踏み出す">はじめの一歩を踏み出す&lt;/h2>
+&lt;p>Go を学ぶ第一歩として、まずは言語の理解が必要になります.&lt;/p>
+&lt;p>以下の 2 つの教材を使用して、学習するのが良いでしょう.&lt;/p>
+&lt;h3 id="a-tour-of-go">A Tour of Go&lt;/h3>
+&lt;p>&lt;a class="link" href="https://go-tour-jp.appspot.com/welcome/1" target="_blank" rel="noopener"
+>A Tour of Go&lt;/a>は Go を初めてさわる人に向けて提供されている教材になります.&lt;/p>
+&lt;p>日本語対応もされており、これ一つで Go 言語の機能の説明を一通り網羅しています.&lt;/p>
+&lt;h3 id="gopher-道場">Gopher 道場&lt;/h3>
+&lt;p>&lt;a class="link" href="https://gopherdojo.org/" target="_blank" rel="noopener"
+>Gopher 道場&lt;/a>は、Go 体系的に学べます.&lt;/p>
+&lt;p>また、Slack や GitHub 上なので質問なども行えるため、一人で勉強する場合も気軽に相談できます.&lt;/p>
+&lt;p>「&lt;a class="link" href="https://gopherdojo.org/studyroom/" target="_blank" rel="noopener"
+>自習室&lt;/a>」から、これまでの教材や動画が閲覧できるので、そちらを活用するのが良いかと思います.&lt;/p>
+&lt;h2 id="go-を写経する">Go を写経する&lt;/h2>
+&lt;p>言語の理解がある程度済んだら、次は実際に Go を「写経」してみましょう.&lt;/p>
+&lt;p>「写経」とは、参考書や実際のコードをそのまま写すことです. 内容は変更せず、そのまま書き写しましょう.&lt;/p>
+&lt;p>「写経」を行う事は、以下の理由で効果的に理解が深めることができます.&lt;/p>
+&lt;ul>
+&lt;li>書くことによる記憶の定着&lt;/li>
+&lt;li>ミスした場所等のチェック
+&lt;ul>
+&lt;li>タイポや記法のミスなどを即時に判断できる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>実行結果の確認
+&lt;ul>
+&lt;li>自分の書いたコードにより、どのような結果を得ることができたのかを理解できる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>「写経」を行う上で、いくつかのサイトをご紹介します.&lt;/p>
+&lt;h3 id="go-by-example">Go by Example&lt;/h3>
+&lt;p>&lt;a class="link" href="https://gobyexample.com/" target="_blank" rel="noopener"
+>Go by Example&lt;/a> は、各場面でのサンプルコードが数多く紹介されています.&lt;/p>
+&lt;p>サンプルコードも少なく、シンプルなものなので、コードを初めて読む方も理解しやすいと思います.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-by-example.webp"
+width="950"
+height="583"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-by-example_hu5b82a5cc318749d802c4282b8a441b9d_32116_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-by-example_hu5b82a5cc318749d802c4282b8a441b9d_32116_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="162"
+data-flex-basis="391px"
+>&lt;/p>
+&lt;h3 id="go-web-example">Go Web Example&lt;/h3>
+&lt;p>&lt;a class="link" href="https://gowebexamples.com/" target="_blank" rel="noopener"
+>Go Web Example&lt;/a> は、「Go by Example」と比べて、より実践的なコードを写経することができます.&lt;/p>
+&lt;p>例えば、HTTP サーバの作成や、ルーティングなどが挙げられます.&lt;/p>
+&lt;p>また、RDB の CRUD 処理なども学ぶことができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-web-example.webp"
+width="1256"
+height="423"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-web-example_hu2168cf5b156c89a300120f4c4a63f38f_37478_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-web-example_hu2168cf5b156c89a300120f4c4a63f38f_37478_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="296"
+data-flex-basis="712px"
+>&lt;/p>
+&lt;h3 id="building-an-awesome-cli-app-in-go--oscon-2017">Building an Awesome CLI App in Go – OSCON 2017&lt;/h3>
+&lt;p>&lt;a class="link" href="https://spf13.com/presentation/building-an-awesome-cli-app-in-go-oscon/" target="_blank" rel="noopener"
+>こちら&lt;/a>のソースは少し古くはなりますが、Go を用いた CLI の作成を&lt;code>Cobra&lt;/code>と呼ばれるフレームワークを用いて行うことができます.&lt;/p>
+&lt;p>近年では Go で書かれた CLI が数多くでてきてます.&lt;/p>
+&lt;p>普段の開発で CLI の開発を行う機会は少ないかと思うので、挑戦してみると良いと思います.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-cli.webp"
+width="1147"
+height="458"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-cli_hua807e8f894f2c926eb114fa49f7d4bcf_45612_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/go-cli_hua807e8f894f2c926eb114fa49f7d4bcf_45612_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="601px"
+>&lt;/p>
+&lt;h2 id="おすすめの書籍文献など">おすすめの書籍、文献など&lt;/h2>
+&lt;p>ここでは、ロードマップにそって学習を行う上で著者自身がお薦めする書籍や、文献などを紹介します.&lt;/p>
+&lt;h3 id="文献">文献&lt;/h3>
+&lt;h4 id="effective-go">Effective Go&lt;/h4>
+&lt;p>&lt;a class="link" href="https://go.dev/doc/effective_go" target="_blank" rel="noopener"
+>Effective Go&lt;/a> は、Go コードを書くための Tips がまとめられています.&lt;/p>
+&lt;p>こちらの文献を読む前に以下の文献も読んでおくと良いかと思います.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://go.dev/doc/code" target="_blank" rel="noopener"
+>How to Write Go Code&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://go.dev/ref/spec" target="_blank" rel="noopener"
+>The Go Programming Language Specification&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="go-code-review-comments">Go Code Review Comments&lt;/h4>
+&lt;p>&lt;a class="link" href="https://github.com/golang/go/wiki/CodeReviewComments" target="_blank" rel="noopener"
+>Go Code Review Comments&lt;/a> は、「Effective Go」の補足として見ると良いです.&lt;/p>
+&lt;p>Go のコードをレビューする際の一般的なコメントがまとめられています.&lt;/p>
+&lt;h3 id="書籍">書籍&lt;/h3>
+&lt;h4 id="go-プログラミング実践入門-標準ライブラリでゼロから-web-アプリを作る">Go プログラミング実践入門 標準ライブラリでゼロから Web アプリを作る&lt;/h4>
+&lt;ul>
+&lt;li>Go をより実践的に使うためのポイントをわかりやすく説明しています&lt;/li>
+&lt;li>しかし、Go についての基本理解を済ませてからの方が読みやすいです&lt;/li>
+&lt;li>フレームワークに頼らず、Web の仕組みを理解し Go で実装できる点がおすすめです&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/Go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89Web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B-impress-gear%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-Sheong-Chang-ebook/dp/B06XKPNVWV?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2R9LPEJ0N3VCH&amp;keywords=Go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80+%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89Web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B&amp;qid=1652787039&amp;sprefix=go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80+%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B%2Caps%2C169&amp;sr=8-1&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=e4a6b159ffe261e4ac7cfb32944d9371&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B06XKPNVWV&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B06XKPNVWV" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="エキスパートたちの-go-言語">エキスパートたちの Go 言語&lt;/h4>
+&lt;ul>
+&lt;li>メルカリのエンジニアが各章ごとに個人で作成したライブラリを紹介しています&lt;/li>
+&lt;li>Go でのアーキテクチャや設計思想などを考える際に参考になるかと思います&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/%E3%82%A8%E3%82%AD%E3%82%B9%E3%83%91%E3%83%BC%E3%83%88%E3%81%9F%E3%81%A1%E3%81%AEGo%E8%A8%80%E8%AA%9E-%E4%B8%80%E6%B5%81%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E5%BF%9C%E7%94%A8%E5%8A%9B%E3%82%92%E5%AD%A6%E3%81%B6-Software-Design-plus-%E4%B8%8A%E7%94%B0-ebook/dp/B09P4PH63R?_encoding=UTF8&amp;qid=1652787085&amp;sr=8-1-spons&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=b661e2431b248354fade7418d454ad69&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B09P4PH63R&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B09P4PH63R" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="実用-go-言語-システム開発の現場で知っておきたいアドバイス">実用 Go 言語 ―システム開発の現場で知っておきたいアドバイス&lt;/h4>
+&lt;ul>
+&lt;li>Go の基本的な知識をインプットしてから読むことをお薦めします&lt;/li>
+&lt;li>Go を実用的に使っていくためのベストプラクティスがまとまっている感じです&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/%E5%AE%9F%E7%94%A8-Go%E8%A8%80%E8%AA%9E-%E2%80%95%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9-%E6%B8%8B%E5%B7%9D-%E3%82%88%E3%81%97%E3%81%8D/dp/4873119693?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=TZ1Y1YBXOOMG&amp;keywords=%E5%AE%9F%E7%94%A8go%E8%A8%80%E8%AA%9E+%E2%80%95%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9&amp;qid=1652787116&amp;sprefix=%E5%AE%9F%E7%94%A8+go+%E8%A8%80%E8%AA%9E+%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9%2Caps%2C166&amp;sr=8-1&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=a2143e643f723af5c83c2ec382ecf07d&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4873119693&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=4873119693" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="go-言語による並行処理">Go 言語による並行処理&lt;/h4>
+&lt;ul>
+&lt;li>Go を使う上で非常に重要となる、並行処理、&lt;code>Goroutin&lt;/code>について丁寧に説明してくれています&lt;/li>
+&lt;li>並行処理に関しては、Go 関係なく一般的な考えなども記載されているので、並行処理を知らない方でも読んで見ると良いと思います&lt;/li>
+&lt;li>また、例も多いので理解する際のイメージもしやすいと思います&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/Go%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86-Katherine-Cox-Buday/dp/4873118468?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=3PBZTNLTXEGW1&amp;keywords=go%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86&amp;qid=1652787142&amp;sprefix=go+%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86%2Caps%2C266&amp;sr=8-1&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=1d41e49c1464163c2b0aea7f0a0c4f86&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4873118468&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=4873118468" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="よくわかる-context-の使い方">よくわかる context の使い方&lt;/h4>
+&lt;ul>
+&lt;li>Go の標準パッケージ、&lt;code>context&lt;/code>パッケージについて詳細にかかれています&lt;/li>
+&lt;li>初学者にとっては使い道がわからないことがですが、使いこなせるとかなり便利なパッケージになります&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://zenn.dev/hsaki/books/golang-context" target="_blank" rel="noopener"
+>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/context.webp"
+width="250"
+height="350"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/context_hu398a54e5dfdc4c11f6049490dcab2a49_11164_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/context_hu398a54e5dfdc4c11f6049490dcab2a49_11164_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="71"
+data-flex-basis="171px"
+>&lt;/a>&lt;/p>
+&lt;h4 id="go-での並行処理を徹底解剖">Go での並行処理を徹底解剖！&lt;/h4>
+&lt;ul>
+&lt;li>並行処理について網羅的・徹底的にまとめられている&lt;/li>
+&lt;li>最初は並行処理は難易度が高いため、深く理解するのが難しいですが、本書でその問題が解決できるかもしれません&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://zenn.dev/hsaki/books/golang-concurrency" target="_blank" rel="noopener"
+>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/goroutin.webp"
+width="250"
+height="350"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/goroutin_huc121e3a6688730c049b24d1fda9c03b6_11722_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/goroutin_huc121e3a6688730c049b24d1fda9c03b6_11722_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="71"
+data-flex-basis="171px"
+>&lt;/a>&lt;/p>
+&lt;h3 id="e-learning">e-Learning&lt;/h3>
+&lt;h4 id="gophercises">gophercises&lt;/h4>
+&lt;p>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/gophercises.webp"
+width="1566"
+height="570"
+srcset="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/gophercises_hueff16bbd698c15c65261513ec7d63ddf_51050_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/gophercises_hueff16bbd698c15c65261513ec7d63ddf_51050_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="274"
+data-flex-basis="659px"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://gophercises.com/#signup" target="_blank" rel="noopener"
+>gophercises&lt;/a>は、Go の基本から応用的なアプリケーションの実装までを動画で紹介しています.&lt;/p>
+&lt;p>Go の基礎理解を一通り深めたあと、「何か試しに実装するものないかな？」と思った方は、このサイトを参考にサンプルコードを書いてみても良いでしょう.&lt;/p>
+&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;p>Go の学習ロードマップを考えてまとめてみました.&lt;/p>
+&lt;p>Go のみならず、プログラミング言語の学習に近道はありません.&lt;/p>
+&lt;p>反復をくりかえし、少しづつ自分のものにしてきましょう.&lt;/p>
+&lt;p>また、「Go を学んで終わり！」というわけでもなくその周辺の知識も有していく必要があります。&lt;/p>
+&lt;p>@Alikhll さんの &lt;a class="link" href="https://github.com/Alikhll/golang-developer-roadmap/blob/master/i18n/ja-JP/ReadMe-ja-JP.md" target="_blank" rel="noopener"
+>こちら&lt;/a>のロードマップなどを参考に、より知識の幅を広げていって貰えればと思います.&lt;/p></description></item><item><title>Kubernetes初学者ロードマップ</title><link>https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-beginner-loadmap.webp" alt="Featured image of post Kubernetes初学者ロードマップ" />&lt;p>Kubernetes を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
+&lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>本ページは、筆者が全くの知見のない初学者が Kubernetes を学習し、利用していく上で必要な知識やスキルの習得方法を示したものです.&lt;/p>
+&lt;p>そのため、本ページでは概要や用語の説明などは行いません.&lt;/p>
+&lt;p>また、本ページの指針を全て達成することで Kubernetes の全てを網羅し、&lt;strong>完全に理解&lt;/strong>できる訳ではありません.&lt;/p>
+&lt;p>必要な知識が必要な場合は個人で別途で調査、理解をする必要があることを予めご了承ください.&lt;/p>
+&lt;h2 id="そもそも-kubernetes-とは">そもそも Kubernetes とは？&lt;/h2>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-logo.webp"
+width="798"
+height="141"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-logo_hu7105e10d84999642bdea7d64acc0f208_8768_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-logo_hu7105e10d84999642bdea7d64acc0f208_8768_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="565"
+data-flex-basis="1358px"
+>&lt;/p>
+&lt;h3 id="kubernetes-の読み方">Kubernetes の読み方&lt;/h3>
+&lt;p>Kubernetes は、&lt;strong>クバネティス&lt;/strong>、&lt;strong>クバネテス&lt;/strong>、&lt;strong>クーべネティス&lt;/strong>と呼び方は様々ありますが、読み方は人それぞれです.&lt;/p>
+&lt;p>また、&lt;code>K8s&lt;/code>と略されることもあります.&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Kubernetes&amp;rdquo;(希: κυβερνήτης, koo-ber-nay'-tace, クベルネテス)は、ギリシャ語で&lt;strong>航海長&lt;/strong>または&lt;strong>水先案内人&lt;/strong>を意味し、サイバネティクス(人工頭脳学)の語源でもある&lt;/p>
+&lt;p>引用: &lt;a class="link" href="https://ja.wikipedia.org/wiki/Kubernetes" target="_blank" rel="noopener"
+>https://ja.wikipedia.org/wiki/Kubernetes&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="何をしているの">何をしているの？&lt;/h3>
+&lt;p>Kubernetes は、コンテナをデプロイできる基盤となるソフトウェアであり、コンテナオーケストレーターの 1 つです.&lt;/p>
+&lt;p>もともとは Google のコンテナ盤である Borg をベースにした OSS であり、2014 年 6 月にローンチされました.&lt;/p>
+&lt;p>現在は &lt;a class="link" href="https://www.cncf.io/" target="_blank" rel="noopener"
+>&lt;strong>Cloud Native Computing Foundation (CNCF)&lt;/strong>&lt;/a> によって管理されている GA Project の 1 つです.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>CNCF とは？&lt;/strong>&lt;/p>
+&lt;p>CNCF は、Cloud Native なシステムを推進するために 2015 年に創設された Linux Foundation 傘下の非営利団体の 1 つです.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="学習ロードマップ">学習ロードマップ&lt;/h2>
+&lt;p>本題の学習のロードマップについてですが、個人的には以下の通りに学習を進めて行くのが良いと考えています.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/loadmap.drawio.png"
+width="1266"
+height="204"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/loadmap.drawio_hudb23c679f95621418449dbb6784890e0_69222_480x0_resize_box_3.png 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/loadmap.drawio_hudb23c679f95621418449dbb6784890e0_69222_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="620"
+data-flex-basis="1489px"
+>&lt;/p>
+&lt;h3 id="step1-コンテナの基礎理解">Step1. コンテナの基礎理解&lt;/h3>
+&lt;p>Kubernetes を理解する上で、非常に密な関係性にあるのが&lt;strong>コンテナ&lt;/strong>です.&lt;/p>
+&lt;p>まずは、コンテナについて理解を深めることが最重要になります. コンテナを理解している場合は、このステップはスキップしても良いでしょう.&lt;/p>
+&lt;p>理解がないまま Kubernetes を理解を深めること困難です. まずは、コンテナの理解を深めしょう.&lt;/p>
+&lt;p>コンテナと言っても、コンテナを動かすエンジンは複数種類あるので、まずは&lt;code>Docker&lt;/code>に焦点をあてて、学習を進めて行きます.&lt;/p>
+&lt;h4 id="step1-を学ぶポイント">Step1 を学ぶポイント&lt;/h4>
+&lt;ul>
+&lt;li>コンテナとは何なのか？&lt;/li>
+&lt;li>コンテナと仮想化の違いは？&lt;/li>
+&lt;li>Dockerfile の記述方法&lt;/li>
+&lt;li>Docker の操作方法
+&lt;ul>
+&lt;li>イメージのビルド&lt;/li>
+&lt;li>イメージのプッシュ&lt;/li>
+&lt;li>コンテナの起動&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="step2-kubernetes-の基礎理解">Step2. Kubernetes の基礎理解&lt;/h3>
+&lt;p>コンテナの基礎を理解した後は、Kubernetes の基礎を理解していきます.&lt;/p>
+&lt;p>Kubernetes を動かす前にまずは知識としてインプットしていくのが良いでしょう.&lt;/p>
+&lt;h4 id="step2-を学ぶポイント">Step2 を学ぶポイント&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes で実現できること
+&lt;ul>
+&lt;li>また、それがなぜ必要とされているのか&lt;/li>
+&lt;li>Kubernetes を使うメリット&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>API リソース群の理解&lt;/li>
+&lt;li>&lt;code>kubectl&lt;/code> の使用方法&lt;/li>
+&lt;/ul>
+&lt;h3 id="step3-kubernetes-の利用">Step3. Kubernetes の利用&lt;/h3>
+&lt;p>コンテナや Kubernetes の基礎的な部分を理解した後は、実際に Kubernetes を触ってみましょう.&lt;/p>
+&lt;p>実際に Kubernetes を動かして、体系的に学ぶようにすることで理解を深めていきます.&lt;/p>
+&lt;p>Step1, Step2 でインプットした知識を、きちんとアウトプットしていくことで&lt;strong>ラーニングサイクル&lt;/strong>を回すようにしましょう.&lt;/p>
+&lt;h4 id="step3-を学ぶポイント">Step3 を学ぶポイント&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes の一連の動作を試してみる
+&lt;ul>
+&lt;li>クラスターの作成&lt;/li>
+&lt;li>アプリケーションの操作 (&lt;code>kubectl&lt;/code>での操作)
+&lt;ul>
+&lt;li>デプロイ&lt;/li>
+&lt;li>探索&lt;/li>
+&lt;li>公開&lt;/li>
+&lt;li>スケーリング&lt;/li>
+&lt;li>アップデート&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="step4-エコシステムの利用">Step4. エコシステムの利用&lt;/h3>
+&lt;p>Kubernetes には多くのエコシステムが提供されています.&lt;/p>
+&lt;p>エコシステムを活用することで、Kubernetes はより真価を発揮します.&lt;/p>
+&lt;p>また、本番環境などで運用する際、CI/CD や監視、ログ収集、セキュリティなど考慮する点が多く存在します.&lt;/p>
+&lt;p>エコシステムを利用することで、それらの課題を解決することができます.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>エコシステムとは？&lt;/strong>&lt;/p>
+&lt;p>元々は生態系の用語であり、あるエリア(地域や空間など)の生命体が互いに依存しながら生態を維持する関係の様子を表します.
+ここでは、Kubernetes を支えるツール群のことを指しています.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="step4-を学ぶポイント">Step4 を学ぶポイント&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes を運用する上でどのような点を考慮する必要があるのか&lt;/li>
+&lt;li>どのようなエコシステムがあるのか&lt;/li>
+&lt;/ul>
+&lt;h3 id="step5-内部ツールの理解実装">Step5. 内部ツールの理解・実装&lt;/h3>
+&lt;p>しかし、実際にマネージドクラウド(AWS, GCP, Azure など)で運用する場合、あまり気にする必要はありません.&lt;/p>
+&lt;p>個人で Kubernetes のコントローラーなどを開発していきたい方は Step 5 に挑戦してみましょう.&lt;/p>
+&lt;p>なお、Kubernetes 関連の周辺ツールは、Go 言語で書かれている事が多いです.&lt;/p>
+&lt;p>Go 言語を初めて触る方は、後日記載予定の「Go 言語学習ロードマップ」をご覧いただければと思います.&lt;/p>
+&lt;h4 id="step5-を学ぶポイント">Step5 を学ぶポイント&lt;/h4>
+&lt;ul>
+&lt;li>カスタムコントローラーの基礎の理解&lt;/li>
+&lt;li>公開されているカスタムコントローラー群の理解&lt;/li>
+&lt;li>カスタムコントローラーの実装、動作検証&lt;/li>
+&lt;/ul>
+&lt;h2 id="おすすめの書籍文献など">おすすめの書籍、文献など&lt;/h2>
+&lt;p>ここでは、ロードマップにそって学習を行う上で著者自身がお薦めする書籍や、文献などを紹介します.&lt;/p>
+&lt;h3 id="書籍">書籍&lt;/h3>
+&lt;h4 id="仕組みと使い方がわかる-dockerkubernetes-のきほんのきほん">仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step1&lt;/li>
+&lt;li>Step2&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>コンテナに初めて触れる方やバックエンドの技術に詳しくない方でも Linux の知識や、サーバの基礎なども併せて記載されているため読みやすいです&lt;/li>
+&lt;li>イラストも多く、視覚的に知識をインプットすることができます&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/%E4%BB%95%E7%B5%84%E3%81%BF%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%8B-Docker%EF%BC%86Kubernetes%E3%81%AE%E3%81%8D%E3%81%BB%E3%82%93%E3%81%AE%E3%81%8D%E3%81%BB%E3%82%93-Compass-Books%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%B0%8F%E7%AC%A0%E5%8E%9F-ebook/dp/B08T961HKP?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=3OZORHAGRHLNJ&amp;keywords=docker&amp;qid=1652509596&amp;refinements=p_72%3A2275269051&amp;rnid=2275267051&amp;s=digital-text&amp;sprefix=docker%2Cdigital-text%2C166&amp;sr=1-3&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=29136c59c8b11b9bb0449836fc8e286c&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B08T961HKP&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B08T961HKP" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="docker-コンテナ開発環境構築の基本">Docker コンテナ開発・環境構築の基本&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step1&lt;/li>
+&lt;li>Step2&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>コンテナを体系的に学ぶことができます&lt;/li>
+&lt;li>コンテナを用いた CI/CD、アプリケーションの運用方法も基本から記載されています&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/gp/product/B0998CHJ9W?&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=50d67ea8029c01f16853feb26fa680a4&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B0998CHJ9W&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B0998CHJ9W" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="イラストでわかる-docker-と-kubernetes">イラストでわかる Docker と Kubernetes&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step1&lt;/li>
+&lt;li>Step2&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Docker や Kubernetes の知識を有していない場合はまずこれを読んだほうがイメージはつかみやすいかと思います
+&lt;ul>
+&lt;li>概要がメインなので、サラッと読むには良いと思います&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%81%A7%E3%82%8F%E3%81%8B%E3%82%8BDocker%E3%81%A8Kubernetes-Software-Design-plus-%E5%BE%B3%E6%B0%B8-ebook/dp/B08PNMRXKN?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2UB37LVU06166&amp;keywords=docker&amp;qid=1652509151&amp;refinements=p_72%3A2275269051&amp;rnid=2275267051&amp;s=digital-text&amp;sprefix=docker%2Caps%2C260&amp;sr=1-12&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=73dfa47f75b0dd6e7da44853d73fffad&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B08PNMRXKN&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B08PNMRXKN" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="kubernetes-完全ガイド-第-2-版">Kubernetes 完全ガイド 第 2 版&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step2&lt;/li>
+&lt;li>Step3&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>一番時初めにこの書籍から読み始めるのは少し難易度が高いため、上記の書籍を読んでから読むと良いです&lt;/li>
+&lt;li>Kubernetes に関する知識が網羅的にまとめられています&lt;/li>
+&lt;li>Kubernetes を使用していて、困った時にリファレンスとしても活用できます&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/Kubernetes%E5%AE%8C%E5%85%A8%E3%82%AC%E3%82%A4%E3%83%89-%E7%AC%AC2%E7%89%88-impress-top-gear%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-ebook/dp/B08FZX8PYW?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2UB37LVU06166&amp;keywords=docker&amp;qid=1652511302&amp;refinements=p_72%3A2275269051&amp;rnid=2275267051&amp;s=digital-text&amp;sprefix=docker%2Caps%2C260&amp;sr=1-23&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=241da7fc57eddf20dbf4a1e2f588ae03&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B08FZX8PYW&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B08FZX8PYW" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="kubernetes-cicd-パイプラインの実装">Kubernetes CI/CD パイプラインの実装&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step4&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>題名の通り、CI/CD のパイプラインを構築について詳細に記されている&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/Kubernetes-CD%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%AE%E5%AE%9F%E8%A3%85-impress-top-gear%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-ebook/dp/B09J7X39ZT?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2UB37LVU06166&amp;keywords=docker&amp;qid=1652509151&amp;refinements=p_72%3A2275269051&amp;rnid=2275267051&amp;s=digital-text&amp;sprefix=docker%2Caps%2C260&amp;sr=1-18&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=6724574a2882121a0f484f2c97d33646&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B09J7X39ZT&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B09J7X39ZT" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="dockerkubernetes-開発運用のためのセキュリティ実践ガイド">Docker/Kubernetes 開発・運用のためのセキュリティ実践ガイド&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step3&lt;/li>
+&lt;li>Step4&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Docker や Kubernetes の知識はある程度有していないと読むのは難しいと思います&lt;/li>
+&lt;li>Kubernetes 上での開発、運用視点からのセキュリティ対策についてまとめられていています&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/Docker-Kubernetes%E9%96%8B%E7%99%BA%E3%83%BB%E9%81%8B%E7%94%A8%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E5%AE%9F%E8%B7%B5%E3%82%AC%E3%82%A4%E3%83%89-Compass-Books%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E9%A0%88%E7%94%B0-ebook/dp/B085C8LYDC?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2UB37LVU06166&amp;keywords=docker&amp;qid=1652509151&amp;refinements=p_72%3A2275269051&amp;rnid=2275267051&amp;s=digital-text&amp;sprefix=docker%2Caps%2C260&amp;sr=1-8&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=3e11a8f254e14f7d8f201c3703e7f9d7&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=B085C8LYDC&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=B085C8LYDC" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="実践入門-kubernetes-カスタムコントローラーへの道">実践入門 Kubernetes カスタムコントローラーへの道&lt;/h4>
+&lt;ul>
+&lt;li>対象
+&lt;ul>
+&lt;li>Step5&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Kubernetes で拡張機能(カスタムコントローラー)を開発する入門です&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-Kubernetes%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%BC%E3%81%B8%E3%81%AE%E9%81%93-%E6%8A%80%E8%A1%93%E3%81%AE%E6%B3%89%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA%EF%BC%88NextPublishing%EF%BC%89-%E7%A3%AF-%E8%B3%A2%E5%A4%A7/dp/4844378546?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&amp;crid=2J9AWAYV9O5PE&amp;keywords=kubernetes&amp;qid=1652514210&amp;sprefix=kubernete%2Caps%2C177&amp;sr=8-15&amp;linkCode=li2&amp;tag=m0rer00e-22&amp;linkId=9a58d18c159b1c8ae59d0fefa64a2a16&amp;language=ja_JP&amp;ref_=as_li_ss_il" target="_blank">&lt;img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4844378546&amp;Format=_SL160_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=m0rer00e-22&amp;language=ja_JP" >&lt;/a>&lt;img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&amp;language=ja_JP&amp;l=li2&amp;o=9&amp;a=4844378546" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />&lt;/p>
+&lt;h4 id="kubernetes-ネットワーク-徹底解説">Kubernetes ネットワーク 徹底解説&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes のネットワークの実現方法について説明されています&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://zenn.dev/taisho6339" target="_blank" rel="noopener"
+>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network.webp"
+width="250"
+height="350"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network_hud85a280dae654ab31c568be9089e1d4e_12688_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/k8s-network_hud85a280dae654ab31c568be9089e1d4e_12688_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="71"
+data-flex-basis="171px"
+>&lt;/a>&lt;/p>
+&lt;h3 id="e-learning">e-Learning&lt;/h3>
+&lt;h4 id="katacoda">Katacoda&lt;/h4>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo.webp"
+width="1929"
+height="363"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo_hu17cde74a4961802c95ad7dcf7c82a69e_33890_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-logo_hu17cde74a4961802c95ad7dcf7c82a69e_33890_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="531"
+data-flex-basis="1275px"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.katacoda.com/" target="_blank" rel="noopener"
+>Katakoda&lt;/a>は、ブラウザ環境で学習が行えるプラットフォームです.&lt;/p>
+&lt;p>コンテナ周辺の技術などのトレーニングが公開されており、全てブラウザ環境でコマンド、ターミナル環境が提供されているため、環境構築などの手間などなく学習を行うことができます.&lt;/p>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-preview.webp"
+width="2690"
+height="1562"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-preview_hu82e34ce7ce9fb815655c2fdea8710d2d_173650_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/katacoda-preview_hu82e34ce7ce9fb815655c2fdea8710d2d_173650_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="413px"
+>&lt;/p>
+&lt;h4 id="kubernetes-学習とトレーニング-microsoft">Kubernetes 学習とトレーニング (Microsoft)&lt;/h4>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/ms-traing.webp"
+width="2690"
+height="926"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/ms-traing_huf19bc0b6a83e0f3756424533a1a12bf1_64200_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/ms-traing_huf19bc0b6a83e0f3756424533a1a12bf1_64200_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="290"
+data-flex-basis="697px"
+>&lt;/p>
+&lt;p>Microsoft が提供している、トレーニングになります.&lt;/p>
+&lt;p>動画ベースで各項目を説明しており、Kubernetes の基本を理解すると共に、様々な Kubernetes の機能などについても解説してくれています.&lt;/p>
+&lt;p>トレーニングは、&lt;a class="link" href="https://azure.microsoft.com/ja-jp/resources/kubernetes-learning-and-training/#overview" target="_blank" rel="noopener"
+>こちら&lt;/a>から受講することができます.&lt;/p>
+&lt;h4 id="つくって学ぶ-kubebuilder">つくって学ぶ Kubebuilder&lt;/h4>
+&lt;p>&lt;img src="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder.webp"
+width="1263"
+height="218"
+srcset="https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder_hu5150391d9c0e842dedaa570fef006154_12894_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubernetes%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/kubebuilder_hu5150391d9c0e842dedaa570fef006154_12894_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="579"
+data-flex-basis="1390px"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/zoetrope?tab=repositories" target="_blank" rel="noopener"
+>@zoetrope&lt;/a>さんによって提供されており、Kubebuilder と呼ばれるフレームワークを使用して、Kubernetes を拡張するためのカスタムコントローラー/オペレーターを開発するため方法を解説されています.&lt;/p>
+&lt;p>Step5 に進まれた方は、この記事を読んでカスタムコントローラー/オペレーターの開発手法を理解すると良いでしょう.&lt;/p>
+&lt;h2 id="その他">その他&lt;/h2>
+&lt;h3 id="情報収集">情報収集&lt;/h3>
+&lt;p>Kubernetes の情報を収集する際には基本的には以下を使用しています.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/" target="_blank" rel="noopener"
+>Kubernetes Official&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener"
+>Document&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/docs/reference/" target="_blank" rel="noopener"
+>Reference&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://kubernetes.io/blog/" target="_blank" rel="noopener"
+>Blog&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/kubernetes" target="_blank" rel="noopener"
+>GitHub&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/kubernetes/kubernetes" target="_blank" rel="noopener"
+>kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>News
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://us10.campaign-archive.com/home/?u=3885586f8f1175194017967d6&amp;amp;id=11c1b8bcb2" target="_blank" rel="noopener"
+>KubeWeekly&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://kubernetespodcast.com/" target="_blank" rel="noopener"
+>Kubernetes Podcast&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://medium.com/tag/kubernetes/latest" target="_blank" rel="noopener"
+>Kubernetes on Medium&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="コミュニティの参加">コミュニティの参加&lt;/h3>
+&lt;h4 id="kubernetes-slack">Kubernetes Slack&lt;/h4>
+&lt;p>Kubernetes の Slack になります. Join は&lt;a class="link" href="http://slack.k8s.io/" target="_blank" rel="noopener"
+>こちら&lt;/a>からできます.&lt;/p>
+&lt;p>※ 既に Join 済みの場合は、&lt;a class="link" href="https://kubernetes.slack.com/" target="_blank" rel="noopener"
+>こちら&lt;/a>からサインインできます.&lt;/p>
+&lt;p>初めて参加する方は以下のチャンネルに参加すると良いと思います.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>#jp-users&lt;/code>&lt;/li>
+&lt;li>&lt;code>jp-events&lt;/code>&lt;/li>
+&lt;li>&lt;code>jp-dev&lt;/code>&lt;/li>
+&lt;li>&lt;code>kubernetes-doc-ja&lt;/code>&lt;/li>
+&lt;li>&lt;code>jp-mentoring&lt;/code>&lt;/li>
+&lt;li>&lt;code>jp-users-novice&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>初学者の方で質問などを行いたい場合は、&lt;code>jp-users-novice&lt;/code>で聞いてみると良いでしょう.&lt;/p>
+&lt;h3 id="勉強会など">勉強会など&lt;/h3>
+&lt;h4 id="kubernetes-meetup-tokyohttpsk8sjpconnpasscom">&lt;a class="link" href="https://k8sjp.connpass.com/" target="_blank" rel="noopener"
+>Kubernetes Meetup Tokyo&lt;/a>&lt;/h4>
+&lt;p>国内では最大の Kubernetes の勉強会になります.&lt;/p>
+&lt;p>過去の勉強会の動画は&lt;a class="link" href="https://www.youtube.com/c/KubernetesMeetupTokyo" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h4 id="kubernetes-meetup-novicehttpsk8s-novice-jpconnpasscom">&lt;a class="link" href="https://k8s-novice-jp.connpass.com/" target="_blank" rel="noopener"
+>Kubernetes Meetup Novice&lt;/a>&lt;/h4>
+&lt;p>「まだ、学び始めたばっかりだけど発表してみたい」という方向けの勉強会になります.&lt;/p>
+&lt;p>過去の勉強会の動画は&lt;a class="link" href="https://www.youtube.com/channel/UC4EPkXFGaMA_BZ0N6unnQIAz" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h4 id="kubernetes-変更内容共有会httpskubernetes-updatesconnpasscom">&lt;a class="link" href="https://kubernetes-updates.connpass.com/" target="_blank" rel="noopener"
+>Kubernetes 変更内容共有会&lt;/a>&lt;/h4>
+&lt;p>Kubernetes のバージョンアップごとの変更内容で重要な部分や、面白いポイントを紹介してくれる勉強会になります.&lt;/p>
+&lt;p>Kubernetes のバージョンに追従してくためにこちらの勉強会を活用してみても良いと思います.&lt;/p>
+&lt;p>過去の勉強会の動画は&lt;a class="link" href="https://www.youtube.com/channel/UC9bxCiEy9Nocy5UQHfG_6Yw" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h4 id="kubernetes-internal">Kubernetes Internal&lt;/h4>
+&lt;p>Kubernetes をより深く掘り下げ、その他の周辺ツールなどの実装や設計などについて情報交換、交流をするための勉強会です.&lt;/p>
+&lt;p>現在は、「kubenews」が毎週開催されています.&lt;/p>
+&lt;p>過去の勉強会の動画は&lt;a class="link" href="https://www.youtube.com/channel/UCpkd51NdxThtTSR3L6T83fw" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h4 id="ochaoracle-cloud-hangout-cafe-cafehttpsochacafeconnpasscom">&lt;a class="link" href="https://ochacafe.connpass.com/" target="_blank" rel="noopener"
+>OCHa(Oracle Cloud Hangout cafe) Cafe&lt;/a>&lt;/h4>
+&lt;p>Kubernetes 以外にクラウドネイティブな技術全般について発信しています.&lt;/p>
+&lt;p>過去の勉強会の動画は&lt;a class="link" href="https://www.youtube.com/c/JapanOracleDevelopers" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h4 id="kubeconn--cloudnativeconnhttpswwwcncfiokubecon-cloudnativecon-events">&lt;a class="link" href="https://www.cncf.io/kubecon-cloudnativecon-events/" target="_blank" rel="noopener"
+>KubeConn + CloudNativeConn&lt;/a>&lt;/h4>
+&lt;p>KubeCon + CloudNativeCon は、Cloud Native Computing Foundation (CNCF) の主力カンファレンスカンファレンスとして開催されています.&lt;/p>
+&lt;p>Kubernetes のみならず、クラウドネイティブに関するコミュニティが一同に集結し、クラウドネイティブな技術の教育と進歩を推進しています.&lt;/p>
+&lt;h4 id="cloud-native-dayshttpscloudnativedaysconnpasscom">&lt;a class="link" href="https://cloudnativedays.connpass.com/" target="_blank" rel="noopener"
+>Cloud Native Days&lt;/a>&lt;/h4>
+&lt;p>日本最大級のクラウドネイティブ・テックカンファレンスを開催しています.&lt;/p>
+&lt;p>過去のカンファレンスの動画は&lt;a class="link" href="https://www.youtube.com/channel/UCMBw1Z3fmhe-2l-iq2p4rNw" target="_blank" rel="noopener"
+>こちら&lt;/a>から見ることができます.&lt;/p>
+&lt;h3 id="資格">資格&lt;/h3>
+&lt;p>Kubernetes では、Linux Foundation と Cloud Native Computing Foundation (CNCF) が行っている試験が一番有名だと思います.&lt;/p>
+&lt;h4 id="cka-certified-kubernetes-administratorhttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-administrator-cka">&lt;a class="link" href="https://training.linuxfoundation.org/ja/certification/certified-kubernetes-administrator-cka/" target="_blank" rel="noopener"
+>CKA (Certified Kubernetes Administrator)&lt;/a>&lt;/h4>
+&lt;p>Kubernetes の基本的な機能に加え、基盤自体の運用方法やトラブルシュートなどの理解が求められます.&lt;/p>
+&lt;p>Kubernetes の基盤開発者向けの試験になります.&lt;/p>
+&lt;p>※ &lt;a class="link" href="https://training.linuxfoundation.org/ja/certification/certified-kubernetes-administrator-cka-jp/" target="_blank" rel="noopener"
+>日本語での試験&lt;/a>が可能です.&lt;/p>
+&lt;h4 id="ckad-certified-kubernetes-application-developerhttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-application-developer-ckad">&lt;a class="link" href="https://training.linuxfoundation.org/ja/certification/certified-kubernetes-application-developer-ckad/" target="_blank" rel="noopener"
+>CKAD (Certified Kubernetes Application Developer)&lt;/a>&lt;/h4>
+&lt;p>CKA と比べ、アプリケーション開発者向けの試験になります.&lt;/p>
+&lt;p>Kubernetes の基本的な機能に加え、Kubernetes をアプリをデプロイ・運用する基盤として十分に利用できるスキルがあるかが求められます.&lt;/p>
+&lt;p>※ &lt;a class="link" href="https://training.linuxfoundation.org/ja/certification/certified-kubernetes-application-developer-ckad-jp/" target="_blank" rel="noopener"
+>日本語での試験&lt;/a>が可能です.&lt;/p>
+&lt;h4 id="cks-certified-kubernetes-security-specialisthttpstraininglinuxfoundationorgjacertificationcertified-kubernetes-security-specialist">&lt;a class="link" href="https://training.linuxfoundation.org/ja/certification/certified-kubernetes-security-specialist/" target="_blank" rel="noopener"
+>CKS (Certified Kubernetes Security Specialist)&lt;/a>&lt;/h4>
+&lt;p>CKA の試験を更にセキュリティに焦点を当てた試験となります.&lt;/p>
+&lt;p>この試験を受けるには、事前に CKA に合格している必要があります.&lt;/p>
+&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;p>今回は、Kubernetes の学習ロードマップを考えてまとめてみました.&lt;/p>
+&lt;p>筆者自身も Kubernetes を触り始めてまだ日が浅いため、上記のものを参考に日々精進しています.&lt;/p>
+&lt;p>これをきっかけに一人でも多くの方が Kubernetes に興味をもっていただけることを切に願います.&lt;/p></description></item></channel></rss>
