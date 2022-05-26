@@ -1,4 +1,222 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>A Life of Inquiry</title><link>https://example.com/</link><description>Recent content on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 13 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Go 初学者ロードマップ</title><link>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/golang-beginner-loadmap.webp" alt="Featured image of post Go 初学者ロードマップ" />&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>A Life of Inquiry</title><link>https://example.com/</link><description>Recent content on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>KubeCon + CloudNativeCon Europe 2022 Recap</title><link>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/</link><pubDate>Thu, 26 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/</guid><description>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/featured-image.webp" alt="Featured image of post KubeCon + CloudNativeCon Europe 2022 Recap" />&lt;h2 id="kubecon--cloudnativecon-とは">KubeCon + CloudNativeCon とは？&lt;/h2>
+&lt;p>KubeCon + CloudNativeCon は、クラウドネイティブコンピューティングに関する最大のオープンソースカンファレンスになります.&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.cncf.io/" target="_blank" rel="noopener"
+>Cloud Native Computing Foundation (CNCF)&lt;/a> の主力のカンファレンスとして開催され、主要な OSS およびクラウドネイティブコミュニティが一同に集結して、 情報共有を行っています.&lt;/p>
+&lt;p>先日は、スペインのバレンシアで 5/16 - 20 の 5 日間、開催されました. (前夜祭が 2 日間、本祭が 3 日間という感じ)&lt;/p>
+&lt;h2 id="選んだセッションの背景">選んだセッションの背景&lt;/h2>
+&lt;ul>
+&lt;li>今回は、セキュリティ関連をメインに取り上げました
+&lt;ul>
+&lt;li>個人的に好きだから&lt;/li>
+&lt;li>マネージドを使っている場合、意識することも少ないが、管理している場合は意識する必要があるため&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="興味を持ったセッション">興味を持ったセッション&lt;/h2>
+&lt;h3 id="trampoline-pods-node-to-admin-privesc-built-into-popular-k8s-platforms">Trampoline Pods Node to Admin PrivEsc Built Into Popular K8s Platforms&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods.webp"
+width="2264"
+height="1272"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="427px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kccnceu2022.sched.com/event/ytlb/trampoline-pods-node-to-admin-privesc-built-into-popular-k8s-platforms-yuval-avrahami-shaul-ben-hai-palo-alto-networks?iframe=no&amp;amp;w=100%25&amp;amp;sidebar=yes&amp;amp;bg=no" target="_blank" rel="noopener"
+>概要&lt;/a>&lt;/li>
+&lt;li>発表概要
+&lt;ul>
+&lt;li>&lt;code>Trampoline Pods&lt;/code> ついて&lt;/li>
+&lt;li>マネージドクラウドなどにおける、&lt;code>Trampoline Pods&lt;/code>の調査結果の報告と、それに関する対策&lt;/li>
+&lt;li>Cilium を用いたデモ&lt;/li>
+&lt;li>&lt;code>rbac-police&lt;/code>について&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="trampoline-pods">Trampoline Pods&lt;/h4>
+&lt;ul>
+&lt;li>業務に必要な特権を持つが、特権を昇格させるための跳躍台として使われる可能性のあるポッドのことを指す
+&lt;ul>
+&lt;li>ノードが不正を行った場合、クラスタに対して壊滅的な攻撃を行い、場合によっては完全にクラスタを乗っ取ってしまうほど強力である&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="rbac-police">rbac-police&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/PaloAltoNetworks/rbac-police" target="_blank" rel="noopener"
+>rbac-police&lt;/a> とは、Palo Alt oNetworks 社が開発しているツール&lt;/li>
+&lt;li>Kubernetes クラスタ内の &lt;code>ServiceAccounts&lt;/code>、&lt;code>Pod&lt;/code>、&lt;code>Node&lt;/code> の RBAC パーミッションを取得し、Rego で記述されたポリシーを使って評価する&lt;/li>
+&lt;li>デフォルトで 20 個のポリシーが定義されている
+&lt;ul>
+&lt;li>Rego で書かれたポリシーは&lt;a class="link" href="https://github.com/PaloAltoNetworks/rbac-police/tree/main/lib" target="_blank" rel="noopener"
+>こちら&lt;/a>を見ると良い&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="所感">所感&lt;/h4>
+&lt;ul>
+&lt;li>マネージドクラウドで Kubernetes を使うのまずいのか？
+&lt;ul>
+&lt;li>そういうわけではない&lt;/li>
+&lt;li>いくつかのプラットフォームでは、すでに強力な DS が削除されている
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://security.googleblog.com/2022/05/privileged-pod-escalations-in.html" target="_blank" rel="noopener"
+>Privileged pod escalations in Kubernetes and GKE&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>どう対策するべきなのか
+&lt;ul>
+&lt;li>Least-Privileged
+&lt;ul>
+&lt;li>&lt;code>namespace/resourceNames&lt;/code> に対するパーミッションのスコープを設定&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Track the powerful permissions &amp;amp; pods in your cluster / project
+&lt;ul>
+&lt;li>要求内容を文書化&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Isolate powerful pods from untrusted / publicly-exposed ones
+&lt;ul>
+&lt;li>Scheduling constraints: &lt;code>Taints&lt;/code> &amp;amp; &lt;code>Tolerations&lt;/code>, &lt;code>Node Affinity&lt;/code>, &lt;code>PodAntiAffinity&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Remove powerful DaemonSets
+&lt;ul>
+&lt;li>特権的な機能を &lt;code>non-DaemonSet&lt;/code>, &lt;code>controlPlane&lt;/code> に移動&lt;/li>
+&lt;li>コアオブジェクトへの書き込み権限を最小化し、状態を &lt;code>CRDs&lt;/code>, &lt;code>ConfigMap&lt;/code> に格納&lt;/li>
+&lt;li>すべてを捨てるか、何も捨てないかではな&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Restrain powerful permissions
+&lt;ul>
+&lt;li>OPA Gatekeeper などによる誤用の防止・検出&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>詳しい調査報告は、&lt;a class="link" href="https://www.paloaltonetworks.com/resources/whitepapers/kubernetes-privilege-escalation-excessive-permissions-in-popular-platforms" target="_blank" rel="noopener"
+>こちら&lt;/a>で確認できる&lt;/li>
+&lt;/ul>
+&lt;h3 id="how-attackers-use-exposed-prometheus-server-to-exploit-kubernetes-clusters">How Attackers Use Exposed Prometheus Server to Exploit Kubernetes Clusters&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus.webp"
+width="2258"
+height="1272"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kccnceu2022.sched.com/event/ytmB/how-attackers-use-exposed-prometheus-server-to-exploit-kubernetes-clusters-david-de-torres-huerta-miguel-hernandez-sysdig?iframe=no&amp;amp;w=100%25&amp;amp;sidebar=yes&amp;amp;bg=no" target="_blank" rel="noopener"
+>概要&lt;/a>&lt;/li>
+&lt;li>発表概要
+&lt;ul>
+&lt;li>Kubernetes におけるフィンガープリント&lt;/li>
+&lt;li>Kubernetes の野放しな部分
+&lt;ul>
+&lt;li>Kubernetes UI&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Prometheus の野放しな部分
+&lt;ul>
+&lt;li>Basic 認証の使用を許可 (推奨) しているが、デフォルトでは有効ではない点&lt;/li>
+&lt;li>オープンエンドポイントをインターネットに公開する行為&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>実際にフィンガープリントを行うシナリオ&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="なぜkubernetes-のフィンガープリントを気にするのか">なぜ、Kubernetes のフィンガープリントを気にするのか&lt;/h4>
+&lt;ul>
+&lt;li>攻撃をするにも、まずは侵入したいターゲットについて、できる限り多くの情報を収集する
+&lt;ul>
+&lt;li>クラスタ内のバージョン情報
+&lt;ul>
+&lt;li>CVE や脆弱性に対応することができ、それを利用することで悪用可能&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>アプリケーション、ツール、アーキテクチャに関する情報
+&lt;ul>
+&lt;li>競合他社に利用可能&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="所感-1">所感&lt;/h4>
+&lt;ul>
+&lt;li>兎にも角にも以下のことは大前提
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://sysdig.com/learn-cloud-native/kubernetes-security/kubernetes-security-101/" target="_blank" rel="noopener"
+>Kubernetes security best practices&lt;/a>に従おう&lt;/li>
+&lt;li>Prometheus を使用してすべてを監視しようね&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Prometheus はメトリクスを収集するツールだけではないということを再認識
+&lt;ul>
+&lt;li>使う人間が攻撃者の場合、Prometheus を使いそれぞれのケースに応じた具テクニックを駆使する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>新たな脆弱性とは、常に戦い続けなければならない
+&lt;ul>
+&lt;li>また、インサイダーに対する対策も必要&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="securing-kubernetes-applications-by-crafting-custom-seccomp-profiles">Securing Kubernetes Applications by Crafting Custom Seccomp Profiles&lt;/h3>
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp.webp"
+width="2258"
+height="1272"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_1024x0_resize_q75_h2_box_2.webp 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kccnceu2022.sched.com/event/ytml/securing-kubernetes-applications-by-crafting-custom-seccomp-profiles-sascha-grunert-red-hat?iframe=no&amp;amp;w=100%25&amp;amp;sidebar=yes&amp;amp;bg=no" target="_blank" rel="noopener"
+>概要&lt;/a>&lt;/li>
+&lt;li>発表概要
+&lt;ul>
+&lt;li>Kubernetes における &lt;code>seccomp&lt;/code> についての簡単な歴史&lt;/li>
+&lt;li>手作業でカスタム &lt;code>seccomp&lt;/code> プロファイルを作成する&lt;/li>
+&lt;li>手動で行っていた作業を自動化する&lt;/li>
+&lt;li>デフォルトでより安全な Kubernetes の明るい未来&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="seccomp-とは">seccomp とは&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>secure computing mode&lt;/code>の略&lt;/li>
+&lt;li>Linux カーネル上でアプリケーションのサンドボックスメカニズムを提供するためのセキュアコンピューティングの機能
+&lt;ul>
+&lt;li>許可されたシステムコールのリストを制限することにより、アプリケーションのセキュリティを向上させることが可能&lt;/li>
+&lt;li>システムコールルールにヒットした場合のさまざまなアクションをサポート&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Kubernetes にはかなり前に追加されている
+&lt;ul>
+&lt;li>&lt;code>containerd&lt;/code>,&lt;code>CRI-O&lt;/code>, &lt;code>docker (shim)&lt;/code> のようなコンテナランタイムによって選択されるデフォルトプロファイルをサポート&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="所感-2">所感&lt;/h4>
+&lt;ul>
+&lt;li>SeccompDefault を、Kubernetes v1.25.0 でベータ版を卒業させたい熱量を感じた
+&lt;ul>
+&lt;li>&lt;code>v1.24.0&lt;/code> のベータ版機能はデフォルトではもう有効になっていないため&lt;/li>
+&lt;li>この機能を安定版へ移行することで、Kubernetes のセキュリティが向上する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>手動で生成する手順などはやったことがないから、個人的にはいい勉強だった&lt;/li>
+&lt;/ul></description></item><item><title>Go 初学者ロードマップ</title><link>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/golang-beginner-loadmap.webp" alt="Featured image of post Go 初学者ロードマップ" />&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
 &lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p>
 &lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>本ページは、筆者が全くの知見のない初学者が Go を学習し、利用していく上で必要な知識やスキルの習得方法を示したものです.&lt;/p>
