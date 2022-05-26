@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>A Life of Inquiry</title><link>https://example.com/</link><description>Recent content on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>KubeCon + CloudNativeCon Europe 2022 Recap</title><link>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/</link><pubDate>Thu, 26 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/</guid><description>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/featured-image.webp" alt="Featured image of post KubeCon + CloudNativeCon Europe 2022 Recap" />&lt;h2 id="kubecon--cloudnativecon-とは">KubeCon + CloudNativeCon とは？&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>A Life of Inquiry</title><link>https://example.com/</link><description>Recent content on A Life of Inquiry</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>KubeCon + CloudNativeCon Europe 2022 Recap for Security</title><link>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/</link><pubDate>Thu, 26 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/</guid><description>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/featured-image.webp" alt="Featured image of post KubeCon + CloudNativeCon Europe 2022 Recap for Security" />&lt;h2 id="kubecon--cloudnativecon-とは">KubeCon + CloudNativeCon とは？&lt;/h2>
 &lt;p>KubeCon + CloudNativeCon は、クラウドネイティブコンピューティングに関する最大のオープンソースカンファレンスになります.&lt;/p>
 &lt;p>&lt;a class="link" href="https://www.cncf.io/" target="_blank" rel="noopener"
 >Cloud Native Computing Foundation (CNCF)&lt;/a> の主力のカンファレンスとして開催され、主要な OSS およびクラウドネイティブコミュニティが一同に集結して、 情報共有を行っています.&lt;/p>
@@ -14,10 +14,10 @@
 &lt;/ul>
 &lt;h2 id="興味を持ったセッション">興味を持ったセッション&lt;/h2>
 &lt;h3 id="trampoline-pods-node-to-admin-privesc-built-into-popular-k8s-platforms">Trampoline Pods Node to Admin PrivEsc Built Into Popular K8s Platforms&lt;/h3>
-&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods.webp"
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/trampoline-pods.webp"
 width="2264"
 height="1272"
-srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_1024x0_resize_q75_h2_box_2.webp 1024w"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/trampoline-pods_hub673ea7fd1fd27d733048be41ac0d118_63318_1024x0_resize_q75_h2_box_2.webp 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="177"
@@ -103,10 +103,10 @@ data-flex-basis="427px"
 >こちら&lt;/a>で確認できる&lt;/li>
 &lt;/ul>
 &lt;h3 id="how-attackers-use-exposed-prometheus-server-to-exploit-kubernetes-clusters">How Attackers Use Exposed Prometheus Server to Exploit Kubernetes Clusters&lt;/h3>
-&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus.webp"
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/how-attackers-use-exposed-prometheus.webp"
 width="2258"
 height="1272"
-srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_1024x0_resize_q75_h2_box_2.webp 1024w"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/how-attackers-use-exposed-prometheus_hud68206cb451fdec589ff4d312c95d211_73444_1024x0_resize_q75_h2_box_2.webp 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="177"
@@ -171,10 +171,10 @@ data-flex-basis="426px"
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="securing-kubernetes-applications-by-crafting-custom-seccomp-profiles">Securing Kubernetes Applications by Crafting Custom Seccomp Profiles&lt;/h3>
-&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp.webp"
+&lt;p>&lt;img src="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/seccomp.webp"
 width="2258"
 height="1272"
-srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_1024x0_resize_q75_h2_box_2.webp 1024w"
+srcset="https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_480x0_resize_q75_h2_box_2.webp 480w, https://example.com/p/kubecon-cloudnativecon-europe-2022-recap-for-security/seccomp_hu87c5ec424f75d06a45d339dd2cb22788_61686_1024x0_resize_q75_h2_box_2.webp 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="177"
