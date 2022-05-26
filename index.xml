@@ -216,6 +216,27 @@ data-flex-basis="426px"
 &lt;/ul>
 &lt;/li>
 &lt;li>手動で生成する手順などはやったことがないから、個人的にはいい勉強だった&lt;/li>
+&lt;/ul>
+&lt;h2 id="その他のセッション">その他のセッション&lt;/h2>
+&lt;h3 id="secure-multi-user-hpc-jobs-in-kubernetes-with-kyverno">Secure Multi User HPC Jobs in Kubernetes with Kyverno&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kccnceu2022.sched.com/event/ytws/lightning-talk-secure-multi-user-hpc-jobs-in-kubernetes-with-kyverno-trey-dockendorf-ohio-supercomputer-center?iframe=no" target="_blank" rel="noopener"
+>概要&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="kyverno-とは">Kyverno とは&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://kyverno.io/" target="_blank" rel="noopener"
+>Kyverno&lt;/a> は、ポリシーエンジンの一種&lt;/li>
+&lt;li>OpenPolicyAgent との違い
+&lt;ul>
+&lt;li>Rego のような特別な言語を用いずにポリシーを定義できる
+&lt;ul>
+&lt;li>YAML での定義&lt;/li>
+&lt;li>Kubernetes ネイティブなツールといえる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul></description></item><item><title>Go 初学者ロードマップ</title><link>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/</guid><description>&lt;img src="https://example.com/p/go-%E5%88%9D%E5%AD%A6%E8%80%85%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97/golang-beginner-loadmap.webp" alt="Featured image of post Go 初学者ロードマップ" />&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
 &lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p>
 &lt;h2 id="はじめに">はじめに&lt;/h2>
