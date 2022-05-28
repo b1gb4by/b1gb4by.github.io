@@ -29,7 +29,7 @@ data-flex-basis="427px"
 &lt;li>発表概要
 &lt;ul>
 &lt;li>&lt;code>Trampoline Pods&lt;/code> ついて&lt;/li>
-&lt;li>マネージドクラウドなどにおける、&lt;code>Trampoline Pods&lt;/code>の調査結果の報告と、それに関する対策&lt;/li>
+&lt;li>マネージドクラウドなどにおける、&lt;code>Trampoline Pods&lt;/code> の調査結果の報告と、それに関する対策&lt;/li>
 &lt;li>Cilium を用いたデモ&lt;/li>
 &lt;li>&lt;code>rbac-police&lt;/code>について&lt;/li>
 &lt;/ul>
@@ -46,7 +46,7 @@ data-flex-basis="427px"
 &lt;h4 id="rbac-police">rbac-police&lt;/h4>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://github.com/PaloAltoNetworks/rbac-police" target="_blank" rel="noopener"
->rbac-police&lt;/a> とは、Palo Alt oNetworks 社が開発しているツール&lt;/li>
+>rbac-police&lt;/a> とは、Palo Alt Networks 社が開発しているツール&lt;/li>
 &lt;li>Kubernetes クラスタ内の &lt;code>ServiceAccounts&lt;/code>、&lt;code>Pod&lt;/code>、&lt;code>Node&lt;/code> の RBAC パーミッションを取得し、Rego で記述されたポリシーを使って評価する&lt;/li>
 &lt;li>デフォルトで 20 個のポリシーが定義されている
 &lt;ul>
@@ -60,10 +60,15 @@ data-flex-basis="427px"
 &lt;li>マネージドクラウドで Kubernetes を使うのまずいのか？
 &lt;ul>
 &lt;li>そういうわけではない&lt;/li>
-&lt;li>いくつかのプラットフォームでは、すでに強力な DS が削除されている
+&lt;li>今回取り上げた DaemonSet などは既に存在しない
+&lt;ul>
+&lt;li>いくつかのプラットフォームでは、すでに強力な DaemonSet が削除されている&lt;/li>
+&lt;li>Google はブログで、どのように対策を行っているかをまとめてくれている
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://security.googleblog.com/2022/05/privileged-pod-escalations-in.html" target="_blank" rel="noopener"
 >Privileged pod escalations in Kubernetes and GKE&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -117,7 +122,7 @@ data-flex-basis="426px"
 >概要&lt;/a>&lt;/li>
 &lt;li>発表概要
 &lt;ul>
-&lt;li>Kubernetes におけるフィンガープリント&lt;/li>
+&lt;li>Kubernetes におけるフィンガープリントについて&lt;/li>
 &lt;li>Kubernetes の野放しな部分
 &lt;ul>
 &lt;li>Kubernetes UI&lt;/li>
@@ -135,6 +140,13 @@ data-flex-basis="426px"
 &lt;/ul>
 &lt;h4 id="なぜkubernetes-のフィンガープリントを気にするのか">なぜ、Kubernetes のフィンガープリントを気にするのか&lt;/h4>
 &lt;ul>
+&lt;li>ここで言うフィンガープリントとは
+&lt;ul>
+&lt;li>
+&lt;h2 id="kubernetes-を使う上で存在する様々な情報のことを指している">Kubernetes を使う上で存在する、様々な情報のことを指している&lt;/h2>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>攻撃をするにも、まずは侵入したいターゲットについて、できる限り多くの情報を収集する
 &lt;ul>
 &lt;li>クラスタ内のバージョン情報
@@ -152,7 +164,7 @@ data-flex-basis="426px"
 &lt;/ul>
 &lt;h4 id="所感-1">所感&lt;/h4>
 &lt;ul>
-&lt;li>兎にも角にも以下のことは大前提
+&lt;li>以下のことは大前提
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://sysdig.com/learn-cloud-native/kubernetes-security/kubernetes-security-101/" target="_blank" rel="noopener"
 >Kubernetes security best practices&lt;/a>に従おう&lt;/li>
@@ -161,7 +173,8 @@ data-flex-basis="426px"
 &lt;/li>
 &lt;li>Prometheus はメトリクスを収集するツールだけではないということを再認識
 &lt;ul>
-&lt;li>使う人間が攻撃者の場合、Prometheus を使いそれぞれのケースに応じた具テクニックを駆使する&lt;/li>
+&lt;li>Prometheus は多彩なメトリクスを取得することができるということを理解しておく必要がある&lt;/li>
+&lt;li>使う人間が攻撃者の場合、Prometheus を使いそれぞれのケースに応じたテクニックを駆使する&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>新たな脆弱性とは、常に戦い続けなければならない
@@ -194,7 +207,7 @@ data-flex-basis="426px"
 &lt;/ul>
 &lt;h4 id="seccomp-とは">seccomp とは&lt;/h4>
 &lt;ul>
-&lt;li>&lt;code>secure computing mode&lt;/code>の略&lt;/li>
+&lt;li>&lt;code>secure computing mode&lt;/code> の略&lt;/li>
 &lt;li>Linux カーネル上でアプリケーションのサンドボックスメカニズムを提供するためのセキュアコンピューティングの機能
 &lt;ul>
 &lt;li>許可されたシステムコールのリストを制限することにより、アプリケーションのセキュリティを向上させることが可能&lt;/li>
@@ -209,9 +222,14 @@ data-flex-basis="426px"
 &lt;/ul>
 &lt;h4 id="所感-2">所感&lt;/h4>
 &lt;ul>
-&lt;li>SeccompDefault を、Kubernetes v1.25.0 でベータ版を卒業させたい熱量を感じた
+&lt;li>SeccompDefault を、Kubernetes &lt;code>v1.25.0&lt;/code> でベータ版を卒業させたい熱量を感じた
 &lt;ul>
-&lt;li>&lt;code>v1.24.0&lt;/code> のベータ版機能はデフォルトではもう有効になっていないため&lt;/li>
+&lt;li>&lt;code>v1.24.0&lt;/code> のベータ版機能はデフォルトではもう有効になっていないため
+&lt;ul>
+&lt;li>これに関しては、公式の&lt;a class="link" href="https://kubernetes.io/blog/2022/05/16/volume-populators-beta/" target="_blank" rel="noopener"
+>ブログ&lt;/a>を参照&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>この機能を安定版へ移行することで、Kubernetes のセキュリティが向上する&lt;/li>
 &lt;/ul>
 &lt;/li>

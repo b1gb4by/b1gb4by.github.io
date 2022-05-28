@@ -37,6 +37,18 @@ extended">
 <a href=/categories/kubernetes/ style=background-color:#398ab9;color:#fff>
 Kubernetes
 </a>
+<a href=/categories/prometheus/>
+prometheus
+</a>
+<a href=/categories/aws/>
+aws
+</a>
+<a href=/categories/gcp/>
+gcp
+</a>
+<a href=/categories/azure/>
+azure
+</a>
 <a href=/categories/security/ style=background-color:#2eb086;color:#fff>
 Security
 </a>
@@ -81,7 +93,7 @@ Security
 <li>発表概要
 <ul>
 <li><code>Trampoline Pods</code> ついて</li>
-<li>マネージドクラウドなどにおける、<code>Trampoline Pods</code>の調査結果の報告と、それに関する対策</li>
+<li>マネージドクラウドなどにおける、<code>Trampoline Pods</code> の調査結果の報告と、それに関する対策</li>
 <li>Cilium を用いたデモ</li>
 <li><code>rbac-police</code>について</li>
 </ul>
@@ -97,7 +109,7 @@ Security
 </ul>
 <h4 id=rbac-police>rbac-police</h4>
 <ul>
-<li><a class=link href=https://github.com/PaloAltoNetworks/rbac-police target=_blank rel=noopener>rbac-police</a> とは、Palo Alt oNetworks 社が開発しているツール</li>
+<li><a class=link href=https://github.com/PaloAltoNetworks/rbac-police target=_blank rel=noopener>rbac-police</a> とは、Palo Alt Networks 社が開発しているツール</li>
 <li>Kubernetes クラスタ内の <code>ServiceAccounts</code>、<code>Pod</code>、<code>Node</code> の RBAC パーミッションを取得し、Rego で記述されたポリシーを使って評価する</li>
 <li>デフォルトで 20 個のポリシーが定義されている
 <ul>
@@ -110,9 +122,14 @@ Security
 <li>マネージドクラウドで Kubernetes を使うのまずいのか？
 <ul>
 <li>そういうわけではない</li>
-<li>いくつかのプラットフォームでは、すでに強力な DS が削除されている
+<li>今回取り上げた DaemonSet などは既に存在しない
+<ul>
+<li>いくつかのプラットフォームでは、すでに強力な DaemonSet が削除されている</li>
+<li>Google はブログで、どのように対策を行っているかをまとめてくれている
 <ul>
 <li><a class=link href=https://security.googleblog.com/2022/05/privileged-pod-escalations-in.html target=_blank rel=noopener>Privileged pod escalations in Kubernetes and GKE</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -156,7 +173,7 @@ Security
 <li><a class=link href="https://kccnceu2022.sched.com/event/ytmB/how-attackers-use-exposed-prometheus-server-to-exploit-kubernetes-clusters-david-de-torres-huerta-miguel-hernandez-sysdig?iframe=no&w=100%25&sidebar=yes&bg=no" target=_blank rel=noopener>概要</a></li>
 <li>発表概要
 <ul>
-<li>Kubernetes におけるフィンガープリント</li>
+<li>Kubernetes におけるフィンガープリントについて</li>
 <li>Kubernetes の野放しな部分
 <ul>
 <li>Kubernetes UI</li>
@@ -174,6 +191,13 @@ Security
 </ul>
 <h4 id=なぜkubernetes-のフィンガープリントを気にするのか>なぜ、Kubernetes のフィンガープリントを気にするのか</h4>
 <ul>
+<li>ここで言うフィンガープリントとは
+<ul>
+<li>
+<h2 id=kubernetes-を使う上で存在する様々な情報のことを指している>Kubernetes を使う上で存在する、様々な情報のことを指している</h2>
+</li>
+</ul>
+</li>
 <li>攻撃をするにも、まずは侵入したいターゲットについて、できる限り多くの情報を収集する
 <ul>
 <li>クラスタ内のバージョン情報
@@ -191,7 +215,7 @@ Security
 </ul>
 <h4 id=所感-1>所感</h4>
 <ul>
-<li>兎にも角にも以下のことは大前提
+<li>以下のことは大前提
 <ul>
 <li><a class=link href=https://sysdig.com/learn-cloud-native/kubernetes-security/kubernetes-security-101/ target=_blank rel=noopener>Kubernetes security best practices</a>に従おう</li>
 <li>Prometheus を使用してすべてを監視しようね</li>
@@ -199,7 +223,8 @@ Security
 </li>
 <li>Prometheus はメトリクスを収集するツールだけではないということを再認識
 <ul>
-<li>使う人間が攻撃者の場合、Prometheus を使いそれぞれのケースに応じた具テクニックを駆使する</li>
+<li>Prometheus は多彩なメトリクスを取得することができるということを理解しておく必要がある</li>
+<li>使う人間が攻撃者の場合、Prometheus を使いそれぞれのケースに応じたテクニックを駆使する</li>
 </ul>
 </li>
 <li>新たな脆弱性とは、常に戦い続けなければならない
@@ -223,7 +248,7 @@ Security
 </ul>
 <h4 id=seccomp-とは>seccomp とは</h4>
 <ul>
-<li><code>secure computing mode</code>の略</li>
+<li><code>secure computing mode</code> の略</li>
 <li>Linux カーネル上でアプリケーションのサンドボックスメカニズムを提供するためのセキュアコンピューティングの機能
 <ul>
 <li>許可されたシステムコールのリストを制限することにより、アプリケーションのセキュリティを向上させることが可能</li>
@@ -238,9 +263,13 @@ Security
 </ul>
 <h4 id=所感-2>所感</h4>
 <ul>
-<li>SeccompDefault を、Kubernetes v1.25.0 でベータ版を卒業させたい熱量を感じた
+<li>SeccompDefault を、Kubernetes <code>v1.25.0</code> でベータ版を卒業させたい熱量を感じた
 <ul>
-<li><code>v1.24.0</code> のベータ版機能はデフォルトではもう有効になっていないため</li>
+<li><code>v1.24.0</code> のベータ版機能はデフォルトではもう有効になっていないため
+<ul>
+<li>これに関しては、公式の<a class=link href=https://kubernetes.io/blog/2022/05/16/volume-populators-beta/ target=_blank rel=noopener>ブログ</a>を参照</li>
+</ul>
+</li>
 <li>この機能を安定版へ移行することで、Kubernetes のセキュリティが向上する</li>
 </ul>
 </li>
@@ -403,6 +432,14 @@ Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=
 <li><a href=#how-attackers-use-exposed-prometheus-server-to-exploit-kubernetes-clusters>How Attackers Use Exposed Prometheus Server to Exploit Kubernetes Clusters</a>
 <ol>
 <li><a href=#なぜkubernetes-のフィンガープリントを気にするのか>なぜ、Kubernetes のフィンガープリントを気にするのか</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href=#kubernetes-を使う上で存在する様々な情報のことを指している>Kubernetes を使う上で存在する、様々な情報のことを指している</a>
+<ol>
+<li>
+<ol>
 <li><a href=#所感-1>所感</a></li>
 </ol>
 </li>
