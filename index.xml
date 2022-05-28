@@ -142,9 +142,7 @@ data-flex-basis="426px"
 &lt;ul>
 &lt;li>ここで言うフィンガープリントとは
 &lt;ul>
-&lt;li>
-&lt;h2 id="kubernetes-を使う上で存在する様々な情報のことを指している">Kubernetes を使う上で存在する、様々な情報のことを指している&lt;/h2>
-&lt;/li>
+&lt;li>Kubernetes を使う上で存在する、様々な情報のことを指している&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>攻撃をするにも、まずは侵入したいターゲットについて、できる限り多くの情報を収集する
