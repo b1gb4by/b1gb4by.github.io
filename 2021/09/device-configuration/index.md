@@ -7,7 +7,7 @@ Describes detailed information about the device used by the individual.
 
 ## Macbook Pro (13-inch, 2019)
 
-|  項目  | 内容                         |
+|  key   | value                        |
 | :----: | ---------------------------- |
 |   OS   | macOS 12.4 21F79 x86_64      |
 |  CPU   | Intel i7-8569U (8) @ 2.80GHz |
@@ -20,7 +20,7 @@ The desktop PC you are using has a variety of operating systems installed on it.
 
 ### Common (Desktop)
 
-|    項目     | 内容                                                                  |
+|     key     | value                                                                 |
 | :---------: | --------------------------------------------------------------------- |
 | Motherboard | ROG STRIX H370-F GAMING (ASUSTeK COMPUTER INC.)                       |
 |     CPU     | Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz                               |
@@ -31,13 +31,13 @@ The desktop PC you are using has a variety of operating systems installed on it.
 
 ### Windows
 
-| 項目 | 内容                   |
-| :--: | ---------------------- |
-|  OS  | Windows 11 Pro (64bit) |
+| key | value                  |
+| :-: | ---------------------- |
+| OS  | Windows 11 Pro (64bit) |
 
 ### Linux
 
-| 項目 | 内容                |
+| key  | value               |
 | :--: | ------------------- |
 | OS_1 | Manjaro Linux       |
 | OS_2 | MXLinux 21          |

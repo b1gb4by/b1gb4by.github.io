@@ -216,8 +216,9 @@ Go 言語を初めて触る方は、後日記載予定の「Go 言語学習ロ�
 #### Kubernetes ネットワーク 徹底解説
 
 - Kubernetes のネットワークの実現方法について説明されています
+  - TCP/IP は知っているが、Kubernetes のネットワークの実現方法は知らない人向けに、噛み砕いて体系的に説明してくれている
 
-[![](k8s-network.webp)](https://zenn.dev/taisho6339)
+[![](k8s-network.webp)](https://zenn.dev/taisho6339/books/fc6facfb640d242dc7ec)
 
 ### e-Learning
 
@@ -269,11 +270,11 @@ Kubernetes の Slack になります. Join は[こちら](http://slack.k8s.io/)�
 初めて参加する方は以下のチャンネルに参加すると良いと思います.
 
 - `#jp-users`
-- `jp-events`
-- `jp-dev`
-- `kubernetes-doc-ja`
-- `jp-mentoring`
-- `jp-users-novice`
+- `#jp-events`
+- `#jp-dev`
+- `#jp-mentoring`
+- `#jp-users-novice`
+- `#kubernetes-doc-ja`
 
 初学者の方で質問などを行いたい場合は、`jp-users-novice`で聞いてみると良いでしょう.
 
