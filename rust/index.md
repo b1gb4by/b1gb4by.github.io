@@ -9,7 +9,7 @@
 | :------- | ---------------------- |
 | Name     | [JP] PANYAYAN PROD. BB |
 | Address  | 107.191.60.103:28015   |
-| Map Wipe | 25th AM4:00 / month    |
+| Map Wipe | 20th AM4:00 / month    |
 | Admin    | BB_morero, panyayan311 |
 
 # Server Objectives
@@ -42,7 +42,7 @@
 ## About wipes
 
 - **The map wipe will take place during the following period**
-  - `25th of every month / 4:00 AM`
+  - `20th of every month / 4:00 AM`
 - **The duration of the BP wipe is not yet determined.**
   - The duration will be determined based on server data (approx. once every 6 months).
   - We will notify at least 1 month before the BP wipe.
