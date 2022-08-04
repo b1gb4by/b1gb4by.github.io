@@ -5,12 +5,12 @@
 
 # Server Information
 
-| key      | value                  |
-| :------- | ---------------------- |
-| Name     | [JP] PANYAYAN PROD. BB |
-| Address  | 107.191.60.103:28015   |
-| Map Wipe | 20th AM4:00 / month    |
-| Admin    | BB_morero, panyayan311 |
+| key      | value                                |
+| :------- | ------------------------------------ |
+| Name     | [JP] PANYAYAN PROD. BB               |
+| Address  | 107.191.60.103:28015 (Japanese only) |
+| Map Wipe | month (blue-print)                   |
+| Admin    | BB_morero, panyayan311               |
 
 # Server Objectives
 
@@ -28,24 +28,28 @@
 
 ## Regarding use in streaming distribution, etc.
 
-- **No problem with streaming on Youtube, Twitch, etc.**
+- **There are no problems with streaming on Youtube, Twitch, etc.**
 
-## Concerning the administrator's behavior during play
+## Administrator behavior during play
 
-- **The manager takes a bird's eye view of all the players.**
-  - We do not give unilateral support to the team.
+- **Administrators will have a bird's eye view of all players**.
+  - No unilateral support for a team.
 
-## Player information
+## Player information and game logs
 
-- **No player information will be disclosed by the administrator.**
+- **Admins will not release player information**.
+- **Admins will not disclose player information or game logs on this server to protect your privacy**.
 
 ## About wipes
 
-- **The map wipe will take place during the following period**
-  - `20th of every month / 4:00 AM`
-- **The duration of the BP wipe is not yet determined.**
-  - The duration will be determined based on server data (approx. once every 6 months).
-  - We will notify at least 1 month before the BP wipe.
+- **What is a wipe**?
+  - A wipe is a wipe of a player's construction in a Rust server to bring it to a starting point!
+- **BP About wipes**.
+  - A wipe is different from a normal wipe in that it will restore everything the player has built on the server to its original state.
+    - This is different from a normal wipe in that it will restore everything the player has built on the server to its original state.
+- **BP Wipes will be conducted on this server during the following periods**.
+  - Every month / scheduled around 4:00 AM
+  - The BP wipe will be performed manually and the time is subject to change.
 
 ## Basic guidelines for play
 
