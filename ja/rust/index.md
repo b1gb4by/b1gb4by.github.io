@@ -5,12 +5,13 @@
 
 # サーバー情報
 
-| key      | value                                |
-| :------- | ------------------------------------ |
-| Name     | [JP] PANYAYAN PROD. BB               |
-| Address  | 107.191.60.103:28015 (Japanese only) |
-| Map Wipe | month (blue-print)                   |
-| Admin    | BB_morero, panyayan311               |
+| key      | value                                                             |
+| :------- | ----------------------------------------------------------------- |
+| Name     | [JP] PANYAYAN PROD. BB                                            |
+| Address  | 107.191.60.103:28015 (Japanese only)                              |
+| Map Wipe | month (blue-print)                                                |
+| Admin    | BB_morero, panyayan311                                            |
+| Discord  | [こちら](https://discord.gg/JcxMyHwVMq)から参加することができます |
 
 # サーバーの目的
 
