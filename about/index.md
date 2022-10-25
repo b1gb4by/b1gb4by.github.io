@@ -28,7 +28,7 @@
 | Environment setup                              | Ansible, Cloud Build. Docker, Terraform(individual) |
 | Container Orchestration                        | Kubernetes, Rancher, CloudRun                       |
 | IaaS                                           | CloudStack, vSphere                                 |
-| CI                                             | CircleCI, GitHub Actions, Cloud Build               |
+| CI                                             | ArgoCD, CircleCI, Cloud Build, GitHub Actions       |
 | Monitoring                                     | Prometheus, Grafana                                 |
 | Service Mesh                                   | Istio, Linkerd(individual)                          |
 | Code Management                                | GitHub, GitLab, Bitbucket                           |
@@ -40,15 +40,15 @@
 #### Kubernetes as a Service (KaaS) development
 
 - Project Size
-  - About 40 people (groups: 1 to 4)
+  - About 40 people (team: 2)
 - Roles
   - Functional review, design, coding, other, surveys, research, etc.
 - Project Details
-  - Development of an application that integrates Kubernetes as a Service with the company's own cloud and other companies' cloud services
-  - Development of Kubernetes components for linking Kubernetes and the cloud, such as CSI Driver/Cloud Controller Manager/Ingress Controller
-  - Research and study of various Kubernetes features and implementations
-  - Research and study on various features and implementations of Kubernetes cluster management tools such as Rancher.
-  - Research, study, and development of various Cloud Native software/services required for Kubernetes as a Service.
+  - Research and study of various functions and implementations of CloudStack's CSI Drive/Cloud Controller Manager/Ingress Controller
+  - Development and implementation of Cluster Autoscaler for Rancher
+  - Development and implementation of private cloud based on vSphere
+  - Automation of Kubernetes Addon and implementation of original features
+  - Promotion of containers and Kubernetes within the company
 
 ### Papelook Co., Ltd. (2021/02 - 2021/08)
 
@@ -106,6 +106,14 @@ Concurrently performs the following duties
 - Performance Tuning of DRM
 
 ## Extra-curricular Activities
+
+### CloudNative Days
+
+- Participating in one of the largest cloud-native tech conferences in Japan as a member of the organizing committee
+- Served on the Observability team for the following conferences
+  - [Observability Conference 2022 by CloudNative Days](https://event.cloudnativedays.jp/o11y2022)
+  - [CloudNative Security Conference 2022 by CloudNative Days](https://event.cloudnativedays.jp/cnsec2022)
+  - [CloudNative Days Tokyo 2022](https://event.cloudnativedays.jp/cndt2022)
 
 ### Relie inc.
 

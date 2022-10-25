@@ -33,7 +33,7 @@
 | Environment setup                              | Ansible, Cloud Build. Docker, Terraform(individual) |
 | Container Orchestration                        | Kubernetes, Rancher, CloudRun                       |
 | IaaS                                           | CloudStack, vSphere                                 |
-| CI                                             | CircleCI, GitHub Actions, Cloud Build               |
+| CI                                             | ArgoCD, CircleCI, Cloud Build, GitHub Actions       |
 | Monitoring                                     | Prometheus, Grafana                                 |
 | Service Mesh                                   | Istio, Linkerd(individual)                          |
 | Code Management                                | GitHub, GitLab, Bitbucket                           |
@@ -42,18 +42,18 @@
 
 ### 株式会社 IDC フロンティア (2021/09 ~ 現在)
 
-**① Kubernetes as a Service (KaaS) 開発**
+#### Kubernetes as a Service (KaaS) 開発
 
 - プロジェクト規模
-  - 約 40 名 (グループ: 1 ~ 4 名)
+  - 約 40 名 (チーム: 2 名)
 - 役割
   - 機能検討、設計、コーディング、その他、調査、研究など
 - プロジェクト詳細
-  - 自社クラウド及び各社クラウドサービスと Kubernetes as a Service を連携するアプリケーションの開発
-  - CSI Driver/Cloud Controller Manager/Ingress Controller といった Kubernetes とクラウドを連携させるための Kubernetes コンポーネントの開発
-  - Kubernetes の各種機能や実装についての調査・研究
-  - Rancher などの Kubernetes クラスター管理ツールの各種機能や実装についての調査・研究
-  - Kubernetes as a Service に求められる Cloud Native な各種ソフトウェア/サービスに関する調査・研究・開発
+  - CloudStack の CSI Drive/Cloud Controller Manager/Ingress Controller の各種機能・実装の調査・研究
+  - Rancher 向けの Cluster Autoscaler の開発、実装
+  - vSphere をベースとしたプライベートクラウドの開発、実装
+  - Kubernetes Addon の自動化、独自機能の実装
+  - 社内でのコンテナ / Kubernetes の普及・促進活動
 
 ### パペルック株式会社 (2021/02 ~ 2021/08)
 
@@ -69,7 +69,7 @@
   - CloudBuild + CloudRun での CI/CD の構築、及び開発スピードの促進
   - 自社で使用している EC プラットフォーム(Shopify)との連携
 
-## 中国、韓国 EC サイトなどとの連携システムの開発・運用
+#### 中国、韓国 EC サイトなどとの連携システムの開発・運用
 
 - プロジェクト規模
   - 個人開発
@@ -112,6 +112,16 @@
   - 2020 年 12 月 合格
 
 ## 業務外活動
+
+### CloudNative Days
+
+- 日本最大級のクラウドネイティブ・テックカンファレンスに実行委員として参画
+- これまで以下のカンファレンスにて Observability チームを担当
+  - [Observability Conference 2022 by CloudNative Days](https://event.cloudnativedays.jp/o11y2022)
+  - [CloudNative Security Conference 2022 by CloudNative Days](https://event.cloudnativedays.jp/cnsec2022)
+  - [CloudNative Days Tokyo 2022](https://event.cloudnativedays.jp/cndt2022)
+
+#### テックカンファレンスの運営 (2021/11 - 現在)
 
 ### 株式会社 Relie
 
