@@ -17,9 +17,9 @@
 ## Languages and Technologies
 
 | category                                       | technology stack                                    |
-| :--------------------------------------------- | --------------------------------------------------- |
-| Programing langage / Library etc.              | Go, Python, Java, PHP, C, Solidity                  |
-| Programing langage / Library etc. (individual) | C++, C#, V, Zig, gRPC                               |
+| :--------------------------------------------- | :--------------------------------------------------- |
+| Programming language / Library etc.              | Go, Python, Java, PHP, C, Solidity                  |
+| Programming language / Library etc. (individual) | C++, C#, V, Zig, gRPC                               |
 | Framework                                      | Gin(Go), Falcon(Python), Spring Boot(Java)          |
 | Infrastructure                                 | GCP                                                 |
 | Middleware                                     | Redis, Memorystore                                  |
