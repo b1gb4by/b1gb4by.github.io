@@ -1,117 +1,118 @@
-# Running Rancher Desktop on MXLinux
+# MXLinux で Rancher Desktop を動かす
 
 
-On January 26th, [Rancher Desktop](https://rancherdesktop.io/) was officially released as [v1.0.0](https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0).
+1 月 26 日に、[Rancher Desktop](https://rancherdesktop.io/) が正式に [v1.0.0](https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0) としてリリースされました.
 
-In this article, I'll try to install and run Rancher Desktop on MXLinux.
+今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.
 
 <!--more-->
 
-## What is Rancher Desktop?
+## Rancher Desktop とは
 
-Rancher Desktop is a desktop application built on Electron and Node.js that allows you to run Kubernetes and container management on your desktop.
+Rancher Desktop は Electron と Node.js をベースに構築されたデスクトップアプリケーションであり、デスクトップ上で Kubernetes とコンテナ管理を実行することができます.
 
-You can choose any version of Kubernetes to run.
+また、実行する Kubernetes のバージョンを自由に選択することができます.
 
-You can use `containerd` or `Moby (dockerd)` to build, push, pull and run container images. The built container images can be run immediately in Kubernetes without the need for a registry.
+`containerd`、または`Moby (dockerd)`を使って、コンテナイメージのビルド、プッシュ、プル、実行が可能です. ビルドしたコンテナイメージは、レジストリを必要とせず、すぐに Kubernetes で実行できます.
 
-## Requirements
+## 必要条件
 
-It is an OSS desktop application that can run on macOS, Windows, and various Linux environments. It also supports M1, so it can run on almost any environment.
+OSS のデスクトップアプリケーションで、macOS や Windows、そして Linux の様々な環境で動作させることができます. M1 にも対応しているため、ほとんどの環境で動作が可能になりました.
 
-The requirements for each environment are as follows.
+環境での必要条件は以下の通りです.
 
 ### macOS
 
-- **macOS**.
-  - Catalina 10.15 or later
-- CPU architecture\*\*
-  - Intel CPU with Apple Silicon (M1) or VT-x
+- **macOS**
+  - Catalina 10.15 以降
+- **CPU アーキテクチャ**
+  - Apple Silicon（M1）または VT-x 搭載の Intel CPU
 
 ### WindowsOS
 
-- **Windows**.
-  - Windows 10 build 1909 or later
-  - Home Edition is also supported
-- **Hyper-V (virtualization)** is enabled
-- **Windows Subsystem for Linux (WSL)**.
-  - Rancher Desktop requires WSL on Windows, but it will be installed automatically as part of the setup
-  - No need to download the distribution manually
+- **Windows**
+  - Windows 10 ビルド 1909 以降
+  - Home エディションにも対応
+- **Hyper-V(仮想化機能)** が有効化されている
+- **Windows Subsystem for Linux (WSL)**
+  - Rancher Desktop は、Windows 上で WSL が必要ですが、セットアップの一部として自動的にインストールされます
+  - 手動でディストリビューションをダウンロードは不要
 
 ### Linux
 
-- Distributions that can install `.deb` or `.rpm` packages, or `AppImages
+- `.deb`や`.rpm`パッケージ、または`AppImages`をインストールできるディストリビューション
 
-### Machine specs
+### マシンスペック
 
-- 8GB memory
-- 4-core CPU
+- 8GB のメモリー
+- 4 コアの CPU
 
-## How it works
+## 動作の仕組み
 
-Rancher Desktop is wrapping other tools to make it work.
+Rancher Desktop は、他のツールをラッピングしながら、動作を実現しています.
 
-On MacOS and Linux, it leverages virtual machines such as [Lima](https://github.com/lima-vm/lima) and [QEMU](https://www.qemu.org/) to run `containerd` or `dockerd` and Kubernetes ([k3s](https://k3s.io/)).
+MacOS と Linux では、[Lima](https://github.com/lima-vm/lima) や [QEMU](https://www.qemu.org/) といった仮想マシンを活用して`containerd`または`dockerd`と Kubernetes ([k3s](https://k3s.io/)) を実行します.
 
-For Windows systems, we utilize [Windows Subsystem for Linux v2 (WSL2)](https://docs.microsoft.com/en-us/windows/wsl/).
+Windows システムでは、[Windows Subsystem for Linux v2 (WSL2)](https://docs.microsoft.com/en-us/windows/wsl/) を利用しています.
 
-> The figure below is taken from [rancher](https://rancherdesktop.io/)
-> how-it-works-rancher-desktop](how-it-works-rancher-desktop.webp)
+> 下図は [rancher](https://rancherdesktop.io/) から引用
+> ![how-it-works-rancher-desktop](how-it-works-rancher-desktop.webp)
 
-Rancher Desktop provides functions to build, push, and pull images using [NERDCTL project](https://github.com/containerd/nerdctl) and Docker CLI.
-Note that both `nerdctl` and `docker` are automatically included in the path. On Windows, this is done during the installer, and on macOS and Linux, it is done at first run.
+Rancher Desktop では、[NERDCTL プロジェクト](https://github.com/containerd/nerdctl)と Docker CLI を利用して、イメージを build、push、pull する機能が用意されています.
+なお、`nerdctl`と`docker`の両方が自動的にパスに入れられます. Windows ではインストーラー中に、macOS と Linux では初回実行時に行われます.
 
-To use either of these tools, Rancher Desktop must be running with the appropriate container runtime.
+いずれのツールを使用する場合も、Rancher Desktop が適切なコンテナランタイムで実行されている必要があります.
 
-For `nerdctl`, use the `containerd` runtime; for docker, use the `dockerd (moby)` runtime.
+`nerdctl`の場合は、`containerd`ランタイムを使用します。docker の場合は、`dockerd (moby)`ランタイムを使用します.
 
-{{< admonition question "About Lima" false >}}
-**Lima** is similar to WSL, and boots a Linux virtual machine with automatic file sharing and port forwarding, and `containerd`. Lima is intended to be used on macOS hosts, but can be used on Linux hosts as well.
+{{< admonition question "Lima について" false>}}
+**Lima** は WSL と似ており、自動ファイル共有とポート転送、および `containerd` を備えた Linux の仮想マシンを起動します.
+Lima は macOS ホストで使われることが想定されていますが、Linux ホストでも使うことができます.
 {{< /admonition >}}
 
-{{< admonition question "About QEMU" false >}}
-**QEMU** is an OSS PC emulator. It runs on Linux, Windows, etc. on various CPUs such as `x86`, `SPARC`, `MIPS`, etc. It has the feature that it can execute instructions of other CPUs while converting them into native code.
+{{< admonition question "QEMU について" false>}}
+**QEMU** は、OSS の PC エミュレーターです.
+`x86` や `SPARC`、`MIPS` といったさまざまな CPU 上の Linux、Windows などで動作し、ほかの CPU の命令をネイティブコードに変換しながら実行できるという特徴を持ちます.
 {{< /admonition >}}
 
-{{< admonition question "About k3s" false >}}
-**k3s** is one of the lightweight Kubernetes released by Rancher Labs, featuring a binary size of less than 40MB and a memory usage of only 512MB. Recently, it is expected to be used in IoT and Edge computing.
+{{< admonition question "k3s について" false>}}
+**k3s** は、Rancher Labs 社が発表した軽量な Kubernetes の 1 つで、小さいサイズなバイナリと、メモリ使用量が少ないを特徴としています.
+最近では、IoT や Edge コンピューティングなどでの活用が期待されています.
 {{< /admonition >}}
 
-{{< admonition question "About nerdctl" false >}}
-**nerdctl** is a container manipulation tool for containerd. You can think of it as a docker command for containerd.
+{{< admonition question "nerdctl について" false>}}
+**nerdctl** は containerd 向けのコンテナの操作ツールです. `containerd` 用の `docker` コマンドだと考えていただければと思います.
 {{< /admonition >}}
 
-## Installing on MXLinux
+## MXLinux へのインストール
 
-Let's try to install Rancher Desktop on one of the Linux distributions, [MXLinux](https://mxlinux.org/).
+Rancher Desktop を Linux ディストリビューションの 1 つである [MXLinux](https://mxlinux.org/) にインストールしてみます.
 
-To install, follow the [official documentation](https://docs.rancherdesktop.io/installation#linux), add the Rancher Desktop repository, and install Rancher Desktop.
+インストール方法は[公式ドキュメント](https://docs.rancherdesktop.io/installation#linux)に従って、Rancher Desktop のリポジトリを追加し、Rancher Desktop をインストールします.
 
-There are several packages available for installation on Linux, but since MXLinux is based on Debian(stable), we will use the `.deb` package.
+Linux へのインストールはいくつかのパッケージがありますが、MXLinux は Debian(stable) ベースのため、`.deb`パッケージを使用します.
 
 ```bash
-# Obtain and register the repository
+# リポジトリを取得し、登録
 $ curl https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key | sudo apt-key add -
 $ sudo add-apt-repository 'deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./'
 
-# Updated package list
+# パッケージ一覧を更新
 $ sudo apt update
 
-# Install Rancher Desktop
+# Rancher Desktop をインストール
 $ sudo apt install rancher-desktop
 ```
 
-This completes the installation of Rancher Desktop. It's very easy.
+以上で、Rancher Desktop のインストールは完了です. 非常に簡単ですね.
 
-{{< admonition question "About MXLinux" false >}}
-MXLinux is one of the most popular Linux distributions on [DistroWatch.com](https://distrowatch.com/).
-
-It is a joint project between antiX and the former MEPIS Linux community and is being developed in Greece and the United States.
+{{< admonition question "MXLinux について" false>}}
+**MXLinux** は [DistroWatch.com](https://distrowatch.com/) でも 注目度の高い Linux ディストリビューションです. antiX と旧 MEPIS Linux コミュニティ間の共同事業として構築されたプロジェクトでギリシャおよびアメリカにて開発されています.
 {{< /admonition >}}
 
-## Launching Rancher Desktop
+## Rancher Desktop の起動
 
-Let's run the installed Rancher Desktop. The application itself is very simple.
+インストールした Rancher Desktop を起動してみます. アプリケーション自体は非常にシンプルでした.
 
 ### General
 
@@ -119,39 +120,39 @@ Let's run the installed Rancher Desktop. The application itself is very simple.
 
 ### Kubernetes Setting
 
-Next, let's take a look at the Kubernetes configuration.
+次に、Kubernetes の設定を見てみます.
 
 ![rancher-desktop-k8s-setting](rancher-desktop-k8s-setting.webp)
 
-In `Kubernetes version`, you can specify the version of Kubernetes. You can select from `v1.23.3`, the latest version at the time of writing, to `v1.16.7`, the oldest version.
+`Kubernetes version`では、Kubernetes のバージョンを指定できます. 執筆時点での最新バージョンである `v1.23.3` から、最も古いバージョンで `v1.16.7` まで選択が可能です.
 
-The `Port` is set to `6443` by default.
+`Port`はデフォルトでは、`6443`が設定されています.
 
-For `Container runtime`, you can choose between `containerd` and `dockerd (moby)`.
+`Container runtime`では、`containerd`または`dockerd (moby)`のどちらかを選択可能です.
 
-For `Memory (GB)` and `CPUs`, you can specify the number of memory and CPU cores. If you increase the value up to the red line, a warning message will be displayed as shown below.
+`Memory (GB)`, `CPUs`は、メモリー、CPU のコア数を指定できます. 赤いラインまで数値を上げると、下図のように警告文が表示されます.
 
 ![rancher-desktop-k8s-setting-danger](rancher-desktop-k8s-setting-danger.webp)
 
-If you want to clean up your environment once, you can easily reset it by pressing `Reset Kubernetes`.
+一度、環境をクリーンアップしたい場合は、`Reset Kubernetes`を押すことで簡単にリセットすることができます.
 
 ### Supporting Utilities
 
-In the `Supporting Utilities` section, you can see the tools that were installed. For Docker, etc., which were already installed, a warning was carefully written.
+`Supporting Utilities`では、インストールされたツール郡が表示されています. 既にインストールされていた Docker などに対しては、丁寧に注意喚起が書かれていました.
 
 ![rancher-desktop-supporting-utilities](rancher-desktop-supporting-utilities.webp)
 
 ### Images
 
-In `Images`, you can see the images used by Rancher Desktop. Select `Scan` from `⋮` in the image list to scan the image for vulnerabilities using [Trivy](https://github.com/aquasecurity/trivy).
+`Images` では、Rancher Desktop で使用しているイメージが表示されています. イメージ一覧の`⋮`から`Scan`を選択すると、イメージの脆弱性を [Trivy](https://github.com/aquasecurity/trivy) を使用してスキャンしてくれる.
 
 ![rancher-desktop-images](rancher-desktop-images.webp)
 
-Notice the `Image Namespace` here. In `containerd`, the concept of `namespace` exists as in Kubernetes.
-So, just as Kubernetes can have `namespace`, `containerd` can have `namespace` as well.
-In the above figure, the image exists in `namespace:k8s.io`.
+ここで、`Image Namespace`に注目してください. `containerd`では、Kubernetes と同様に`namespace`という概念が存在しています.
+そのため、Kubenetes が `namespace`を持つことができるように、`containerd`も同じように`namespace`を持つことができます.
+上図では、`namespace:k8s.io`にイメージが存在しているということになります.
 
-Let's check the `namespace` using the `nerdctl` command. Use `nerdctl namespace list` to display a list of `namespaces`.
+実際に`nerdctl`コマンドを使用して、`namespace`を確認してみます. `nerdctl namespace list`で`namespace`の一覧を表示します.
 
 ```bash
 $ ./.local/bin/nerdctl namespace list
@@ -160,9 +161,9 @@ buildkit    0             0         0
 k8s.io      22            16        0
 ```
 
-When you run `nerdctl --namespace k8s.io ps`, you can see that the image exists in `k8s.io`.
+実行してみると、`k8s.io`にイメージが存在していることが確認できました.
 
-You can also use `nerdctl --namespace k8s.io ps` to check `namespace:k8s.io` for Kubernetes containers created with Rancher Desktop.
+また、`nerdctl --namespace k8s.io ps`で`namespace:k8s.io`で、Rancher Desktop で作成した Kubernetes のコンテナ群が確認できます.
 
 ```bash
 $ ./.local/bin/nerdctl --namespace k8s.io ps
@@ -182,19 +183,19 @@ ce64e7b0a242    docker.io/rancher/mirrored-metrics-server:v0.5.2    "/metrics-se
 
 ### Troubleshooting
 
-In `Troubleshooting`, you can enable logging and initialize Rancher Desktop itself.
+`Troubleshooting`では、ログの有効化、また Rancher Desktop 自体の初期化ができます.
 
 ![rancher-desktop-troubleshooting](rancher-desktop-troubleshooting.webp)
 
 ## 検証
 
-Let's try to run a container on Rancher Desktop.
+Rancher Desktop 上で、実際にコンテナなどを動かして見ます.
 
-### Use nerdctl
+### nerdctl の使用
 
-Try to start nginx using the `nerdctl` command. If `namespace` is not specified, it will be placed in `default` by default.
+`nerdctl`コマンドを使用して、nginx を起動してみます. `namespace` は未指定の場合、デフォルトで`default`に配置されます.
 
-#### Launch nginx
+#### nginx を起動
 
 ```bash
 $ ./.local/bin/nerdctl run -d -p 9999:80 nginx
@@ -205,7 +206,7 @@ elapsed: 7.2 s                                                                  
 484e86556e00843200c97b5aa779ba81a9016796e23964e5a0cac27159de444e
 ```
 
-#### Check the status of the container.
+#### コンテナの状態を確認
 
 ```bash
 $ ./.local/bin/nerdctl ps
@@ -213,7 +214,7 @@ CONTAINER ID    IMAGE                             COMMAND                   CREA
 484e86556e00    docker.io/library/nginx:latest    "/docker-entrypoint.…"    6 minutes ago    Up        0.0.0.0:9999->80/tcp    nginx-484e8
 ```
 
-#### Check the namespace
+#### namespace を確認
 
 ```bash
 $ ./.local/bin/nerdctl namespace list
@@ -223,7 +224,7 @@ default   1          1      0
 k8s.io    22         16     0
 ```
 
-#### Check the process of namespace default
+#### namespace default のプロセスを確認
 
 ```bash
 $ ./.local/bin/nerdctl --namespace default ps
@@ -231,25 +232,25 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 484e86556e00 docker.io/library/nginx:latest "/docker-entrypoint.…" 11 minutes ago Up 0.0.0.0:9999->80/tcp nginx-484e8
 ```
 
-You can also see the nginx image in `namespace:default` from Rancher Desktop.
+また、Rancher Desktop からも`namespace:default`に nginx イメージを確認することができます.
 
 ![rancher-desktop-run-nginx](rancher-desktop-run-nginx.webp)
 
-Finally, try to access `localhost:9999` to check if nginx is up and running.
+最後に、`localhost:9999`にアクセスして、nginx の起動を確認してみます.
 
 ![run-nginx](run-nginx.webp)
 
-### Use Helm
+### Helm の使用
 
-Rancher Desktop also installs Helm at startup, so let's deploy Grafana to Kubernetes using Helm.
+Rancher Desktop では、起動時に Helm もインストールされるので、Helm を使って Kubernetes に Grafana をデプロイしてみます.
 
-#### Add Grafana repository to Helm
+#### Helm に Grafana のリポジトリを追加
 
 ```bash
 $ ./.local/bin/helm repo add grafana https://grafana.github.io/helm-charts
 ```
 
-#### Verify that the repository has been added to Helm
+#### Helm にリポジトリが追加されていることを確認
 
 ```bash
 $ ./.local/bin/helm repo list
@@ -257,7 +258,7 @@ NAME    URL
 grafana https://grafana.github.io/helm-charts
 ```
 
-#### View the chart from the added Grafana repository
+#### 追加した Grafana リポジトリからチャートを確認
 
 ```bash
 $ ./.local/bin/helm search repo grafana
@@ -278,7 +279,7 @@ grafana/tempo-distributed       0.15.0          1.3.0       Grafana Tempo in Mic
 grafana/tempo-vulture           0.2.0           1.3.0       Grafana Tempo Vulture - A tool to monitor Tempo...
 ```
 
-#### Helm Charts Released
+#### Helm チャートをリリース
 
 ```bash
 $ ./.local/bin/kubectl create namespace monitoring
@@ -313,11 +314,11 @@ NOTES:
 #################################################################################
 ```
 
-Following the steps above, you should now be able to successfully login to Grafana.
+上記の手順に従って、正常に Grafana にログインすることができました.
 
 ![grafana-dashboard](grafana-dashboard.webp)
 
-Finally, use the `kubectl` command to make sure that Grafana is up and running.
+最後に、`kubectl`コマンドを使って Grafana が立ち上がっていることを確認します.
 
 ```bash
 $ ./.local/bin/kubectl get all --namespace monitoring
@@ -334,16 +335,16 @@ NAME                                 DESIRED   CURRENT   READY   AGE
 replicaset.apps/grafana-6b9d4f7f86   1         1         1       15m
 ```
 
-As you can see above, you can easily develop and deploy your application just by running Rancher Desktop.
+以上のように、Rancher Desktop を起動するだけでアプリケーションの開発やデプロイが簡単に行うことができました.
 
-## Impression
+## 所感
 
-This time, I touched Rancher Desktop, which was released v1.0.0, and found it to be a very complete tool. If you are new to `containerd` or `nerdctl`, Rancher Desktop is a good opportunity for you.
+今回は、v1.0.0 がリリースされた Rancher Desktop を触ってみましたが、非常に完成度の高いツールでした. `containerd`、`nerdctl`を初めて触る方も Rancher Desktop は良い機会だと思います.
 
-Last year, [Docker Desktop is now paid](https://www.docker.com/blog/updating-product-subscriptions/) became a big news, and Rancher Desktop, but
-If you switch from Docker Desktop, you will be able to use it without any problems. If you want to use Docker's runtime, you can switch from Rancher Desktop without much trouble.
+昨年、[Docker Desktop が有料化](https://www.docker.com/blog/updating-product-subscriptions/)が大きなニュースとなり、それに伴い、密かに代替案として注目されていた Rancher Desktop ですが、
+Docker Desktop から乗り換えたとしても遜色なく利用できるかと思います. 万が一、Docker のランタイムを使用したいと思えば、Rancher Desktop 上から切り替えれば良いので、大して手間は掛かりません.
 
-Also, I personally think that the ability to smoothly switch between Kubernetes versions is a big advantage.
+また、Kubernetes のバージョンをスムーズに切り替えられるのも個人的には大きなメリットなのかなと思います.
 
-There is a great possibility that this will become one of the most popular ways to use containers in the future, so I will keep an eye on the future developments.
+これから、コンテナを利用する手段の 1 つとして、広く普及していく可能性は大いにあり得るので、今後の動向に注目していきたいと思います.
 

@@ -1,13 +1,13 @@
-# About the device used
+# 使用しているデバイスについて
 
 
-Describes detailed information about the device used by the individual.
+個人で使用しているデバイスの詳細情報について説明します.
 
 <!--more-->
 
 ## Macbook Pro (13-inch, 2019)
 
-|  key   | value                        |
+|  項目  | 内容                         |
 | :----: | ---------------------------- |
 |   OS   | macOS 12.4 21F79 x86_64      |
 |  CPU   | Intel i7-8569U (8) @ 2.80GHz |
@@ -16,11 +16,11 @@ Describes detailed information about the device used by the individual.
 
 ## PC
 
-The desktop PC you are using has a variety of operating systems installed on it.
+使用している デスクトップ PC には、様々な OS がインストールされています.
 
-### Common (Desktop)
+### 共通 (Desktop)
 
-|     key     | value                                                                 |
+|    項目     | 内容                                                                  |
 | :---------: | --------------------------------------------------------------------- |
 | Motherboard | ROG STRIX H370-F GAMING (ASUSTeK COMPUTER INC.)                       |
 |     CPU     | Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz                               |
@@ -31,13 +31,13 @@ The desktop PC you are using has a variety of operating systems installed on it.
 
 ### Windows
 
-| key | value                  |
-| :-: | ---------------------- |
-| OS  | Windows 11 Pro (64bit) |
+| 項目 | 内容                   |
+| :--: | ---------------------- |
+|  OS  | Windows 11 Pro (64bit) |
 
 ### Linux
 
-| key  | value               |
+| 項目 | 内容                |
 | :--: | ------------------- |
 | OS_1 | Manjaro Linux       |
 | OS_2 | MXLinux 21          |

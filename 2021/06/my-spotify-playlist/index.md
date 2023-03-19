@@ -1,9 +1,9 @@
-# My Spotify Playlist
+# 俺の Spotify プレイリスト
 
 
-The following playlists are currently being created.
+以下のプレイリストを現在、作成しています.
 
-Please enjoy various genres of music according to your TPO.
+TPO に合わせて様々なジャンルの音楽をお楽しみ下さい.
 
 <!--more-->
 
