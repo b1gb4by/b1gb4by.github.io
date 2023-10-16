@@ -10,7 +10,7 @@
 
 ## Summary
 
-- I've been exposed to the Internet since I was 10 years old, and now I'm working as a backend engineer and SRE.
+- I've been exposed to the Internet since I was 10 years old, and now I'm working as a software engineer and SRE.
 - Mainly used Golang to develop APIs and batches
 - In infrastructure work, engaged in Kuberenetes monitoring, service meshing, and other tasks to increase availability.
 
