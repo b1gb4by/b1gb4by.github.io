@@ -29,8 +29,7 @@ Kubernetesは、**クバネティス**、**クバネテス**、**クーべネテ
 {{< admonition question "Kubernetesの読み方について" true>}}
 **Kubernetes**（希: `κυβερνήτης`, `koo-ber-nay'-tace`, クベルネテス）は、ギリシャ語で**航海長**または**水先案内人**を意味し、サイバネティクス（人工頭脳学）の語源でもある
 
-> 引用: <https://ja.wikipedia.org/wiki/Kubernetes>
-
+引用: <https://ja.wikipedia.org/wiki/Kubernetes>
 {{< /admonition >}}
 
 ### 何をしているの？
@@ -308,7 +307,8 @@ Kubernetesでは、Linux FoundationとCloud Native Computing Foundation (CNCF) �
 - Kubernetesと広範なクラウド ネイティブ エコシステムのエントリー レベルの知識とスキルをテストになります
 - このテストでは以下のような知識が問われます
   - 基本的な`kubectl`コマンドを使用してアプリケーションをデプロイする方法
-  - Kubernetesのアーキテクチャ (コンテナ、ポッド、ノード、クラスター)、クラウド ネイティブ ランドスケープやプロジェクトの理解 (ストレージ、ネットワーク、GitOps、サービスメッシュ)
+  - Kubernetesのアーキテクチャ（コンテナ、ポッド、ノード、クラスター）
+  - クラウドネイティブランドスケープやプロジェクトの理解（ストレージ、ネットワーク、GitOps、サービスメッシュ）
   - クラウドネイティブセキュリティの原則の理解など
 
 ## まとめ
