@@ -118,55 +118,43 @@ Go のコードをレビューする際の一般的なコメントがまとめ�
 
 ### 書籍
 
-#### Go プログラミング実践入門 標準ライブラリでゼロから Web アプリを作る
+#### [Goプログラミング実践入門 標準ライブラリでゼロからWebアプリを作る](https://amzn.asia/d/3NT5K26)
 
 - Go をより実践的に使うためのポイントをわかりやすく説明しています
 - しかし、Go についての基本理解を済ませてからの方が読みやすいです
 - フレームワークに頼らず、Web の仕組みを理解し Go で実装できる点がおすすめです
 
-<a href="https://www.amazon.co.jp/Go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80-%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89Web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B-impress-gear%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-Sheong-Chang-ebook/dp/B06XKPNVWV?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=2R9LPEJ0N3VCH&keywords=Go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80+%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89Web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B&qid=1652787039&sprefix=go%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%AE%9F%E8%B7%B5%E5%85%A5%E9%96%80+%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A7%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E4%BD%9C%E3%82%8B%2Caps%2C169&sr=8-1&linkCode=li2&tag=m0rer00e-22&linkId=e4a6b159ffe261e4ac7cfb32944d9371&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B06XKPNVWV&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=B06XKPNVWV" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-#### エキスパートたちの Go 言語
+#### [エキスパートたちのGo言語 一流のコードから応用力を学ぶ](https://amzn.asia/d/gRGGKzY)
 
 - メルカリのエンジニアが各章ごとに個人で作成したライブラリを紹介しています
 - Go でのアーキテクチャや設計思想などを考える際に参考になるかと思います
 
-<a href="https://www.amazon.co.jp/%E3%82%A8%E3%82%AD%E3%82%B9%E3%83%91%E3%83%BC%E3%83%88%E3%81%9F%E3%81%A1%E3%81%AEGo%E8%A8%80%E8%AA%9E-%E4%B8%80%E6%B5%81%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E5%BF%9C%E7%94%A8%E5%8A%9B%E3%82%92%E5%AD%A6%E3%81%B6-Software-Design-plus-%E4%B8%8A%E7%94%B0-ebook/dp/B09P4PH63R?_encoding=UTF8&qid=1652787085&sr=8-1-spons&linkCode=li2&tag=m0rer00e-22&linkId=b661e2431b248354fade7418d454ad69&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B09P4PH63R&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=B09P4PH63R" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-#### 実用 Go 言語 ―システム開発の現場で知っておきたいアドバイス
+#### [実用 Go言語 ―システム開発の現場で知っておきたいアドバイス](https://amzn.asia/d/iuS5GEN)
 
 - Go の基本的な知識をインプットしてから読むことをお薦めします
 - Go を実用的に使っていくためのベストプラクティスがまとまっている感じです
 
-<a href="https://www.amazon.co.jp/%E5%AE%9F%E7%94%A8-Go%E8%A8%80%E8%AA%9E-%E2%80%95%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9-%E6%B8%8B%E5%B7%9D-%E3%82%88%E3%81%97%E3%81%8D/dp/4873119693?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=TZ1Y1YBXOOMG&keywords=%E5%AE%9F%E7%94%A8go%E8%A8%80%E8%AA%9E+%E2%80%95%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9&qid=1652787116&sprefix=%E5%AE%9F%E7%94%A8+go+%E8%A8%80%E8%AA%9E+%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%82%A2%E3%83%89%E3%83%90%E3%82%A4%E3%82%B9%2Caps%2C166&sr=8-1&linkCode=li2&tag=m0rer00e-22&linkId=a2143e643f723af5c83c2ec382ecf07d&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4873119693&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=4873119693" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-#### Go 言語による並行処理
+#### [Go言語による並行処理](https://amzn.asia/d/0wE3xti)
 
 - Go を使う上で非常に重要となる、並行処理、`Goroutin`について丁寧に説明してくれています
 - 並行処理に関しては、Go 関係なく一般的な考えなども記載されているので、並行処理を知らない方でも読んで見ると良いと思います
 - また、例も多いので理解する際のイメージもしやすいと思います
 
-<a href="https://www.amazon.co.jp/Go%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86-Katherine-Cox-Buday/dp/4873118468?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=3PBZTNLTXEGW1&keywords=go%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86&qid=1652787142&sprefix=go+%E8%A8%80%E8%AA%9E%E3%81%AB%E3%82%88%E3%82%8B%E4%B8%A6%E8%A1%8C%E5%87%A6%E7%90%86%2Caps%2C266&sr=8-1&linkCode=li2&tag=m0rer00e-22&linkId=1d41e49c1464163c2b0aea7f0a0c4f86&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4873118468&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=m0rer00e-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=m0rer00e-22&language=ja_JP&l=li2&o=9&a=4873118468" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+#### [よくわかるcontextの使い方](https://zenn.dev/hsaki/books/golang-context)
 
-#### よくわかる context の使い方
-
+- こちらも、[@saki_engineer](https://twitter.com/saki_engineer)さんの書籍になります
 - Go の標準パッケージ、`context`パッケージについて詳細にかかれています
 - 初学者にとっては使い道がわからないことがですが、使いこなせるとかなり便利なパッケージになります
 
-[![](context.webp)](https://zenn.dev/hsaki/books/golang-context)
+#### [Goでの並行処理を徹底解剖！](https://zenn.dev/hsaki/books/golang-concurrency)
 
-#### Go での並行処理を徹底解剖！
-
+- こちらも、[@saki_engineer](https://twitter.com/saki_engineer)さんの書籍になります
 - 並行処理について網羅的・徹底的にまとめられている
 - 最初は並行処理は難易度が高いため、深く理解するのが難しいですが、本書でその問題が解決できるかもしれません
 
-[![](goroutin.webp)](https://zenn.dev/hsaki/books/golang-concurrency)
-
 ### e-Learning
 
-#### gophercises
-
-![](gophercises.webp)
+#### [gophercises](https://gophercises.com/#signup)
 
 [gophercises](https://gophercises.com/#signup)は、Go の基本から応用的なアプリケーションの実装までを動画で紹介しています.
 
