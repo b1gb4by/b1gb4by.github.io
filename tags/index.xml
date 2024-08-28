@@ -1,1 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tags - タグ - BigBaBy's Blog</title><link>https://example.com/tags/</link><description>Tags - タグ - BigBaBy's Blog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><managingEditor>taisuke.1202morero@gmail.com (b1gb4by)</managingEditor><webMaster>taisuke.1202morero@gmail.com (b1gb4by)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Oct 2022 20:42:48 +0900</lastBuildDate><atom:link href="https://example.com/tags/" rel="self" type="application/rss+xml"/><item><title>computer</title><link>https://example.com/tags/computer/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/computer/</guid><description></description></item><item><title>desk-tour</title><link>https://example.com/tags/desk-tour/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/desk-tour/</guid><description></description></item><item><title>display</title><link>https://example.com/tags/display/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/display/</guid><description></description></item><item><title>keyboard</title><link>https://example.com/tags/keyboard/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/keyboard/</guid><description></description></item><item><title>mouse</title><link>https://example.com/tags/mouse/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/mouse/</guid><description></description></item><item><title>AWS</title><link>https://example.com/tags/aws/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/aws/</guid><description></description></item><item><title>azure</title><link>https://example.com/tags/azure/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/azure/</guid><description></description></item><item><title>gcp</title><link>https://example.com/tags/gcp/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/gcp/</guid><description></description></item><item><title>k8s</title><link>https://example.com/tags/k8s/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/k8s/</guid><description></description></item><item><title>kubernetes</title><link>https://example.com/tags/kubernetes/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/tags/kubernetes/</guid><description></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on BigBaBy&#39;s Blog</title>
+    <link>https://example.com/tags/</link>
+    <description>Recent content in Tags on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <lastBuildDate>Wed, 28 Aug 2024 15:23:07 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resume</title>
+      <link>https://example.com/tags/resume/</link>
+      <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
+      <guid>https://example.com/tags/resume/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Device</title>
+      <link>https://example.com/tags/device/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://example.com/tags/device/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://example.com/tags/linux/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://example.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MacOS</title>
+      <link>https://example.com/tags/macos/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://example.com/tags/macos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>https://example.com/tags/windows/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://example.com/tags/windows/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Resume on BigBaBy&#39;s Blog</title>
+    <link>https://example.com/tags/resume/</link>
+    <description>Recent content in Resume on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <lastBuildDate>Wed, 28 Aug 2024 15:23:07 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/resume/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resume</title>
+      <link>https://example.com/resume/</link>
+      <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
+      <guid>https://example.com/resume/</guid>
+      <description>This document describes BigBaBy&amp;#39;s professional experience.</description>
+    </item>
+  </channel>
+</rss>

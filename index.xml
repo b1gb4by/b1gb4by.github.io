@@ -1,7 +1,27 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>BigBaBy's Blog</title><link>https://example.com/</link><description>This is BigBaBy's blog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><managingEditor>taisuke.1202morero@gmail.com (b1gb4by)</managingEditor><webMaster>taisuke.1202morero@gmail.com (b1gb4by)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Oct 2022 20:42:48 +0900</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>私のデスクツアー</title><link>https://example.com/2022/10/my-desk-tour/</link><pubDate>Tue, 25 Oct 2022 20:42:48 +0900</pubDate><author>執筆者</author><guid>https://example.com/2022/10/my-desk-tour/</guid><description>&lt;p>私が普段、仕事を行っているデスク環境についてご紹介します.&lt;/p></description></item><item><title>KubeCon + CloudNativeCon Europe 2022 Recap for Security</title><link>https://example.com/2022/05/kubecon2022-europe-recap/</link><pubDate>Thu, 26 May 2022 22:02:39 +0900</pubDate><author>執筆者</author><guid>https://example.com/2022/05/kubecon2022-europe-recap/</guid><description>&lt;p>先日開催された、「KubeCon + CloudNativeCon Europe 2022」でセキュリティをメインに個人的に興味をもったセッションを共有します.&lt;/p></description></item><item><title>Go 初学者ロードマップ</title><link>https://example.com/2022/05/golang-beginner-loadmap/</link><pubDate>Fri, 13 May 2022 21:50:05 +0900</pubDate><author>morero</author><guid>https://example.com/2022/05/golang-beginner-loadmap/</guid><description>&lt;p>Go を初めて学ぶ方に向けて、ロードマップを作成してみました.&lt;/p>
-&lt;p>これから学んでいく第一歩として、参考にしていただければと思います.&lt;/p></description></item><item><title>Kubernetes初学者ロードマップ</title><link>https://example.com/2022/05/k8s-beginner-loadmap/</link><pubDate>Fri, 13 May 2022 21:46:12 +0900</pubDate><author>morero</author><guid>https://example.com/2022/05/k8s-beginner-loadmap/</guid><description>&lt;p>Kubernetesをはじめて学ぶ方に向けて、ロードマップを作成してみました。&lt;/p>
-&lt;p>これから学んでいく第一歩として、参考にしていただければと思います。&lt;/p></description></item><item><title>MXLinux で Rancher Desktop を動かす</title><link>https://example.com/2022/01/setup-rancher-desktop-on-mxlinux/</link><pubDate>Thu, 27 Jan 2022 20:20:47 +0900</pubDate><author>morero</author><guid>https://example.com/2022/01/setup-rancher-desktop-on-mxlinux/</guid><description><![CDATA[<p>1 月 26 日に、<a href="https://rancherdesktop.io/" target="_blank" rel="noopener noreffer ">Rancher Desktop</a> が正式に <a href="https://github.com/rancher-sandbox/rancher-desktop/releases/tag/v1.0.0" target="_blank" rel="noopener noreffer ">v1.0.0</a> としてリリースされました.</p>
-<p>今回は、実際に Rancher Desktop を MXLinux にインストールして動かそうと思います.</p>]]></description></item><item><title>Karpenter Deep Dive</title><link>https://example.com/2021/12/karpenter-deep-dive/</link><pubDate>Thu, 16 Dec 2021 20:47:40 +0900</pubDate><author>morero</author><guid>https://example.com/2021/12/karpenter-deep-dive/</guid><description><![CDATA[<p>先日、AWS re:Invent にて Kubernetes クラスターで Node の自動スケーリングをする <a href="https://karpenter.sh/" target="_blank" rel="noopener noreffer ">Karpenter</a> が GA になりました.</p>
-<p>今回は、それについて深堀りしてみます.</p>]]></description></item><item><title>Google Authenticator からの引き継ぎ方法</title><link>https://example.com/2021/10/2-factor-auth/</link><pubDate>Mon, 04 Oct 2021 20:07:37 +0900</pubDate><author>morero</author><guid>https://example.com/2021/10/2-factor-auth/</guid><description>&lt;p>Google Authenticator の機種変更時の引き継ぎ方法について説明します.&lt;/p>
-&lt;p>また、個人的に推奨している Microsoft Authenticator についても解説します.&lt;/p></description></item><item><title>使用しているデバイスについて</title><link>https://example.com/2021/09/device-configuration/</link><pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate><author>morero</author><guid>https://example.com/2021/09/device-configuration/</guid><description>&lt;p>個人で使用しているデバイスの詳細情報について説明します.&lt;/p></description></item><item><title>俺の Spotify プレイリスト</title><link>https://example.com/2021/06/my-spotify-playlist/</link><pubDate>Tue, 08 Jun 2021 19:32:34 +0900</pubDate><author>morero</author><guid>https://example.com/2021/06/my-spotify-playlist/</guid><description>&lt;p>以下のプレイリストを現在、作成しています.&lt;/p>
-&lt;p>TPO に合わせて様々なジャンルの音楽をお楽しみ下さい.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>BigBaBy&#39;s Blog</title>
+    <link>https://example.com/</link>
+    <description>Recent content on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <lastBuildDate>Wed, 28 Aug 2024 15:23:07 +0000</lastBuildDate>
+    <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resume</title>
+      <link>https://example.com/resume/</link>
+      <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
+      <guid>https://example.com/resume/</guid>
+      <description>This document describes BigBaBy&amp;#39;s professional experience.</description>
+    </item>
+    <item>
+      <title>About the device used</title>
+      <link>https://example.com/posts/2021-09-28-device-configs/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://example.com/posts/2021-09-28-device-configs/</guid>
+      <description>Describes detailed information about the device used by the individual.</description>
+    </item>
+  </channel>
+</rss>

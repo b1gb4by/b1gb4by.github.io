@@ -1,1 +1,12 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Categories - カテゴリ - BigBaBy's Blog</title><link>https://example.com/categories/</link><description>Categories - カテゴリ - BigBaBy's Blog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><managingEditor>taisuke.1202morero@gmail.com (b1gb4by)</managingEditor><webMaster>taisuke.1202morero@gmail.com (b1gb4by)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 Oct 2022 20:42:48 +0900</lastBuildDate><atom:link href="https://example.com/categories/" rel="self" type="application/rss+xml"/><item><title>k8s</title><link>https://example.com/categories/k8s/</link><pubDate>Thu, 27 Jan 2022 20:20:47 +0900</pubDate><author>b1gb4by</author><guid>https://example.com/categories/k8s/</guid><description></description></item><item><title>Go</title><link>https://example.com/categories/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>b1gb4by</author><guid>https://example.com/categories/go/</guid><description></description></item><item><title>Kubernetes</title><link>https://example.com/categories/kubernetes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>b1gb4by</author><guid>https://example.com/categories/kubernetes/</guid><description></description></item><item><title>セキュリティ</title><link>https://example.com/categories/security/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>b1gb4by</author><guid>https://example.com/categories/security/</guid><description></description></item><item><title>デバイス</title><link>https://example.com/categories/device/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>b1gb4by</author><guid>https://example.com/categories/device/</guid><description></description></item><item><title>ドキュメント</title><link>https://example.com/categories/documentation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>b1gb4by</author><guid>https://example.com/categories/documentation/</guid><description></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on BigBaBy&#39;s Blog</title>
+    <link>https://example.com/categories/</link>
+    <description>Recent content in Categories on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.128.2</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
