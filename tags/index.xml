@@ -2,46 +2,46 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on BigBaBy&#39;s Blog</title>
-    <link>https://example.com/tags/</link>
+    <link>https://b1gb4by.github.io/tags/</link>
     <description>Recent content in Tags on BigBaBy&#39;s Blog</description>
     <generator>Hugo -- 0.128.2</generator>
     <language>en</language>
     <copyright>BigBaBy</copyright>
     <lastBuildDate>Wed, 28 Aug 2024 15:23:07 +0000</lastBuildDate>
-    <atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://b1gb4by.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Resume</title>
-      <link>https://example.com/tags/resume/</link>
+      <link>https://b1gb4by.github.io/tags/resume/</link>
       <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
-      <guid>https://example.com/tags/resume/</guid>
+      <guid>https://b1gb4by.github.io/tags/resume/</guid>
       <description></description>
     </item>
     <item>
       <title>Device</title>
-      <link>https://example.com/tags/device/</link>
+      <link>https://b1gb4by.github.io/tags/device/</link>
       <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
-      <guid>https://example.com/tags/device/</guid>
+      <guid>https://b1gb4by.github.io/tags/device/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://example.com/tags/linux/</link>
+      <link>https://b1gb4by.github.io/tags/linux/</link>
       <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
-      <guid>https://example.com/tags/linux/</guid>
+      <guid>https://b1gb4by.github.io/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>MacOS</title>
-      <link>https://example.com/tags/macos/</link>
+      <link>https://b1gb4by.github.io/tags/macos/</link>
       <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
-      <guid>https://example.com/tags/macos/</guid>
+      <guid>https://b1gb4by.github.io/tags/macos/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows</title>
-      <link>https://example.com/tags/windows/</link>
+      <link>https://b1gb4by.github.io/tags/windows/</link>
       <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
-      <guid>https://example.com/tags/windows/</guid>
+      <guid>https://b1gb4by.github.io/tags/windows/</guid>
       <description></description>
     </item>
   </channel>
