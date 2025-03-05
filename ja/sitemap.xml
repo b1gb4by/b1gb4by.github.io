@@ -143,6 +143,18 @@
                 href="https://b1gb4by.github.io/ja/series/"
                 />
   </url><url>
+    <loc>https://b1gb4by.github.io/ja/socials/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/socials/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/socials/"
+                />
+  </url><url>
     <loc>https://b1gb4by.github.io/ja/archives/</loc>
     <xhtml:link
                 rel="alternate"
