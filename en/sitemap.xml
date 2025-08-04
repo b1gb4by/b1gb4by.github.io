@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://b1gb4by.github.io/</loc>
-    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
@@ -13,6 +13,123 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://b1gb4by.github.io/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/cloud-functions/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/cloud-functions/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/cloud-functions/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/cloud-run/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/cloud-run/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/cloud-run/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/google-cloud/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/google-cloud/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/google-cloud/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/iam/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/iam/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/iam/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/posts/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/service-account/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/service-account/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/service-account/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/terraform/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/terraform/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/terraform/"
                 />
   </url><url>
     <loc>https://b1gb4by.github.io/resume/</loc>
@@ -39,19 +156,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://b1gb4by.github.io/tags/resume/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/tags/</loc>
-    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/"
                 />
   </url><url>
     <loc>https://b1gb4by.github.io/posts/2021-09-28-device-configs/</loc>
@@ -104,19 +208,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://b1gb4by.github.io/tags/macos/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/posts/</loc>
-    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/posts/"
                 />
   </url><url>
     <loc>https://b1gb4by.github.io/tags/windows/</loc>
