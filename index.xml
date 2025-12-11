@@ -7,8 +7,15 @@
     <generator>Hugo -- 0.148.2</generator>
     <language>en</language>
     <copyright>BigBaBy</copyright>
-    <lastBuildDate>Mon, 04 Aug 2025 12:34:36 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Dec 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://b1gb4by.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trying Out Grafana&#39;s Git Sync Feature (OSS Edition)</title>
+      <link>https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/</link>
+      <pubDate>Wed, 10 Dec 2025 12:00:00 +0000</pubDate>
+      <guid>https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/</guid>
+      <description>Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.</description>
+    </item>
     <item>
       <title>IAM Configuration Changes and Custom Service Account Implementation When Migrating to Cloud Functions Gen2</title>
       <link>https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/</link>

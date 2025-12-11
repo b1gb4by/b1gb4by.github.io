@@ -2,6 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://b1gb4by.github.io/ja/tags/dashboard-as-code/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/dashboard-as-code/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/dashboard-as-code/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/tags/git-sync/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/git-sync/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/git-sync/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/tags/gitops/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/gitops/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/gitops/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/tags/grafana/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/grafana/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/grafana/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/tags/observability/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/tags/observability/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/tags/observability/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/posts/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/posts/"
+                />
+  </url><url>
+    <loc>https://b1gb4by.github.io/ja/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://b1gb4by.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://b1gb4by.github.io/ja/"
+                />
+  </url><url>
     <loc>https://b1gb4by.github.io/ja/tags/cloud-functions/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
     <xhtml:link
@@ -67,19 +171,6 @@
                 href="https://b1gb4by.github.io/ja/tags/iam/"
                 />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/posts/</loc>
-    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/"
-                />
-  </url><url>
     <loc>https://b1gb4by.github.io/ja/tags/service-account/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
     <xhtml:link
@@ -104,19 +195,6 @@
                 rel="alternate"
                 hreflang="ja"
                 href="https://b1gb4by.github.io/ja/tags/terraform/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/</loc>
-    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/"
                 />
   </url><url>
     <loc>https://b1gb4by.github.io/ja/tags/resume/</loc>
