@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Trying Out Grafana's Git Sync Feature (OSS Edition) | BigBaBy's Blog</title><meta name=keywords content="Grafana,Git Sync,Observability,Dashboard as Code,GitOps"><meta name=description content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta name=author content="BigBaBy"><link rel=canonical href=https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/><link crossorigin=anonymous href=/assets/css/stylesheet.50ca2ba2874a0eb9b452701442b7b83e2d765b741b9855abc6c55f27874cab3d.css integrity="sha256-UMoroodKDrm0UnAUQre4Pi12W3QbmFWrxsVfJ4dMqz0=" rel="preload stylesheet" as=style><link rel=icon href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://b1gb4by.github.io/favicon.ico><link rel=apple-touch-icon href=https://b1gb4by.github.io/apple-touch-icon.png><link rel=mask-icon href=https://b1gb4by.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=ja href=https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/><link rel=alternate hreflang=en href=https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"><meta property="og:site_name" content="BigBaBy's Blog"><meta property="og:title" content="Trying Out Grafana's Git Sync Feature (OSS Edition)"><meta property="og:description" content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-12-10T12:00:00+00:00"><meta property="article:modified_time" content="2025-12-10T12:00:00+00:00"><meta property="article:tag" content="Grafana"><meta property="article:tag" content="Git Sync"><meta property="article:tag" content="Observability"><meta property="article:tag" content="Dashboard as Code"><meta property="article:tag" content="GitOps"><meta name=twitter:card content="summary"><meta name=twitter:title content="Trying Out Grafana's Git Sync Feature (OSS Edition)"><meta name=twitter:description content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta name=twitter:site content="@taisuke_bigbaby"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://b1gb4by.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Trying Out Grafana's Git Sync Feature (OSS Edition)","item":"https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Trying Out Grafana's Git Sync Feature (OSS Edition)","name":"Trying Out Grafana\u0027s Git Sync Feature (OSS Edition)","description":"Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.","keywords":["Grafana","Git Sync","Observability","Dashboard as Code","GitOps"],"articleBody":"This post is Day 11 of the Grafana Advent Calendar 2025.\nHave you ever experienced any of these while using Grafana?\n“The dashboard was working yesterday… did someone change it?” “I want to revert it, but I don’t know what was changed…” “The dashboards in production and staging environments have drifted apart” Until now, Grafana didn’t have a native feature to sync dashboards with Git. As a result, managing dashboards required workarounds like exporting to JSON and managing in Git, using external tools like Terraform or Grizzly (now deprecated), or writing custom scripts via the API—all of which were quite cumbersome.\nThat’s why the introduction of the Git Sync feature in Grafana 12 is such a big deal.\nWhat is Git Sync? Git Sync is a feature that enables bidirectional synchronization between Grafana dashboards and a GitHub repository. Dashboards are stored in JSON format in the repository and can be version controlled just like regular code.\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4a90a4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2d5a6b', 'lineColor': '#5c6bc0', 'secondaryColor': '#81c784', 'tertiaryColor': '#ffb74d'}}}%% flowchart LR subgraph Grafana UI[Dashboard UI] DB[(Database)] end subgraph GitHub[GitHub Repository] JSON[dashboard.json] PR[Pull Request] end UI ---|Edit| DB DB ---|Git Sync| JSON JSON --\u003e|Create PR| PR PR --\u003e|Merge| JSON style UI fill:#ff9800,stroke:#e65100,color:#000 style DB fill:#ff9800,stroke:#e65100,color:#000 style JSON fill:#7e57c2,stroke:#4527a0,color:#fff style PR fill:#7e57c2,stroke:#4527a0,color:#fff How Git Sync Works The main capabilities are:\nGit-based Management - Track dashboard change history and revert to previous states anytime PR-based Review - Review changes via pull requests before merging Multi-environment Deployment - Deploy the same dashboards across multiple Grafana instances By default, synchronization occurs every 60 seconds via polling, but with Webhooks configured, you can achieve near real-time sync.\nCurrent Status As of December 2025, Git Sync is available as an Experimental feature in Grafana OSS/Enterprise.\nTo use it, you need to meet the following requirements:\nGrafana v12 or later Feature Toggles enabled ⚠️ Note: This is still an experimental feature. It is not recommended for production use. We suggest trying it in a staging environment first.\nSetup Instructions Let’s walk through the detailed steps to set up Git Sync.\nHere’s the overall flow:\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4a90a4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2d5a6b', 'lineColor': '#78909c'}}}%% flowchart TD A[1. Enable Feature Toggles] --\u003e B[2. Create GitHub Access Token] B --\u003e C[3. Connect Grafana to GitHub] C --\u003e D[4. Choose Content to Sync] D --\u003e E[5. Additional Settings] E --\u003e F[Setup Complete] style A fill:#5c6bc0,stroke:#3949ab,color:#fff style B fill:#5c6bc0,stroke:#3949ab,color:#fff style C fill:#5c6bc0,stroke:#3949ab,color:#fff style D fill:#5c6bc0,stroke:#3949ab,color:#fff style E fill:#5c6bc0,stroke:#3949ab,color:#fff style F fill:#66bb6a,stroke:#43a047,color:#000 Setup Flow Prerequisites Docker installed Grafana v12 or later Docker image GitHub repository (to store your dashboards) 1. Enable Feature Toggles To use Git Sync, you need to enable Feature Toggles.\nCreate a grafana.ini file with the following content:\n[feature_toggles] provisioning = true kubernetesDashboards = true Mount this file to the container and start Grafana:\ndocker run -d \\ --name grafana \\ -p 3000:3000 \\ -v $(pwd)/grafana.ini:/etc/grafana/grafana.ini \\ grafana/grafana:nightly If you have an existing container, restart it:\ndocker restart grafana 2. Create GitHub Access Token Create a Personal Access Token (PAT) for Git Sync to access the GitHub repository.\nStep 1: Create a Token on GitHub Open the GitHub Fine-grained Personal Access Token page.\nStep 2: Configure the Token Set up the token as follows:\nToken name: A descriptive name (e.g., grafana-git-sync) Expiration: Choose an appropriate expiration period Repository access: Select the target repository Step 3: Set Permissions Expand “Repository permissions” and configure the following:\nPermission Required Access Level Purpose Contents Read and write Read/write dashboard JSON Metadata Read-only Retrieve repository information Pull requests Read and write Create/update PRs Webhooks Read and write Configure Webhooks (optional) Step 4: Generate and Copy the Token Click “Generate token” and copy the displayed token.\n⚠️ Important: The token is only displayed once. Make sure to copy it and store it in a secure location.\n3. Configure Repository Connection Connect to the GitHub repository from the Grafana UI.\nStep 1: Open the Provisioning Page Log in to Grafana with an admin account From the left menu, select Administration → General → Provisioning Click Configure with GitHub Step 2: Enter Connection Information Enter the following information:\nField Description Example Access Token The GitHub PAT you created earlier ghp_xxxxxxxxxxxx Repository URL URL of your GitHub repository https://github.com/your-org/grafana-dashboards Branch Branch to use main Path Directory to store dashboards dashboards/ (leave empty for root) Path can be any directory you choose. In this example, we’re using the dashboards directory.\nAfter entering the information, click “Choose what to synchronize” to proceed.\n4. Choose Content to Sync Select the synchronization method. There are two options:\nOption A: Sync All Resources (Full Instance Sync) Sync all resources with external storage Syncs all dashboards from the entire Grafana instance with the repository Only one repository connection can be configured Blocked if existing alerts or library panels exist Option B: Sync by Folder (Folder Sync) Sync external storage to new Grafana folder Syncs repository contents to a specified folder Up to 10 repository connections can be configured Does not affect existing dashboards For first-time users, Option B (Folder Sync) is recommended. It has less impact on your existing environment and is safer to experiment with.\nEnter a Display name and click “Choose additional settings”.\nSince there’s no content to sync in this example, “3. Synchronize with external storage” is skipped. If you have existing dashboards, the sync process will be executed here.\nIn my environment, the browser crashed during the sync process. The cause is still under investigation, so this step is omitted from this guide.\n5. Additional Settings Finally, you can customize the sync behavior:\nSetting Description Default Sync Interval (seconds) Polling interval for the repository (seconds) 60 Read only Disable editing from Grafana UI Off Enable pull request option when saving Allow choosing to create a PR when saving On Enable push to configured branch Allow direct commits to the configured branch On Generate Dashboard Previews Generate preview links in PRs (requires Image Renderer + public access) Off Click “Finish” to complete the setup!\nVerify Setup After completing the setup, verify the following:\nOpen the Dashboards menu Confirm that a folder with the configured Display name appears If there are dashboard JSON files in the repository, confirm they have been imported Dashboards synced via Git Sync will display an icon like the one shown below.\nPractical Usage Examples Let’s look at actual workflows after setting up Git Sync.\nI’ve identified roughly three use cases.\nCase 1: Edit Dashboard in Grafana UI → Reflect in GitHub Edit the dashboard in Grafana UI Edit the dashboard as usual When saving, you can specify the filename, commit message, and target branch Changes are automatically reflected in GitHub\nAfter saving the dashboard, the repository is updated at the configured polling interval Alternatively, use the “Save to GitHub” option for immediate commit Verify changes in commit history\nCheck the commit history in the GitHub repository You can confirm that the commit was made with the specified filename and commit message Case 2: Edit Dashboard in GitHub → Reflect in Grafana Edit the JSON file directly\nEdit the dashboard JSON in the repository In this example, I simply updated the dashboard name After editing, commit and push to the repository Grafana syncs automatically\nAfter the polling interval, the dashboard is reflected in Grafana When you check if the dashboard was updated, you can confirm that the changes have been incorporated With Webhooks configured, updates occur in near real-time Case 3: PR-based Review Workflow With Generate Dashboard Previews enabled, you can review dashboards during PRs as follows:\n%%{init: {'theme': 'base', 'themeVariables': { 'actorBkg': '#5c6bc0', 'actorTextColor': '#fff', 'actorBorder': '#3949ab', 'actorLineColor': '#78909c', 'signalColor': '#607d8b', 'signalTextColor': '#607d8b', 'noteBkgColor': '#ffcc80', 'noteTextColor': '#000', 'noteBorderColor': '#ff9800', 'activationBkgColor': '#bbdefb', 'activationBorderColor': '#1976d2', 'sequenceNumberColor': '#fff'}}}%% sequenceDiagram participant Dev as Developer participant GitHub as GitHub participant Reviewer as Reviewer participant Grafana as Grafana Dev-\u003e\u003eGitHub: Create branch Dev-\u003e\u003eGitHub: Edit dashboard Dev-\u003e\u003eGitHub: Create PR GitHub--\u003e\u003eReviewer: Request review Note over GitHub: Preview images auto-attached Reviewer-\u003e\u003eGitHub: Approve review GitHub-\u003e\u003eGitHub: Merge GitHub--\u003e\u003eGrafana: Webhook notification Grafana-\u003e\u003eGrafana: Apply changes PR-based Review Workflow The benefits of this approach are:\nReview dashboards before changes go live With Image Renderer configured, dashboard preview images are automatically attached to PRs Easy to revert if issues arise I wanted to try this out, but it didn’t work properly in my environment, so it’s omitted from this guide.\nKnown Limitations Since Git Sync is still an experimental feature, there are several limitations. Review these before implementation.\nSyncable Resources Currently, only the following resources can be synced:\nResource Status Dashboards ✅ Supported Folders ✅ Supported Alerts ❌ Not supported Library Panels ❌ Not supported Data Sources ❌ Not supported Alerts and library panels are planned for future updates. (Personally, I’m eagerly hoping for alert support to be released soon…)\nOther Limitations GitHub only: Currently, other platforms (GitLab, Bitbucket, etc.) are not supported GitLab and Bitbucket are on the roadmap GitHub Apps not supported: Only Personal Access Tokens (PAT) can be used Provisioned folder permissions: Folder permissions cannot be changed after sync Full Instance Sync restrictions: Blocked if alerts or library panels exist Performance Impact According to the official documentation:\nWhen Git Sync is enabled, the database load might increase, especially for instances with a lot of folders and nested folders. Evaluate the performance impact, if any, in a non-production environment.\nThe exact impact is unclear, so I plan to investigate this further.\nSummary Git Sync is one of the features that Grafana users have been waiting for, but it seems like there’s still a long road ahead before it’s fully released for OSS.\nHowever, once it reaches GA, I believe it will significantly reduce the maintenance costs we’ve been dealing with, so stay tuned for future updates.\nPros Native Integration: Git management without external tools Bidirectional Sync: Both UI edits and Git edits work PR Workflow: Naturally incorporates review processes Easy Setup: Configure with just a few clicks in the GUI Considerations Still an experimental feature (use caution in production) Only dashboards and folders supported (alerts not supported) GitHub only (GitLab, Bitbucket coming later) Future Expectations Support for alerts and library panels Support for GitLab and Bitbucket GitHub Apps support It’s still in the experimental stage, but if you’re interested, give it a try!\nFinally Stay tuned for tomorrow’s Grafana Advent Calendar 2025!\nReferences Git Sync | Grafana Documentation Set up Git Sync | Grafana Documentation Grafana dashboards as code: How to manage your dashboards with Git | Grafana Labs Blog ","wordCount":"1735","inLanguage":"en","datePublished":"2025-12-10T12:00:00Z","dateModified":"2025-12-10T12:00:00Z","author":{"@type":"Person","name":"BigBaBy"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"},"publisher":{"@type":"Organization","name":"BigBaBy's Blog","logo":{"@type":"ImageObject","url":"https://b1gb4by.github.io/favicon.ico"}}}</script><script>!function(e){if(!window[e]){var t=window[e]=function(){var e=[].slice.call(arguments);return t.x?t.x.apply(0,e):t.q.push(e)};t.q=[],t.i=Date.now(),t.allow=function(){t.o="allow"},t.deny=function(){t.o="deny"}}}("krt")</script><script async src=https://cdn-edge.karte.io/f1bed561ac13b1955cc138d8bf589b07/edge.js></script></head><body><header class=header><nav class=nav><div class=logo><a href=https://b1gb4by.github.io/ accesskey=h title="BigBaBy's Blog (Alt + H)">BigBaBy's Blog</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Trying Out Grafana's Git Sync Feature (OSS Edition) | BigBaBy's Blog</title><meta name=keywords content="Grafana,Git Sync,Observability,Dashboard as Code,GitOps"><meta name=description content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta name=author content="BigBaBy"><link rel=canonical href=https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/><link crossorigin=anonymous href=/assets/css/stylesheet.44137aa4ae0578313ad7637af9cc14050eef8e7222b3911604c2884f0ea2fe4d.css integrity="sha256-RBN6pK4FeDE612N6+cwUBQ7vjnIis5EWBMKITw6i/k0=" rel="preload stylesheet" as=style><link rel=icon href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://b1gb4by.github.io/favicon.ico><link rel=apple-touch-icon href=https://b1gb4by.github.io/apple-touch-icon.png><link rel=mask-icon href=https://b1gb4by.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=ja href=https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/><link rel=alternate hreflang=en href=https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"><meta property="og:site_name" content="BigBaBy's Blog"><meta property="og:title" content="Trying Out Grafana's Git Sync Feature (OSS Edition)"><meta property="og:description" content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-12-10T12:00:00+00:00"><meta property="article:modified_time" content="2025-12-10T12:00:00+00:00"><meta property="article:tag" content="Grafana"><meta property="article:tag" content="Git Sync"><meta property="article:tag" content="Observability"><meta property="article:tag" content="Dashboard as Code"><meta property="article:tag" content="GitOps"><meta name=twitter:card content="summary"><meta name=twitter:title content="Trying Out Grafana's Git Sync Feature (OSS Edition)"><meta name=twitter:description content="Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12."><meta name=twitter:site content="@taisuke_bigbaby"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://b1gb4by.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Trying Out Grafana's Git Sync Feature (OSS Edition)","item":"https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Trying Out Grafana's Git Sync Feature (OSS Edition)","name":"Trying Out Grafana\u0027s Git Sync Feature (OSS Edition)","description":"Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.","keywords":["Grafana","Git Sync","Observability","Dashboard as Code","GitOps"],"articleBody":"This post is Day 11 of the Grafana Advent Calendar 2025.\nHave you ever experienced any of these while using Grafana?\n“The dashboard was working yesterday… did someone change it?” “I want to revert it, but I don’t know what was changed…” “The dashboards in production and staging environments have drifted apart” Until now, Grafana didn’t have a native feature to sync dashboards with Git. As a result, managing dashboards required workarounds like exporting to JSON and managing in Git, using external tools like Terraform or Grizzly (now deprecated), or writing custom scripts via the API—all of which were quite cumbersome.\nThat’s why the introduction of the Git Sync feature in Grafana 12 is such a big deal.\nWhat is Git Sync? Git Sync is a feature that enables bidirectional synchronization between Grafana dashboards and a GitHub repository. Dashboards are stored in JSON format in the repository and can be version controlled just like regular code.\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4a90a4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2d5a6b', 'lineColor': '#5c6bc0', 'secondaryColor': '#81c784', 'tertiaryColor': '#ffb74d'}}}%% flowchart LR subgraph Grafana UI[Dashboard UI] DB[(Database)] end subgraph GitHub[GitHub Repository] JSON[dashboard.json] PR[Pull Request] end UI ---|Edit| DB DB ---|Git Sync| JSON JSON --\u003e|Create PR| PR PR --\u003e|Merge| JSON style UI fill:#ff9800,stroke:#e65100,color:#000 style DB fill:#ff9800,stroke:#e65100,color:#000 style JSON fill:#7e57c2,stroke:#4527a0,color:#fff style PR fill:#7e57c2,stroke:#4527a0,color:#fff How Git Sync Works The main capabilities are:\nGit-based Management - Track dashboard change history and revert to previous states anytime PR-based Review - Review changes via pull requests before merging Multi-environment Deployment - Deploy the same dashboards across multiple Grafana instances By default, synchronization occurs every 60 seconds via polling, but with Webhooks configured, you can achieve near real-time sync.\nCurrent Status As of December 2025, Git Sync is available as an Experimental feature in Grafana OSS/Enterprise.\nTo use it, you need to meet the following requirements:\nGrafana v12 or later Feature Toggles enabled ⚠️ Note: This is still an experimental feature. It is not recommended for production use. We suggest trying it in a staging environment first.\nSetup Instructions Let’s walk through the detailed steps to set up Git Sync.\nHere’s the overall flow:\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#4a90a4', 'primaryTextColor': '#fff', 'primaryBorderColor': '#2d5a6b', 'lineColor': '#78909c'}}}%% flowchart TD A[1. Enable Feature Toggles] --\u003e B[2. Create GitHub Access Token] B --\u003e C[3. Connect Grafana to GitHub] C --\u003e D[4. Choose Content to Sync] D --\u003e E[5. Additional Settings] E --\u003e F[Setup Complete] style A fill:#5c6bc0,stroke:#3949ab,color:#fff style B fill:#5c6bc0,stroke:#3949ab,color:#fff style C fill:#5c6bc0,stroke:#3949ab,color:#fff style D fill:#5c6bc0,stroke:#3949ab,color:#fff style E fill:#5c6bc0,stroke:#3949ab,color:#fff style F fill:#66bb6a,stroke:#43a047,color:#000 Setup Flow Prerequisites Docker installed Grafana v12 or later Docker image GitHub repository (to store your dashboards) 1. Enable Feature Toggles To use Git Sync, you need to enable Feature Toggles.\nCreate a grafana.ini file with the following content:\n[feature_toggles] provisioning = true kubernetesDashboards = true Mount this file to the container and start Grafana:\ndocker run -d \\ --name grafana \\ -p 3000:3000 \\ -v $(pwd)/grafana.ini:/etc/grafana/grafana.ini \\ grafana/grafana:nightly If you have an existing container, restart it:\ndocker restart grafana 2. Create GitHub Access Token Create a Personal Access Token (PAT) for Git Sync to access the GitHub repository.\nStep 1: Create a Token on GitHub Open the GitHub Fine-grained Personal Access Token page.\nStep 2: Configure the Token Set up the token as follows:\nToken name: A descriptive name (e.g., grafana-git-sync) Expiration: Choose an appropriate expiration period Repository access: Select the target repository Step 3: Set Permissions Expand “Repository permissions” and configure the following:\nPermission Required Access Level Purpose Contents Read and write Read/write dashboard JSON Metadata Read-only Retrieve repository information Pull requests Read and write Create/update PRs Webhooks Read and write Configure Webhooks (optional) Step 4: Generate and Copy the Token Click “Generate token” and copy the displayed token.\n⚠️ Important: The token is only displayed once. Make sure to copy it and store it in a secure location.\n3. Configure Repository Connection Connect to the GitHub repository from the Grafana UI.\nStep 1: Open the Provisioning Page Log in to Grafana with an admin account From the left menu, select Administration → General → Provisioning Click Configure with GitHub Step 2: Enter Connection Information Enter the following information:\nField Description Example Access Token The GitHub PAT you created earlier ghp_xxxxxxxxxxxx Repository URL URL of your GitHub repository https://github.com/your-org/grafana-dashboards Branch Branch to use main Path Directory to store dashboards dashboards/ (leave empty for root) Path can be any directory you choose. In this example, we’re using the dashboards directory.\nAfter entering the information, click “Choose what to synchronize” to proceed.\n4. Choose Content to Sync Select the synchronization method. There are two options:\nOption A: Sync All Resources (Full Instance Sync) Sync all resources with external storage Syncs all dashboards from the entire Grafana instance with the repository Only one repository connection can be configured Blocked if existing alerts or library panels exist Option B: Sync by Folder (Folder Sync) Sync external storage to new Grafana folder Syncs repository contents to a specified folder Up to 10 repository connections can be configured Does not affect existing dashboards For first-time users, Option B (Folder Sync) is recommended. It has less impact on your existing environment and is safer to experiment with.\nEnter a Display name and click “Choose additional settings”.\nSince there’s no content to sync in this example, “3. Synchronize with external storage” is skipped. If you have existing dashboards, the sync process will be executed here.\nIn my environment, the browser crashed during the sync process. The cause is still under investigation, so this step is omitted from this guide.\n5. Additional Settings Finally, you can customize the sync behavior:\nSetting Description Default Sync Interval (seconds) Polling interval for the repository (seconds) 60 Read only Disable editing from Grafana UI Off Enable pull request option when saving Allow choosing to create a PR when saving On Enable push to configured branch Allow direct commits to the configured branch On Generate Dashboard Previews Generate preview links in PRs (requires Image Renderer + public access) Off Click “Finish” to complete the setup!\nVerify Setup After completing the setup, verify the following:\nOpen the Dashboards menu Confirm that a folder with the configured Display name appears If there are dashboard JSON files in the repository, confirm they have been imported Dashboards synced via Git Sync will display an icon like the one shown below.\nPractical Usage Examples Let’s look at actual workflows after setting up Git Sync.\nI’ve identified roughly three use cases.\nCase 1: Edit Dashboard in Grafana UI → Reflect in GitHub Edit the dashboard in Grafana UI Edit the dashboard as usual When saving, you can specify the filename, commit message, and target branch Changes are automatically reflected in GitHub\nAfter saving the dashboard, the repository is updated at the configured polling interval Alternatively, use the “Save to GitHub” option for immediate commit Verify changes in commit history\nCheck the commit history in the GitHub repository You can confirm that the commit was made with the specified filename and commit message Case 2: Edit Dashboard in GitHub → Reflect in Grafana Edit the JSON file directly\nEdit the dashboard JSON in the repository In this example, I simply updated the dashboard name After editing, commit and push to the repository Grafana syncs automatically\nAfter the polling interval, the dashboard is reflected in Grafana When you check if the dashboard was updated, you can confirm that the changes have been incorporated With Webhooks configured, updates occur in near real-time Case 3: PR-based Review Workflow With Generate Dashboard Previews enabled, you can review dashboards during PRs as follows:\n%%{init: {'theme': 'base', 'themeVariables': { 'actorBkg': '#5c6bc0', 'actorTextColor': '#fff', 'actorBorder': '#3949ab', 'actorLineColor': '#78909c', 'signalColor': '#607d8b', 'signalTextColor': '#607d8b', 'noteBkgColor': '#ffcc80', 'noteTextColor': '#000', 'noteBorderColor': '#ff9800', 'activationBkgColor': '#bbdefb', 'activationBorderColor': '#1976d2', 'sequenceNumberColor': '#fff'}}}%% sequenceDiagram participant Dev as Developer participant GitHub as GitHub participant Reviewer as Reviewer participant Grafana as Grafana Dev-\u003e\u003eGitHub: Create branch Dev-\u003e\u003eGitHub: Edit dashboard Dev-\u003e\u003eGitHub: Create PR GitHub--\u003e\u003eReviewer: Request review Note over GitHub: Preview images auto-attached Reviewer-\u003e\u003eGitHub: Approve review GitHub-\u003e\u003eGitHub: Merge GitHub--\u003e\u003eGrafana: Webhook notification Grafana-\u003e\u003eGrafana: Apply changes PR-based Review Workflow The benefits of this approach are:\nReview dashboards before changes go live With Image Renderer configured, dashboard preview images are automatically attached to PRs Easy to revert if issues arise I wanted to try this out, but it didn’t work properly in my environment, so it’s omitted from this guide.\nKnown Limitations Since Git Sync is still an experimental feature, there are several limitations. Review these before implementation.\nSyncable Resources Currently, only the following resources can be synced:\nResource Status Dashboards ✅ Supported Folders ✅ Supported Alerts ❌ Not supported Library Panels ❌ Not supported Data Sources ❌ Not supported Alerts and library panels are planned for future updates. (Personally, I’m eagerly hoping for alert support to be released soon…)\nOther Limitations GitHub only: Currently, other platforms (GitLab, Bitbucket, etc.) are not supported GitLab and Bitbucket are on the roadmap GitHub Apps not supported: Only Personal Access Tokens (PAT) can be used Provisioned folder permissions: Folder permissions cannot be changed after sync Full Instance Sync restrictions: Blocked if alerts or library panels exist Performance Impact According to the official documentation:\nWhen Git Sync is enabled, the database load might increase, especially for instances with a lot of folders and nested folders. Evaluate the performance impact, if any, in a non-production environment.\nThe exact impact is unclear, so I plan to investigate this further.\nSummary Git Sync is one of the features that Grafana users have been waiting for, but it seems like there’s still a long road ahead before it’s fully released for OSS.\nHowever, once it reaches GA, I believe it will significantly reduce the maintenance costs we’ve been dealing with, so stay tuned for future updates.\nPros Native Integration: Git management without external tools Bidirectional Sync: Both UI edits and Git edits work PR Workflow: Naturally incorporates review processes Easy Setup: Configure with just a few clicks in the GUI Considerations Still an experimental feature (use caution in production) Only dashboards and folders supported (alerts not supported) GitHub only (GitLab, Bitbucket coming later) Future Expectations Support for alerts and library panels Support for GitLab and Bitbucket GitHub Apps support It’s still in the experimental stage, but if you’re interested, give it a try!\nFinally Stay tuned for tomorrow’s Grafana Advent Calendar 2025!\nReferences Git Sync | Grafana Documentation Set up Git Sync | Grafana Documentation Grafana dashboards as code: How to manage your dashboards with Git | Grafana Labs Blog ","wordCount":"1735","inLanguage":"en","datePublished":"2025-12-10T12:00:00Z","dateModified":"2025-12-10T12:00:00Z","author":{"@type":"Person","name":"BigBaBy"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"},"publisher":{"@type":"Organization","name":"BigBaBy's Blog","logo":{"@type":"ImageObject","url":"https://b1gb4by.github.io/favicon.ico"}}}</script><script>!function(e){if(!window[e]){var t=window[e]=function(){var e=[].slice.call(arguments);return t.x?t.x.apply(0,e):t.q.push(e)};t.q=[],t.i=Date.now(),t.allow=function(){t.o="allow"},t.deny=function(){t.o="deny"}}}("krt")</script><script async src=https://cdn-edge.karte.io/f1bed561ac13b1955cc138d8bf589b07/edge.js></script></head><body><header class=header><nav class=nav><div class=logo><a href=https://b1gb4by.github.io/ accesskey=h title="BigBaBy's Blog (Alt + H)">BigBaBy's Blog</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
 <svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
 <svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://b1gb4by.github.io/ja/ title=Japanese aria-label="🇯🇵 Japanese">🇯🇵 Japanese</a></li></ul></div></div><ul id=menu><li><a href=https://b1gb4by.github.io/archives/ title=Archive><span>Archive</span></a></li><li><a href=https://b1gb4by.github.io/search/ title=Search><span>Search</span></a></li><li><a href=https://b1gb4by.github.io/tags/ title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://b1gb4by.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://b1gb4by.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">Trying Out Grafana's Git Sync Feature (OSS Edition)</h1><div class=post-description>Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.</div><div class=post-meta><span title='2025-12-10 12:00:00 +0000 UTC'>December 10, 2025</span>&nbsp;·&nbsp;<span>9 min</span>&nbsp;·&nbsp;<span>BigBaBy</span>&nbsp;|&nbsp;<span>Translations:</span><ul class=i18n_list><li><a href=https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/>🇯🇵 Japanese</a></li></ul></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#what-is-git-sync aria-label="What is Git Sync?">What is Git Sync?</a></li><li><a href=#current-status aria-label="Current Status">Current Status</a></li><li><a href=#setup-instructions aria-label="Setup Instructions">Setup Instructions</a><ul><li><a href=#prerequisites aria-label=Prerequisites>Prerequisites</a></li><li><a href=#1-enable-feature-toggles aria-label="1. Enable Feature Toggles">1. Enable Feature Toggles</a></li><li><a href=#2-create-github-access-token aria-label="2. Create GitHub Access Token">2. Create GitHub Access Token</a><ul><li><a href=#step-1-create-a-token-on-github aria-label="Step 1: Create a Token on GitHub">Step 1: Create a Token on GitHub</a></li><li><a href=#step-2-configure-the-token aria-label="Step 2: Configure the Token">Step 2: Configure the Token</a></li><li><a href=#step-3-set-permissions aria-label="Step 3: Set Permissions">Step 3: Set Permissions</a></li><li><a href=#step-4-generate-and-copy-the-token aria-label="Step 4: Generate and Copy the Token">Step 4: Generate and Copy the Token</a></li></ul></li><li><a href=#3-configure-repository-connection aria-label="3. Configure Repository Connection">3. Configure Repository Connection</a><ul><li><a href=#step-1-open-the-provisioning-page aria-label="Step 1: Open the Provisioning Page">Step 1: Open the Provisioning Page</a></li><li><a href=#step-2-enter-connection-information aria-label="Step 2: Enter Connection Information">Step 2: Enter Connection Information</a></li></ul></li><li><a href=#4-choose-content-to-sync aria-label="4. Choose Content to Sync">4. Choose Content to Sync</a><ul><li><a href=#option-a-sync-all-resources-full-instance-sync aria-label="Option A: Sync All Resources (Full Instance Sync)">Option A: Sync All Resources (Full Instance Sync)</a></li><li><a href=#option-b-sync-by-folder-folder-sync aria-label="Option B: Sync by Folder (Folder Sync)">Option B: Sync by Folder (Folder Sync)</a></li></ul></li><li><a href=#5-additional-settings aria-label="5. Additional Settings">5. Additional Settings</a></li><li><a href=#verify-setup aria-label="Verify Setup">Verify Setup</a></li></ul></li><li><a href=#practical-usage-examples aria-label="Practical Usage Examples">Practical Usage Examples</a><ul><li><a href=#case-1-edit-dashboard-in-grafana-ui--reflect-in-github aria-label="Case 1: Edit Dashboard in Grafana UI → Reflect in GitHub">Case 1: Edit Dashboard in Grafana UI → Reflect in GitHub</a></li><li><a href=#case-2-edit-dashboard-in-github--reflect-in-grafana aria-label="Case 2: Edit Dashboard in GitHub → Reflect in Grafana">Case 2: Edit Dashboard in GitHub → Reflect in Grafana</a></li><li><a href=#case-3-pr-based-review-workflow aria-label="Case 3: PR-based Review Workflow">Case 3: PR-based Review Workflow</a></li></ul></li><li><a href=#known-limitations aria-label="Known Limitations">Known Limitations</a><ul><li><a href=#syncable-resources aria-label="Syncable Resources">Syncable Resources</a></li><li><a href=#other-limitations aria-label="Other Limitations">Other Limitations</a></li><li><a href=#performance-impact aria-label="Performance Impact">Performance Impact</a></li></ul></li><li><a href=#summary aria-label=Summary>Summary</a><ul><li><a href=#pros aria-label=Pros>Pros</a></li><li><a href=#considerations aria-label=Considerations>Considerations</a></li><li><a href=#future-expectations aria-label="Future Expectations">Future Expectations</a></li></ul></li><li><a href=#finally aria-label=Finally>Finally</a><ul><li><a href=#references aria-label=References>References</a></li></ul></li></ul></div></details></div><div class=post-content><p>This post is Day 11 of the <a href=https://qiita.com/advent-calendar/2025/grafana>Grafana Advent Calendar 2025</a>.</p><hr><p>Have you ever experienced any of these while using Grafana?</p><ul><li>&ldquo;The dashboard was working yesterday&mldr; did someone change it?&rdquo;</li><li>&ldquo;I want to revert it, but I don&rsquo;t know what was changed&mldr;&rdquo;</li><li>&ldquo;The dashboards in production and staging environments have drifted apart&rdquo;</li></ul><p>Until now, Grafana didn&rsquo;t have a native feature to sync dashboards with Git.
 As a result, managing dashboards required workarounds like exporting to JSON and managing in Git, using external tools like Terraform or Grizzly (now deprecated), or writing custom scripts via the API—all of which were quite cumbersome.</p><p>That&rsquo;s why the introduction of the <strong>Git Sync</strong> feature in Grafana 12 is such a big deal.</p><h2 id=what-is-git-sync>What is Git Sync?<a hidden class=anchor aria-hidden=true href=#what-is-git-sync>#</a></h2><p>Git Sync is a feature that enables bidirectional synchronization between Grafana dashboards and a GitHub repository.
@@ -74,10 +74,10 @@ style F fill:#66bb6a,stroke:#43a047,color:#000</div><button class=mermaid-expand
 </span></span><span class=line><span class=cl><span class=na>provisioning</span> <span class=o>=</span> <span class=s>true</span>
 </span></span><span class=line><span class=cl><span class=na>kubernetesDashboards</span> <span class=o>=</span> <span class=s>true</span>
 </span></span></code></pre></div><p>Mount this file to the container and start Grafana:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -d <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  --name grafana <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -p 3000:3000 <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -v <span class=k>$(</span><span class=nb>pwd</span><span class=k>)</span>/grafana.ini:/etc/grafana/grafana.ini <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  grafana/grafana:nightly
+</span></span></span><span class=line><span class=cl>  --name grafana <span class=se>\
+</span></span></span><span class=line><span class=cl>  -p 3000:3000 <span class=se>\
+</span></span></span><span class=line><span class=cl>  -v <span class=k>$(</span><span class=nb>pwd</span><span class=k>)</span>/grafana.ini:/etc/grafana/grafana.ini <span class=se>\
+</span></span></span><span class=line><span class=cl>  grafana/grafana:nightly
 </span></span></code></pre></div><p>If you have an existing container, restart it:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker restart grafana
 </span></span></code></pre></div><h3 id=2-create-github-access-token>2. Create GitHub Access Token<a hidden class=anchor aria-hidden=true href=#2-create-github-access-token>#</a></h3><p>Create a Personal Access Token (PAT) for Git Sync to access the GitHub repository.</p><h4 id=step-1-create-a-token-on-github>Step 1: Create a Token on GitHub<a hidden class=anchor aria-hidden=true href=#step-1-create-a-token-on-github>#</a></h4><p>Open the <a href=https://github.com/settings/personal-access-tokens/new>GitHub Fine-grained Personal Access Token</a> page.</p><p><img alt="GitHub PAT" loading=lazy src=/posts/2025-12-11-grafana-git-sync/images/github_pat.png></p><h4 id=step-2-configure-the-token>Step 2: Configure the Token<a hidden class=anchor aria-hidden=true href=#step-2-configure-the-token>#</a></h4><p>Set up the token as follows:</p><ul><li><strong>Token name</strong>: A descriptive name (e.g., <code>grafana-git-sync</code>)</li><li><strong>Expiration</strong>: Choose an appropriate expiration period</li><li><strong>Repository access</strong>: Select the target repository</li></ul><h4 id=step-3-set-permissions>Step 3: Set Permissions<a hidden class=anchor aria-hidden=true href=#step-3-set-permissions>#</a></h4><p>Expand &ldquo;Repository permissions&rdquo; and configure the following:</p><table><thead><tr><th>Permission</th><th>Required Access Level</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>Contents</strong></td><td>Read and write</td><td>Read/write dashboard JSON</td></tr><tr><td><strong>Metadata</strong></td><td>Read-only</td><td>Retrieve repository information</td></tr><tr><td><strong>Pull requests</strong></td><td>Read and write</td><td>Create/update PRs</td></tr><tr><td><strong>Webhooks</strong></td><td>Read and write</td><td>Configure Webhooks (optional)</td></tr></tbody></table><h4 id=step-4-generate-and-copy-the-token>Step 4: Generate and Copy the Token<a hidden class=anchor aria-hidden=true href=#step-4-generate-and-copy-the-token>#</a></h4><p>Click &ldquo;Generate token&rdquo; and copy the displayed token.</p><blockquote><p>⚠️ <strong>Important</strong>: The token is only displayed once. Make sure to copy it and store it in a secure location.</p></blockquote><p><img alt="Generate GitHub PAT" loading=lazy src=/posts/2025-12-11-grafana-git-sync/images/generate_github_pat.png></p><h3 id=3-configure-repository-connection>3. Configure Repository Connection<a hidden class=anchor aria-hidden=true href=#3-configure-repository-connection>#</a></h3><p>Connect to the GitHub repository from the Grafana UI.</p><h4 id=step-1-open-the-provisioning-page>Step 1: Open the Provisioning Page<a hidden class=anchor aria-hidden=true href=#step-1-open-the-provisioning-page>#</a></h4><ol><li>Log in to Grafana with an admin account</li><li>From the left menu, select <strong>Administration</strong> → <strong>General</strong> → <strong>Provisioning</strong></li><li>Click <strong>Configure with GitHub</strong></li></ol><p><img alt="Provisioning GitHub" loading=lazy src=/posts/2025-12-11-grafana-git-sync/images/provisioning_github.png></p><h4 id=step-2-enter-connection-information>Step 2: Enter Connection Information<a hidden class=anchor aria-hidden=true href=#step-2-enter-connection-information>#</a></h4><p>Enter the following information:</p><table><thead><tr><th>Field</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><strong>Access Token</strong></td><td>The GitHub PAT you created earlier</td><td><code>ghp_xxxxxxxxxxxx</code></td></tr><tr><td><strong>Repository URL</strong></td><td>URL of your GitHub repository</td><td><code>https://github.com/your-org/grafana-dashboards</code></td></tr><tr><td><strong>Branch</strong></td><td>Branch to use</td><td><code>main</code></td></tr><tr><td><strong>Path</strong></td><td>Directory to store dashboards</td><td><code>dashboards/</code> (leave empty for root)</td></tr></tbody></table><p><img alt="Setting connection config" loading=lazy src=/posts/2025-12-11-grafana-git-sync/images/configure_git_sync_connect.png></p><p><strong>Path</strong> can be any directory you choose. In this example, we&rsquo;re using the <code>dashboards</code> directory.</p><p>After entering the information, click &ldquo;Choose what to synchronize&rdquo; to proceed.</p><h3 id=4-choose-content-to-sync>4. Choose Content to Sync<a hidden class=anchor aria-hidden=true href=#4-choose-content-to-sync>#</a></h3><p>Select the synchronization method. There are two options:</p><p><img alt="Select synchronized" loading=lazy src=/posts/2025-12-11-grafana-git-sync/images/select_synchronized.png></p><h4 id=option-a-sync-all-resources-full-instance-sync>Option A: Sync All Resources (Full Instance Sync)<a hidden class=anchor aria-hidden=true href=#option-a-sync-all-resources-full-instance-sync>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Sync all resources with external storage
 </span></span></code></pre></div><ul><li>Syncs all dashboards from the entire Grafana instance with the repository</li><li>Only one repository connection can be configured</li><li>Blocked if existing alerts or library panels exist</li></ul><h4 id=option-b-sync-by-folder-folder-sync>Option B: Sync by Folder (Folder Sync)<a hidden class=anchor aria-hidden=true href=#option-b-sync-by-folder-folder-sync>#</a></h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Sync external storage to new Grafana folder
@@ -118,300 +118,114 @@ Grafana->>Grafana: Apply changes</div><button class=mermaid-expand-btn onclick='
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
 <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
 </a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=module>
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
     
-    const getAccessibleTheme = () => {
-      const isDark = document.body.classList.contains('dark') ||
-        localStorage.getItem("pref-theme") === "dark" ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    const isDark = () => document.documentElement.dataset.theme === 'dark';
 
-      
-      const colorPalette = {
-        blue: '#0072B2',
-        orange: '#E69F00',
-        skyBlue: '#56B4E9',
-        green: '#009E73',
-        yellow: '#F0E442',
-        vermillion: '#D55E00',
-        purple: '#CC79A7',
-        black: '#000000',
-        white: '#FFFFFF',
-        gray: '#999999'
-      };
+    
+    const gitColors = {
+      git0: '#7E9CD8', git1: '#E6C384', git2: '#98BB6C', git3: '#957FB8',
+      git4: '#7FB4CA', git5: '#D27E99', git6: '#FFA066', git7: '#7AA89F',
+    };
 
-      if (isDark) {
+    const getTheme = () => {
+      if (isDark()) {
         return {
           theme: 'dark',
           themeVariables: {
-            
+            ...gitColors,
             darkMode: true,
-            background: '#1a1a1a',
-            primaryColor: '#56B4E9',     
-            primaryTextColor: '#1a1a1a',  
-            primaryBorderColor: '#4aa3d7',
-            secondaryColor: '#E69F00',    
-            tertiaryColor: '#009E73',     
-
+            background: '#1F1F28', primaryColor: '#7E9CD8', primaryTextColor: '#DCD7BA',
+            primaryBorderColor: '#6b8abb', secondaryColor: '#E6C384', tertiaryColor: '#98BB6C',
+            textColor: '#DCD7BA', lineColor: '#DCD7BA', mainBkg: '#2A2A37',
+            noteBkgColor: '#2A2A37', noteTextColor: '#DCD7BA', noteBorderColor: '#54546D',
+            nodeBorder: '#7E9CD8', clusterBkg: '#2A2A37', clusterBorder: '#54546D',
+            defaultLinkColor: '#DCD7BA', edgeLabelBackground: '#1F1F28',
             
-            textColor: '#e0e0e0',
-            lineColor: '#56B4E9',
-            mainBkg: '#2d2d2d',
-
-            
-            noteBkgColor: '#2d2d2d',
-            noteTextColor: '#e0e0e0',
-            noteBorderColor: '#4a4a4a',
-
-            
-            nodeBorder: '#56B4E9',
-            clusterBkg: '#2d2d2d',
-            clusterBorder: '#4a4a4a',
-            defaultLinkColor: '#999999',
-            edgeLabelBackground: '#1a1a1a',
-
-            
-            cScale0: '#56B4E9',
-            cScale1: '#E69F00',
-            cScale2: '#009E73',
-            cScale3: '#CC79A7',
-            cScale4: '#F0E442',
-            cScale5: '#0072B2',
-            cScale6: '#D55E00',
-            cScale7: '#999999',
-
-            
-            sectionBkgColor: '#2d2d2d',
-            altSectionBkgColor: '#1a1a1a',
-            sectionBkgColor2: '#3d3d3d',
-            taskBorderColor: '#56B4E9',
-            taskBkgColor: '#56B4E9',
-            activeTaskBorderColor: '#E69F00',
-            activeTaskBkgColor: '#E69F00',
-            gridColor: '#4a4a4a',
-            doneTaskBkgColor: '#009E73',
-            doneTaskBorderColor: '#007f5f',
-            critBorderColor: '#D55E00',
-            critBkgColor: '#D55E00',
-            todayLineColor: '#CC79A7',
-            taskTextColor: '#1a1a1a',
-            taskTextOutsideColor: '#e0e0e0',
-            taskTextDarkColor: '#1a1a1a',
-
-            
-            git0: '#0072B2',
-            git1: '#E69F00',
-            git2: '#009E73',
-            git3: '#CC79A7',
-            git4: '#56B4E9',
-            git5: '#F0E442',
-            git6: '#D55E00',
-            git7: '#999999',
-            gitInv0: '#FFFFFF',
-            gitInv1: '#1a1a1a',
-            gitInv2: '#1a1a1a',
-            gitInv3: '#1a1a1a',
-            gitInv4: '#1a1a1a',
-            gitInv5: '#1a1a1a',
-            gitInv6: '#1a1a1a',
-            gitInv7: '#1a1a1a',
-            gitBranchLabel0: '#e0e0e0',
-            gitBranchLabel1: '#e0e0e0',
-
-            
-            labelColor: '#e0e0e0',
-            errorBkgColor: '#8b0000',
-            errorTextColor: '#ffffff'
-          }
-        };
-      } else {
-        
-        return {
-          theme: 'base',
-          themeVariables: {
-            
-            darkMode: false,
-            background: '#ffffff',
-            primaryColor: '#0072B2',      
-            primaryTextColor: '#ffffff',   
-            primaryBorderColor: '#005a8b',
-            secondaryColor: '#E69F00',     
-            tertiaryColor: '#009E73',      
-
-            
-            textColor: '#000000',
-            lineColor: '#0072B2',
-            mainBkg: '#f8f9fa',
-
-            
-            noteBkgColor: '#fff9e6',
-            noteTextColor: '#000000',
-            noteBorderColor: '#E69F00',
-
-            
-            nodeBorder: '#0072B2',
-            clusterBkg: '#f0f8ff',
-            clusterBorder: '#0072B2',
-            defaultLinkColor: '#000000',
-            edgeLabelBackground: '#ffffff',
-
-            
-            cScale0: '#0072B2',
-            cScale1: '#E69F00',
-            cScale2: '#009E73',
-            cScale3: '#CC79A7',
-            cScale4: '#56B4E9',
-            cScale5: '#F0E442',
-            cScale6: '#D55E00',
-            cScale7: '#000000',
-
-            
-            sectionBkgColor: '#f8f9fa',
-            altSectionBkgColor: '#ffffff',
-            sectionBkgColor2: '#f0f1f2',
-            taskBorderColor: '#0072B2',
-            taskBkgColor: '#0072B2',
-            activeTaskBorderColor: '#E69F00',
-            activeTaskBkgColor: '#E69F00',
-            gridColor: '#d0d0d0',
-            doneTaskBkgColor: '#009E73',
-            doneTaskBorderColor: '#007f5f',
-            critBorderColor: '#D55E00',
-            critBkgColor: '#D55E00',
-            todayLineColor: '#CC79A7',
-            taskTextColor: '#ffffff',
-            taskTextOutsideColor: '#000000',
-            taskTextDarkColor: '#ffffff',
-
-            
-            git0: '#0072B2',
-            git1: '#E69F00',
-            git2: '#009E73',
-            git3: '#CC79A7',
-            git4: '#56B4E9',
-            git5: '#F0E442',
-            git6: '#D55E00',
-            git7: '#000000',
-            gitInv0: '#FFFFFF',
-            gitInv1: '#000000',
-            gitInv2: '#000000',
-            gitInv3: '#000000',
-            gitInv4: '#000000',
-            gitInv5: '#000000',
-            gitInv6: '#FFFFFF',
-            gitInv7: '#FFFFFF',
-            gitBranchLabel0: '#000000',
-            gitBranchLabel1: '#000000',
-
-            
-            labelColor: '#000000',
-            errorBkgColor: '#f8d7da',
-            errorTextColor: '#721c24'
+            cScale0: '#2a3f5a', cScale1: '#5a4810', cScale2: '#2f4a1a', cScale3: '#3a2860',
+            cScale4: '#5a1a30', cScale5: '#1a4a5a', cScale6: '#703010', cScale7: '#1a4a3a',
+            cScaleLabel0: '#DCD7BA', cScaleLabel1: '#DCD7BA', cScaleLabel2: '#DCD7BA', cScaleLabel3: '#DCD7BA',
+            cScaleLabel4: '#DCD7BA', cScaleLabel5: '#DCD7BA', cScaleLabel6: '#DCD7BA', cScaleLabel7: '#DCD7BA',
+            sectionBkgColor: '#2A2A37', altSectionBkgColor: '#1F1F28', sectionBkgColor2: '#363646',
+            taskBorderColor: '#7E9CD8', taskBkgColor: '#7E9CD8',
+            activeTaskBorderColor: '#E6C384', activeTaskBkgColor: '#E6C384',
+            gridColor: '#54546D', doneTaskBkgColor: '#98BB6C', doneTaskBorderColor: '#76946A',
+            critBorderColor: '#E46876', critBkgColor: '#E46876', todayLineColor: '#D27E99',
+            taskTextColor: '#1F1F28', taskTextOutsideColor: '#DCD7BA', taskTextDarkColor: '#1F1F28',
+            labelColor: '#DCD7BA', errorBkgColor: '#43242B', errorTextColor: '#DCD7BA',
           }
         };
       }
+      return {
+        theme: 'base',
+        themeVariables: {
+          ...gitColors,
+          darkMode: false,
+          
+          cScale0: '#c4d4ef', cScale1: '#f0ddb8', cScale2: '#c8d9b2', cScale3: '#c7bdd9',
+          cScale4: '#e8b9c8', cScale5: '#bdd7e3', cScale6: '#ffd0b0', cScale7: '#bad1cc',
+          cScaleLabel0: '#000000', cScaleLabel1: '#000000', cScaleLabel2: '#000000', cScaleLabel3: '#000000',
+          cScaleLabel4: '#000000', cScaleLabel5: '#000000', cScaleLabel6: '#000000', cScaleLabel7: '#000000',
+          background: '#ffffff', primaryColor: '#7E9CD8', primaryTextColor: '#000000',
+          primaryBorderColor: '#6b8abb', secondaryColor: '#E6C384', tertiaryColor: '#98BB6C',
+          textColor: '#000000', lineColor: '#000000', mainBkg: '#ffffff',
+          noteBkgColor: '#f5f5f5', noteTextColor: '#000000', noteBorderColor: '#E6C384',
+          nodeBorder: '#7E9CD8', clusterBkg: '#f5f5f5', clusterBorder: '#000000',
+          defaultLinkColor: '#000000', edgeLabelBackground: '#ffffff',
+          sectionBkgColor: '#f5f5f5', altSectionBkgColor: '#ffffff', sectionBkgColor2: '#eeeeee',
+          taskBorderColor: '#7E9CD8', taskBkgColor: '#7E9CD8',
+          activeTaskBorderColor: '#E6C384', activeTaskBkgColor: '#E6C384',
+          gridColor: '#cccccc', doneTaskBkgColor: '#98BB6C', doneTaskBorderColor: '#76946A',
+          critBorderColor: '#E46876', critBkgColor: '#E46876', todayLineColor: '#D27E99',
+          taskTextColor: '#000000', taskTextOutsideColor: '#000000', taskTextDarkColor: '#000000',
+          labelColor: '#000000', errorBkgColor: '#fce4e4', errorTextColor: '#E46876',
+        }
+      };
     };
 
-    
-    const currentTheme = getAccessibleTheme();
     mermaid.initialize({
       startOnLoad: true,
-      ...currentTheme,
-      flowchart: {
-        curve: 'basis',
-        padding: 20
-      },
-      mindmap: {
-        padding: 20,
-        maxNodeWidth: 200
-      },
-      timeline: {
-        padding: 20
-      },
-      gitGraph: {
-        mainBranchName: 'main'
-      },
-      gantt: {
-        numberSectionStyles: 8
-      },
+      ...getTheme(),
       securityLevel: 'loose'
     });
 
     
-    let previousTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const currentIsDark = document.body.classList.contains('dark');
-          const currentThemeMode = currentIsDark ? 'dark' : 'light';
-
-          if (previousTheme !== currentThemeMode) {
-            previousTheme = currentThemeMode;
-            location.reload();
-          }
-        }
-      });
-    });
-
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
+    new MutationObserver(() => location.reload()).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ['data-theme'] }
+    );
 
     
     window.expandMermaid = function (id) {
-      const mermaidElement = document.getElementById(id);
-      const svgElement = mermaidElement.querySelector('svg');
+      const svg = document.getElementById(id)?.querySelector('svg');
+      if (!svg) return;
 
-      if (!svgElement) return;
+      document.getElementById('mermaid-modal')?.remove();
 
-      
-      const existingModal = document.getElementById('mermaid-modal');
-      if (existingModal) {
-        existingModal.remove();
-      }
-
-      
       const modal = document.createElement('div');
       modal.id = 'mermaid-modal';
       modal.className = 'mermaid-modal';
-      modal.onclick = function (e) {
-        if (e.target === modal) {
-          modal.remove();
-        }
-      };
 
-      
-      const modalContent = document.createElement('div');
-      modalContent.className = 'mermaid-modal-content';
+      const content = document.createElement('div');
+      content.className = 'mermaid-modal-content';
 
-      
-      const closeBtn = document.createElement('button');
-      closeBtn.className = 'mermaid-modal-close';
-      closeBtn.innerHTML = '×';
-      closeBtn.onclick = function () {
-        modal.remove();
-      };
+      const close = document.createElement('button');
+      close.className = 'mermaid-modal-close';
+      close.textContent = '\u00d7';
 
-      
-      const svgClone = svgElement.cloneNode(true);
-      svgClone.style.maxWidth = '90vw';
-      svgClone.style.maxHeight = '90vh';
-      svgClone.style.width = 'auto';
-      svgClone.style.height = 'auto';
+      const svgClone = svg.cloneNode(true);
+      svgClone.style.cssText = 'max-width:90vw;max-height:90vh;width:auto;height:auto';
 
-      modalContent.appendChild(closeBtn);
-      modalContent.appendChild(svgClone);
-      modal.appendChild(modalContent);
+      content.append(close, svgClone);
+      modal.appendChild(content);
       document.body.appendChild(modal);
 
-      
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-          const modal = document.getElementById('mermaid-modal');
-          if (modal) modal.remove();
-        }
-      });
+      const dismiss = () => { modal.remove(); document.removeEventListener('keydown', onKey); };
+      const onKey = (e) => { if (e.key === 'Escape') dismiss(); };
+      modal.addEventListener('click', (e) => { if (e.target === modal) dismiss(); });
+      close.addEventListener('click', dismiss);
+      document.addEventListener('keydown', onKey);
     };
   </script></body></html>
