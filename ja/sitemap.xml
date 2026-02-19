@@ -2,352 +2,174 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://b1gb4by.github.io/ja/tags/dashboard-as-code/</loc>
+    <loc>https://b1gb4by.github.io/tags/dashboard-as-code/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/git-sync/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/gitops/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/grafana/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/</loc>
     <lastmod>2025-12-10T12:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/dashboard-as-code/"
+                href="https://b1gb4by.github.io/en/posts/2025-12-11-grafana-git-sync/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/dashboard-as-code/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/git-sync/</loc>
-    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/git-sync/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/git-sync/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/gitops/</loc>
-    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/gitops/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/gitops/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/grafana/</loc>
-    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/grafana/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/grafana/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/</loc>
-    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/2025-12-11-grafana-git-sync/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/observability/</loc>
+    <loc>https://b1gb4by.github.io/tags/observability/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/</loc>
     <lastmod>2025-12-10T12:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/observability/"
+                href="https://b1gb4by.github.io/en/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/observability/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/posts/</loc>
-    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/posts/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/</loc>
+    <loc>https://b1gb4by.github.io/tags/</loc>
+    <lastmod>2025-12-10T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/</loc>
     <lastmod>2025-12-10T12:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
+                href="https://b1gb4by.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
                 href="https://b1gb4by.github.io/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/cloud-functions/</loc>
+    <loc>https://b1gb4by.github.io/tags/cloud-functions/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/cloud-functions/"
+                href="https://b1gb4by.github.io/en/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/cloud-functions/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/posts/2025-08-04-terraform-custom-sa-cloud-functions/</loc>
-    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/cloud-run/</loc>
+    <loc>https://b1gb4by.github.io/tags/cloud-run/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/cloud-run/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/cloud-run/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/google-cloud/</loc>
+    <loc>https://b1gb4by.github.io/tags/google-cloud/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/google-cloud/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/google-cloud/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/iam/</loc>
+    <loc>https://b1gb4by.github.io/tags/iam/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/iam/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/iam/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/service-account/</loc>
+    <loc>https://b1gb4by.github.io/tags/service-account/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/service-account/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/service-account/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/terraform/</loc>
+    <loc>https://b1gb4by.github.io/tags/terraform/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/terraform/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/terraform/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/resume/</loc>
+    <loc>https://b1gb4by.github.io/tags/resume/</loc>
+    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/resume/</loc>
     <lastmod>2024-08-28T15:23:07+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/resume/"
+                href="https://b1gb4by.github.io/en/resume/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/resume/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/resume/</loc>
-    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/resume/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/resume/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/device/</loc>
-    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
+    <loc>https://b1gb4by.github.io/profile/</loc>
+    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/device/"
+                href="https://b1gb4by.github.io/en/profile/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/device/"
+                href="https://b1gb4by.github.io/profile/"
                 />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/linux/</loc>
+    <loc>https://b1gb4by.github.io/tags/device/</loc>
+    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/linux/</loc>
+    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/macos/</loc>
+    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/tags/windows/</loc>
+    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/posts/2021-09-28-device-configs/</loc>
     <lastmod>2022-06-02T19:52:39+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/linux/"
+                href="https://b1gb4by.github.io/en/posts/2021-09-28-device-configs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/linux/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/macos/</loc>
-    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/macos/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/macos/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/windows/</loc>
-    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/tags/windows/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/windows/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/posts/2021-09-28-device-configs/</loc>
-    <lastmod>2022-06-02T19:52:39+09:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/posts/2021-09-28-device-configs/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/posts/2021-09-28-device-configs/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/categories/</loc>
+    <loc>https://b1gb4by.github.io/categories/</loc>
+  </url><url>
+    <loc>https://b1gb4by.github.io/series/</loc>
+  </url><url>
+    <loc>https://b1gb4by.github.io/archives/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/categories/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/series/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/series/"
+                href="https://b1gb4by.github.io/en/archives/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/series/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/socials/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://b1gb4by.github.io/socials/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/socials/"
-                />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/archives/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
                 href="https://b1gb4by.github.io/archives/"
                 />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ja"
-                href="https://b1gb4by.github.io/ja/archives/"
-                />
   </url><url>
-    <loc>https://b1gb4by.github.io/ja/tags/</loc>
+    <loc>https://b1gb4by.github.io/search/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://b1gb4by.github.io/tags/"
+                href="https://b1gb4by.github.io/en/search/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ja"
-                href="https://b1gb4by.github.io/ja/tags/"
+                href="https://b1gb4by.github.io/search/"
                 />
-  </url><url>
-    <loc>https://b1gb4by.github.io/ja/search/</loc>
   </url>
 </urlset>

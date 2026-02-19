@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ENGtags/Device on BigBaBy&#39;s Blog</title>
+    <link>https://b1gb4by.github.io/en/engtags/device/</link>
+    <description>Recent content in ENGtags/Device on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <lastBuildDate>Thu, 02 Jun 2022 19:52:39 +0900</lastBuildDate>
+    <atom:link href="https://b1gb4by.github.io/en/engtags/device/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About the device used</title>
+      <link>https://b1gb4by.github.io/en/posts/2021-09-28-device-configs/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://b1gb4by.github.io/en/posts/2021-09-28-device-configs/</guid>
+      <description>Describes detailed information about the device used by the individual.</description>
+    </item>
+  </channel>
+</rss>

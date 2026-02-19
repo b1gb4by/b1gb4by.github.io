@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Observability on BigBaBy&#39;s Blog</title>
+    <title>Observability on びっぐべいびーのぶろぐ</title>
     <link>https://b1gb4by.github.io/tags/observability/</link>
-    <description>Recent content in Observability on BigBaBy&#39;s Blog</description>
+    <description>Recent content in Observability on びっぐべいびーのぶろぐ</description>
     <generator>Hugo -- 0.155.3</generator>
-    <language>en</language>
+    <language>ja</language>
     <copyright>BigBaBy</copyright>
     <lastBuildDate>Wed, 10 Dec 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://b1gb4by.github.io/tags/observability/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Trying Out Grafana&#39;s Git Sync Feature (OSS Edition)</title>
+      <title>GrafanaのGit Sync機能を試してみた (OSS版)</title>
       <link>https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/</link>
       <pubDate>Wed, 10 Dec 2025 12:00:00 +0000</pubDate>
       <guid>https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/</guid>
-      <description>Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.</description>
+      <description>Grafana 12で導入されたGit Sync機能を使って、ダッシュボードをGitHubリポジトリでバージョン管理する方法を解説します。</description>
     </item>
   </channel>
 </rss>

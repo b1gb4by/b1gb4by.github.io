@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>BigBaBy&#39;s Blog</title>
+    <link>https://b1gb4by.github.io/en/</link>
+    <description>Recent content on BigBaBy&#39;s Blog</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en</language>
+    <copyright>BigBaBy</copyright>
+    <lastBuildDate>Wed, 10 Dec 2025 12:00:00 +0000</lastBuildDate>
+    <atom:link href="https://b1gb4by.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trying Out Grafana&#39;s Git Sync Feature (OSS Edition)</title>
+      <link>https://b1gb4by.github.io/en/posts/2025-12-11-grafana-git-sync/</link>
+      <pubDate>Wed, 10 Dec 2025 12:00:00 +0000</pubDate>
+      <guid>https://b1gb4by.github.io/en/posts/2025-12-11-grafana-git-sync/</guid>
+      <description>Learn how to version control your dashboards in a GitHub repository using the Git Sync feature introduced in Grafana 12.</description>
+    </item>
+    <item>
+      <title>IAM Configuration Changes and Custom Service Account Implementation When Migrating to Cloud Functions Gen2</title>
+      <link>https://b1gb4by.github.io/en/posts/2025-08-04-terraform-custom-sa-cloud-functions/</link>
+      <pubDate>Mon, 04 Aug 2025 12:34:36 +0000</pubDate>
+      <guid>https://b1gb4by.github.io/en/posts/2025-08-04-terraform-custom-sa-cloud-functions/</guid>
+      <description>This article shares the IAM configuration differences encountered when migrating Cloud Functions from 1st generation to 2nd generation, and the implementation methods for custom service accounts based on actual experience.</description>
+    </item>
+    <item>
+      <title>Profile for Speaking &amp; Writing</title>
+      <link>https://b1gb4by.github.io/en/profile/</link>
+      <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
+      <guid>https://b1gb4by.github.io/en/profile/</guid>
+      <description>Profile texts for speaking engagements and publications. Please copy and use as appropriate.</description>
+    </item>
+    <item>
+      <title>Resume</title>
+      <link>https://b1gb4by.github.io/en/resume/</link>
+      <pubDate>Wed, 28 Aug 2024 15:23:07 +0000</pubDate>
+      <guid>https://b1gb4by.github.io/en/resume/</guid>
+      <description>This document describes BigBaBy&amp;#39;s professional experience.</description>
+    </item>
+    <item>
+      <title>About the device used</title>
+      <link>https://b1gb4by.github.io/en/posts/2021-09-28-device-configs/</link>
+      <pubDate>Tue, 28 Sep 2021 19:52:39 +0900</pubDate>
+      <guid>https://b1gb4by.github.io/en/posts/2021-09-28-device-configs/</guid>
+      <description>Describes detailed information about the device used by the individual.</description>
+    </item>
+  </channel>
+</rss>

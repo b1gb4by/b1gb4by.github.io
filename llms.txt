@@ -1,0 +1,87 @@
+# LLMs.txt - AI agents sitemap for https://b1gb4by.github.io
+# Last updated: 2026-02-19
+
+## Site Overview
+Personal technical blog and portfolio of Taisuke Okamoto (岡本泰典) - @BigBaBy
+
+### Current Roles
+- PLAID, Inc. - Developer Experience & Performance Engineer / Software Engineer
+- CloudNative Days - Co-chair
+- Grafana Meetup Japan - Co-Organizer
+
+### Bio
+Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニア。株式会社ビデオマーケットでの配信基盤マイクロサービス化、株式会社IDCフロンティアでのKubernetes as a Service開発を経て、現在は株式会社プレイドにてDeveloper Experience & Performance EngineerとしてKARTEプラットフォームの開発基盤整備・開発者体験向上に従事。またOLAPデーターベースの開発にも携わる。日本最大級のクラウドネイティブ・テックカンファレンスCloudNative DaysのCo-chairおよびGrafana Meetup JapanのCo-Organizerとしてコミュニティ活動にも注力。DJ/VJとしても都内ナイトクラブやフェスティバルで活動中。
+
+## Site Structure
+
+### Main Sections
+- https://b1gb4by.github.io/ - Top page
+- https://b1gb4by.github.io/posts/ - Technical blog posts
+- https://b1gb4by.github.io/resume/ - Professional resume and career details
+- https://b1gb4by.github.io/ja/ - Japanese version of the site
+
+### Languages
+- English (default)
+- Japanese (日本語)
+
+## Content
+
+### Resume (https://b1gb4by.github.io/resume/)
+Detailed professional history including:
+- Current: PLAID, Inc. (2025/07 - Present) - DX&PE Engineer, Software Engineer (OLAP Database)
+- Previous: IDC Frontier Inc. (2021/09 - 2025/06) - KaaS Development, K8s Evangelist
+- Previous: MONOC, Inc. (2021/01 - 2021/08) - EC Integration Systems
+- Previous: Video Market Co., Ltd. (2019/04 - 2021/01) - Streaming Infrastructure, DRM
+- Side jobs and technical advisory work
+- Tech conference management (CloudNative Days, Grafana Meetup Japan)
+- DJ/VJ activities
+
+### Blog Posts
+
+1. **GrafanaのGit Sync機能を試してみた (OSS版)** (2025-12-10)
+   - https://b1gb4by.github.io/posts/2025-12-11-grafana-git-sync/
+   - Grafana 12のGit Sync機能を使ってダッシュボードをGitHubリポジトリでバージョン管理する方法
+   - Tags: Grafana, Git Sync, Observability, Dashboard as Code, GitOps
+
+2. **Cloud Functions第2世代移行で直面したIAM設定の変更点** (2025-08-04)
+   - https://b1gb4by.github.io/posts/2025-08-04-terraform-custom-sa-cloud-functions/
+   - Cloud Functions第1世代から第2世代への移行時に遭遇したIAM設定の差異とカスタムサービスアカウントの実装方法
+   - Tags: Google Cloud, Cloud Functions, Cloud Run, IAM, Terraform, Service Account
+
+3. **使用しているデバイスについて** (2021-09-28)
+   - https://b1gb4by.github.io/posts/2021-09-28-device-configs/
+   - 使用しているデバイスの詳細情報
+   - Tags: linux, macOS, windows, device
+
+## Technical Skills
+- Programming: Go, Python, Java, PHP, C
+- Infrastructure: Google Cloud, AWS, Kubernetes, Docker, Terraform
+- CI/CD: GitHub Actions, ArgoCD, Cloud Build, CircleCI
+- Observability: Grafana, Prometheus, OpenTelemetry, Splunk
+- Database: MySQL, PostgreSQL, Redis, BigQuery, Clickhouse
+- Service Mesh: Istio, Linkerd
+
+## Technical Implementation
+- Built with: Hugo (PaperMod theme)
+- Mermaid.js v11 for diagrams (Kanagawa color scheme)
+- Bilingual support (English / Japanese)
+- Deployed on GitHub Pages
+
+## Key Topics
+- Cloud Native technologies and Kubernetes
+- Developer Experience (DX) and Platform Engineering
+- Observability (Grafana, Prometheus, OpenTelemetry)
+- Google Cloud Platform (GKE, Cloud Functions, BigQuery)
+- Infrastructure as Code (Terraform)
+- CI/CD and GitOps (ArgoCD, GitHub Actions)
+- OLAP Database development
+
+## Community Activities
+- CloudNative Days (Japan's largest cloud-native tech conference) - Co-chair since 2024, committee member since 2022
+- Grafana Meetup Japan - Co-Organizer since 2024
+- Observability, LGTM stack (Loki, Grafana, Tempo, Mimir), and related technologies knowledge sharing
+
+## Contact & Social
+- GitHub: https://github.com/b1gb4by
+- X (Twitter): https://x.com/taisuke_bigbaby
+- LinkedIn: https://www.linkedin.com/in/taisuke-okamoto-793a53187/
