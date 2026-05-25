@@ -15,10 +15,10 @@
                 href="https://b1gb4by.github.io/en/"
                 />
   </url><url>
-    <loc>https://b1gb4by.github.io/en/engtags/</loc>
+    <loc>https://b1gb4by.github.io/en/engtags/dashboard-as-code/</loc>
     <lastmod>2025-12-10T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://b1gb4by.github.io/en/engtags/dashboard-as-code/</loc>
+    <loc>https://b1gb4by.github.io/en/engtags/</loc>
     <lastmod>2025-12-10T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://b1gb4by.github.io/en/engtags/git-sync/</loc>
@@ -71,12 +71,6 @@
     <loc>https://b1gb4by.github.io/en/engtags/iam/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
   </url><url>
-    <loc>https://b1gb4by.github.io/en/engtags/service-account/</loc>
-    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-  </url><url>
-    <loc>https://b1gb4by.github.io/en/engtags/terraform/</loc>
-    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
-  </url><url>
     <loc>https://b1gb4by.github.io/en/posts/2025-08-04-terraform-custom-sa-cloud-functions/</loc>
     <lastmod>2025-08-04T12:34:36+00:00</lastmod>
     <xhtml:link
@@ -90,8 +84,11 @@
                 href="https://b1gb4by.github.io/en/posts/2025-08-04-terraform-custom-sa-cloud-functions/"
                 />
   </url><url>
-    <loc>https://b1gb4by.github.io/en/engtags/resume/</loc>
-    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
+    <loc>https://b1gb4by.github.io/en/engtags/service-account/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
+  </url><url>
+    <loc>https://b1gb4by.github.io/en/engtags/terraform/</loc>
+    <lastmod>2025-08-04T12:34:36+00:00</lastmod>
   </url><url>
     <loc>https://b1gb4by.github.io/en/profile/</loc>
     <lastmod>2024-08-28T15:23:07+00:00</lastmod>
@@ -105,6 +102,9 @@
                 hreflang="en"
                 href="https://b1gb4by.github.io/en/profile/"
                 />
+  </url><url>
+    <loc>https://b1gb4by.github.io/en/engtags/resume/</loc>
+    <lastmod>2024-08-28T15:23:07+00:00</lastmod>
   </url><url>
     <loc>https://b1gb4by.github.io/en/resume/</loc>
     <lastmod>2024-08-28T15:23:07+00:00</lastmod>

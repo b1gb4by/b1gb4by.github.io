@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>ENGtags/Windows on BigBaBy&#39;s Blog</title>
+    <title>Windows on BigBaBy&#39;s Blog</title>
     <link>https://b1gb4by.github.io/en/engtags/windows/</link>
-    <description>Recent content in ENGtags/Windows on BigBaBy&#39;s Blog</description>
+    <description>Recent content in Windows on BigBaBy&#39;s Blog</description>
     <image>
       <title>BigBaBy&#39;s Blog</title>
       <url>https://b1gb4by.github.io/images/b1gb4by_profile.png</url>
       <link>https://b1gb4by.github.io/images/b1gb4by_profile.png</link>
     </image>
-    <generator>Hugo -- 0.155.3</generator>
+    <generator>Hugo -- 0.161.1</generator>
     <language>en</language>
     <copyright>BigBaBy</copyright>
     <lastBuildDate>Thu, 02 Jun 2022 19:52:39 +0900</lastBuildDate>
