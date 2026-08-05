@@ -1,9 +1,261 @@
-<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Linux | びっぐべいびーのぶろぐ</title><meta name=keywords content><meta name=description content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta name=author content="BigBaBy"><link rel=canonical href=https://b1gb4by.github.io/tags/linux/><meta name=google-site-verification content="MI9tWDvB5U3u_StKcJVdMhElMqisSGg7sJaKL0XmdMg"><link crossorigin=anonymous href=/assets/css/stylesheet.2efda5790051fcbf3a1285202ffb3aad50abdefa9e4b9a1c1ef2ae7a4b605298.css integrity="sha256-Lv2leQBR/L86EoUgL/s6rVCr3vqeS5ocHvKuektgUpg=" rel="preload stylesheet" as=style><link rel=icon href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://b1gb4by.github.io/favicon.ico><link rel=apple-touch-icon href=https://b1gb4by.github.io/apple-touch-icon.png><link rel=mask-icon href=https://b1gb4by.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://b1gb4by.github.io/tags/linux/index.xml title=rss><link rel=alternate hreflang=ja href=https://b1gb4by.github.io/tags/linux/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-BRRNK5J7PW")</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script><script>var doNotTrack=!1,dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-BRRNK5J7PW")}</script><meta property="og:url" content="https://b1gb4by.github.io/tags/linux/"><meta property="og:site_name" content="びっぐべいびーのぶろぐ"><meta property="og:title" content="Linux"><meta property="og:description" content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta property="og:locale" content="ja"><meta property="og:type" content="website"><meta property="og:image" content="https://b1gb4by.github.io/images/b1gb4by_profile.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://b1gb4by.github.io/images/b1gb4by_profile.png"><meta name=twitter:title content="Linux"><meta name=twitter:description content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta name=twitter:site content="@taisuke_bigbaby"><script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-BRRNK5J7PW")</script><script>!function(e){if(!window[e]){var t=window[e]=function(){var e=[].slice.call(arguments);return t.x?t.x.apply(0,e):t.q.push(e)};t.q=[],t.i=Date.now(),t.allow=function(){t.o="allow"},t.deny=function(){t.o="deny"}}}("krt")</script><script async src=https://cdn-edge.karte.io/a12fb86f26f329818e81854c638876e9/edge.js></script></head><body><header class=header><nav class=nav><div class=logo><a href=https://b1gb4by.github.io/ accesskey=h title="びっぐべいびーのぶろぐ (Alt + H)">びっぐべいびーのぶろぐ</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://b1gb4by.github.io/en/ title=English aria-label=ENG>ENG</a></li></ul></div></div><ul id=menu><li><a href=https://b1gb4by.github.io/profile/ title=登壇・寄稿用プロフィール><span>登壇・寄稿用プロフィール</span></a></li><li><a href=https://b1gb4by.github.io/tags title=タグ><span>タグ</span></a></li><li><a href=https://b1gb4by.github.io/search title=検索><span>検索</span></a></li></ul></nav></header><main class=main><header class=page-header><div class=breadcrumbs><a href=https://b1gb4by.github.io/>ホーム</a>&nbsp;»&nbsp;<a href=https://b1gb4by.github.io/tags/>タグ</a></div><h1>Linux
+<!doctype html><html lang=ja dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Linux | びっぐべいびーのぶろぐ</title><meta name=keywords content><meta name=description content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta name=author content="BigBaBy"><link rel=canonical href=https://b1gb4by.github.io/tags/linux/><meta name=google-site-verification content="MI9tWDvB5U3u_StKcJVdMhElMqisSGg7sJaKL0XmdMg"><link crossorigin=anonymous href=/assets/css/stylesheet.df1a91c0a1696234a00f8e8d20def98d32743c6e7c9ae90b99c3b8823a4f0f1f.css integrity="sha256-3xqRwKFpYjSgD46NIN75jTJ0PG58mukLmcO4gjpPDx8=" rel="preload stylesheet" as=style><link rel=icon href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://b1gb4by.github.io/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://b1gb4by.github.io/favicon.ico><link rel=apple-touch-icon href=https://b1gb4by.github.io/apple-touch-icon.png><link rel=mask-icon href=https://b1gb4by.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=https://b1gb4by.github.io/tags/linux/index.xml title=rss><link rel=alternate hreflang=ja href=https://b1gb4by.github.io/tags/linux/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script>!function(e){if(!window[e]){var t=window[e]=function(){var e=[].slice.call(arguments);return t.x?t.x.apply(0,e):t.q.push(e)};t.q=[],t.i=Date.now(),t.allow=function(){t.o="allow"},t.deny=function(){t.o="deny"}}}("krt")</script><script async src=https://cdn-edge.karte.io/a12fb86f26f329818e81854c638876e9/edge.js></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-BRRNK5J7PW"></script><script>var doNotTrack=!1,dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-BRRNK5J7PW")}</script><meta property="og:url" content="https://b1gb4by.github.io/tags/linux/"><meta property="og:site_name" content="びっぐべいびーのぶろぐ"><meta property="og:title" content="Linux"><meta property="og:description" content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta property="og:locale" content="ja"><meta property="og:type" content="website"><meta property="og:image" content="https://b1gb4by.github.io/images/b1gb4by_profile.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://b1gb4by.github.io/images/b1gb4by_profile.png"><meta name=twitter:title content="Linux"><meta name=twitter:description content="Kubernetes・クラウドネイティブ技術を専門とするソフトウェアエンジニアBigBaByの技術ブログ。GCP、Terraform、Grafana、開発者体験(DX)、Platform Engineeringの知見を発信。"><meta name=twitter:site content="@taisuke_bigbaby"></head><body class=list id=top><header class=header><nav class=header-nav><div class=logo><a href=https://b1gb4by.github.io/ accesskey=h title="びっぐべいびーのぶろぐ (Alt + H)">びっぐべいびーのぶろぐ</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button><span class=nav-sep>|</span><ul class=lang-menu><li><a href=https://b1gb4by.github.io/en/ title=English aria-label=ENG>ENG</a></li></ul></div></div><ul id=menu class=menu><li><a href=https://b1gb4by.github.io/vj/ title=DJ・VJ><span>DJ・VJ</span></a></li><li><a href=https://b1gb4by.github.io/profile/ title=登壇・寄稿用プロフィール><span>登壇・寄稿用プロフィール</span></a></li><li><a href=https://b1gb4by.github.io/tags title=タグ><span>タグ</span></a></li><li><a href=https://b1gb4by.github.io/search title=検索><span>検索</span></a></li></ul></nav></header><main class=main><header class=page-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>ホーム</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/tags/>タグ</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1>Linux
 <a href=/tags/linux/index.xml title=RSS aria-label=RSS><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></h1></header><article class="post-entry tag-entry"><header class=entry-header><h2 class=entry-hint-parent>使用しているデバイスについて</h2></header><div class=entry-content><p>個人で使用しているデバイスの詳細情報について説明します.
 ...</p></div><footer class=entry-footer><span title='2021-09-28 19:52:39 +0900 +0900'>2021年9月28日</span>&nbsp;·&nbsp;<span>1 分</span>&nbsp;·&nbsp;<span>BigBaBy</span></footer><a class=entry-link aria-label="post link to 使用しているデバイスについて" href=https://b1gb4by.github.io/posts/2021-09-28-device-configs/></a></article></main><footer class=footer><span>© <a href=https://b1gb4by.github.io/>BigBaBy</a></span> ·
 <span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script type=module>
+  
+  const mermaidNodes = document.querySelectorAll('.mermaid');
+  if (mermaidNodes.length) {
+    async function loadMermaid() {
+      const urls = [
+        'https://cdn.jsdelivr.net/npm/mermaid@11.16.1/dist/mermaid.esm.min.mjs',
+        'https://unpkg.com/mermaid@11.16.1/dist/mermaid.esm.min.mjs',
+      ];
+      let lastError;
+      for (const url of urls) {
+        try {
+          return (await import(url)).default;
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      throw lastError;
+    }
+
+    const mermaid = await loadMermaid();
+
+    
+    
+    const isDark = () => {
+      const theme = document.documentElement.dataset.theme;
+      if (theme === 'dark') return true;
+      if (theme === 'light') return false;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+
+    const gitColors = {
+      git0: '#7E9CD8', git1: '#E6C384', git2: '#98BB6C', git3: '#957FB8',
+      git4: '#7FB4CA', git5: '#D27E99', git6: '#FFA066', git7: '#7AA89F',
+    };
+
+    const getTheme = () => {
+      if (isDark()) {
+        return {
+          theme: 'dark',
+          themeVariables: {
+            ...gitColors,
+            darkMode: true,
+            background: '#1F1F28', primaryColor: '#7E9CD8', primaryTextColor: '#DCD7BA',
+            primaryBorderColor: '#6b8abb', secondaryColor: '#E6C384', tertiaryColor: '#98BB6C',
+            textColor: '#DCD7BA', lineColor: '#DCD7BA', mainBkg: '#2A2A37',
+            noteBkgColor: '#2A2A37', noteTextColor: '#DCD7BA', noteBorderColor: '#54546D',
+            nodeBorder: '#7E9CD8', clusterBkg: '#2A2A37', clusterBorder: '#54546D',
+            defaultLinkColor: '#DCD7BA', edgeLabelBackground: '#1F1F28',
+            cScale0: '#7E9CD8', cScale1: '#E6C384', cScale2: '#98BB6C', cScale3: '#957FB8',
+            cScale4: '#D27E99', cScale5: '#7FB4CA', cScale6: '#FFA066', cScale7: '#7AA89F',
+            cScaleLabel0: '#1F1F28', cScaleLabel1: '#1F1F28', cScaleLabel2: '#1F1F28', cScaleLabel3: '#1F1F28',
+            cScaleLabel4: '#1F1F28', cScaleLabel5: '#1F1F28', cScaleLabel6: '#1F1F28', cScaleLabel7: '#1F1F28',
+            sectionBkgColor: '#2A2A37', altSectionBkgColor: '#1F1F28', sectionBkgColor2: '#363646',
+            taskBorderColor: '#7E9CD8', taskBkgColor: '#7E9CD8',
+            activeTaskBorderColor: '#E6C384', activeTaskBkgColor: '#E6C384',
+            gridColor: '#54546D', doneTaskBkgColor: '#98BB6C', doneTaskBorderColor: '#76946A',
+            critBorderColor: '#E46876', critBkgColor: '#E46876', todayLineColor: '#D27E99',
+            taskTextColor: '#1F1F28', taskTextOutsideColor: '#DCD7BA', taskTextDarkColor: '#1F1F28',
+            labelColor: '#DCD7BA', errorBkgColor: '#43242B', errorTextColor: '#DCD7BA',
+          }
+        };
+      }
+      return {
+        theme: 'base',
+        themeVariables: {
+          ...gitColors,
+          darkMode: false,
+          cScale0: '#c4d4ef', cScale1: '#f0ddb8', cScale2: '#c8d9b2', cScale3: '#c7bdd9',
+          cScale4: '#e8b9c8', cScale5: '#bdd7e3', cScale6: '#ffd0b0', cScale7: '#bad1cc',
+          cScaleLabel0: '#000000', cScaleLabel1: '#000000', cScaleLabel2: '#000000', cScaleLabel3: '#000000',
+          cScaleLabel4: '#000000', cScaleLabel5: '#000000', cScaleLabel6: '#000000', cScaleLabel7: '#000000',
+          background: '#ffffff', primaryColor: '#7E9CD8', primaryTextColor: '#000000',
+          primaryBorderColor: '#6b8abb', secondaryColor: '#E6C384', tertiaryColor: '#98BB6C',
+          textColor: '#000000', lineColor: '#000000', mainBkg: '#ffffff',
+          noteBkgColor: '#f5f5f5', noteTextColor: '#000000', noteBorderColor: '#E6C384',
+          nodeBorder: '#7E9CD8', clusterBkg: '#f5f5f5', clusterBorder: '#000000',
+          defaultLinkColor: '#000000', edgeLabelBackground: '#ffffff',
+          sectionBkgColor: '#f5f5f5', altSectionBkgColor: '#ffffff', sectionBkgColor2: '#eeeeee',
+          taskBorderColor: '#7E9CD8', taskBkgColor: '#7E9CD8',
+          activeTaskBorderColor: '#E6C384', activeTaskBkgColor: '#E6C384',
+          gridColor: '#cccccc', doneTaskBkgColor: '#98BB6C', doneTaskBorderColor: '#76946A',
+          critBorderColor: '#E46876', critBkgColor: '#E46876', todayLineColor: '#D27E99',
+          taskTextColor: '#000000', taskTextOutsideColor: '#000000', taskTextDarkColor: '#000000',
+          labelColor: '#000000', errorBkgColor: '#fce4e4', errorTextColor: '#E46876',
+        }
+      };
+    };
+
+    
+    mermaid.initialize({
+      startOnLoad: false,
+      ...getTheme(),
+      securityLevel: 'loose',
+    });
+    await mermaid.run({ querySelector: '.mermaid' });
+
+    
+    new MutationObserver(() => location.reload()).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ['data-theme'] }
+    );
+
+    window.expandMermaid = function (id) {
+      const svg = document.getElementById(id)?.querySelector('svg');
+      if (!svg) return;
+
+      document.getElementById('mermaid-modal')?.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'mermaid-modal';
+      modal.className = 'mermaid-modal';
+
+      const content = document.createElement('div');
+      content.className = 'mermaid-modal-content';
+
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'mermaid-modal-close';
+      close.textContent = '\u00d7';
+      close.setAttribute('aria-label', 'Close');
+
+      const svgClone = svg.cloneNode(true);
+      svgClone.style.cssText = 'max-width:90vw;max-height:90vh;width:auto;height:auto';
+
+      content.append(close, svgClone);
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+
+      const dismiss = () => { modal.remove(); document.removeEventListener('keydown', onKey); };
+      const onKey = (e) => { if (e.key === 'Escape') dismiss(); };
+      modal.addEventListener('click', (e) => { if (e.target === modal) dismiss(); });
+      close.addEventListener('click', dismiss);
+      document.addEventListener('keydown', onKey);
+    };
+  }
+
+  
+  const chartCanvases = document.querySelectorAll('canvas.chartjs-canvas');
+  if (chartCanvases.length) {
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error(`Failed to load ${src}`));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function loadChart() {
+      if (window.Chart) return window.Chart;
+      const urls = [
+        'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js',
+        'https://unpkg.com/chart.js@4.5.1/dist/chart.umd.min.js',
+      ];
+      let lastError;
+      for (const url of urls) {
+        try {
+          await loadScript(url);
+          if (window.Chart) return window.Chart;
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      throw lastError || new Error('Chart.js failed to load');
+    }
+
+    const Chart = await loadChart();
+    const chartIsDark = () => {
+      const theme = document.documentElement.dataset.theme;
+      if (theme === 'dark') return true;
+      if (theme === 'light') return false;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+
+    const textColor = chartIsDark() ? '#DCD7BA' : '#1F1F28';
+    const gridColor = chartIsDark() ? '#54546D' : '#cccccc';
+    const palette = ['#7E9CD8', '#E6C384', '#98BB6C', '#957FB8', '#D27E99', '#7FB4CA', '#FFA066', '#7AA89F'];
+
+    for (const canvas of chartCanvases) {
+      let parsed;
+      try {
+        const encoded = canvas.dataset.chartConfig || '';
+        const json = encoded
+          ? new TextDecoder().decode(Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0)))
+          : '{}';
+        parsed = JSON.parse(json);
+        if (typeof parsed === 'string') parsed = JSON.parse(parsed);
+      } catch (err) {
+        console.error('Invalid Chart.js JSON for', canvas.id, err);
+        continue;
+      }
+
+      const type = parsed.type || canvas.dataset.chartType || 'pie';
+      const data = parsed.data || parsed;
+      const userOptions = parsed.options || {};
+
+      if (Array.isArray(data.datasets)) {
+        data.datasets = data.datasets.map((ds, i) => {
+          const next = { ...ds };
+          if (!next.backgroundColor) {
+            next.backgroundColor = Array.isArray(next.data)
+              ? next.data.map((_, j) => palette[j % palette.length])
+              : palette[i % palette.length];
+          }
+          if (!next.borderColor) {
+            next.borderColor = chartIsDark() ? '#1F1F28' : '#ffffff';
+          }
+          if (next.borderWidth == null) next.borderWidth = 2;
+          return next;
+        });
+      }
+
+      const baseOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        color: textColor,
+        plugins: {
+          legend: { labels: { color: textColor } },
+        },
+      };
+      if (!['pie', 'doughnut', 'polarArea'].includes(type)) {
+        baseOptions.scales = {
+          x: { ticks: { color: textColor }, grid: { color: gridColor } },
+          y: { ticks: { color: textColor }, grid: { color: gridColor } },
+        };
+      }
+
+      new Chart(canvas, {
+        type,
+        data,
+        options: {
+          ...baseOptions,
+          ...userOptions,
+          plugins: {
+            ...baseOptions.plugins,
+            ...(userOptions.plugins || {}),
+            legend: {
+              ...baseOptions.plugins.legend,
+              ...((userOptions.plugins && userOptions.plugins.legend) || {}),
+            },
+          },
+        },
+      });
+    }
+  }
+</script><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
